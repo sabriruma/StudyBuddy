@@ -5,8 +5,9 @@ import { Home } from './pages/Home/Home';
 import { Matching } from './pages/Matching/Matching';
 import { Root } from './Root';
 import { NotFound } from './pages/NotFound/NotFound';
-import { Chat } from './pages/Chat/Chat';
+import Chat from './pages/Chat/Chat';
 
+//Different tabs
 function App() {
   return (
     <BrowserRouter>
@@ -24,4 +25,4 @@ function App() {
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<App />);
+root.render(<App />); 
