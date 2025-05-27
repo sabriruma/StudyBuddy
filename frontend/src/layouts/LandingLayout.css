@@ -23,7 +23,49 @@
   
   .landing-main {
     padding: 4rem 2rem;
-    /* Add any special styling for your landing content */
     background-color: var(--bg-color);
     min-height: calc(100vh - 70px); /* Adjust based on navbar height */
   }
+  
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  /* Common button styles */
+  .btn {
+    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+  
+  /* Login button (outline) */
+  .login-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+  }
+  
+  .login-btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+  }
+  
+  /* Signup button (filled) */
+  .signup-btn {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: 2px solid var(--text-color);
+  }
+  
+  .signup-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-color);
+  }
+  
