@@ -1,22 +1,20 @@
-import { Link } from 'react-router-dom';
-import './LandingLayout.css';
+import { Outlet, Link } from 'react-router-dom';
+import './LandingLayout.css';  // your landing-specific styles here
+import ThemeToggle from '../ComponentsMain/ThemeToggle';
 
 export function LandingLayout() {
   return (
-    <div className="landing-container">
+    <div className="landing-layout">
       <nav className="landing-navbar">
-        <div className="landing-brand">
-          <img src="/logo.png" alt="StudyBuddy Logo" className="landing-logo" />
-          <span className="landing-title">StudyBuddy</span>
-        </div>
-        <Link to="/chat" className="landing-nav-button">Enter App</Link>
+        <Link to="/" className="brand-link">
+          <img src="/logo.png" alt="StudyBuddy Logo" className="logo-img" />
+          <span className="brand-name">StudyBuddy</span>
+        </Link>
+        <ThemeToggle />
       </nav>
-
-      <header className="landing-hero">
-        <h1>Welcome to StudyBuddy 🎓</h1>
-        <p>Find your perfect study group and ace your exams together.</p>
-        <Link to="/matching" className="cta-button">Get Started</Link>
-      </header>
+      <main className="landing-main">
+        <Outlet />
+      </main>
     </div>
   );
 }
