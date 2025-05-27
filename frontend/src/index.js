@@ -6,6 +6,7 @@ import { Matching } from './pages/Matching/Matching';
 import { Root } from './Root';
 import { NotFound } from './pages/NotFound/NotFound';
 import Chat from './pages/Chat/Chat';
+import { ThemeProvider } from './ThemeContext';
 
 //Different tabs
 function App() {
@@ -25,4 +26,8 @@ function App() {
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<App />); 
+root.render(
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
+);

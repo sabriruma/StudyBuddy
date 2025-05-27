@@ -1,0 +1,28 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --sidebar-bg: #f5f5f5;
+    --border-color: #ccc;
+  }
+  
+  [data-theme="dark"] {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --sidebar-bg: #2b2b2b;
+    --border-color: #444;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  .sidebar {
+    background-color: var(--sidebar-bg);
+    border-color: var(--border-color);
+  }
+  
+  .chat-window {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+  }
