@@ -7,7 +7,10 @@ export function Root() {
     <div className="layout">
       <nav className="navbar">
         <div className="nav-left">
-          <span className="logo">🔥 StudyBuddy</span>
+        <Link to="/" className="brand-link">
+            <img src="/logo.png" alt="StudyBuddy Logo" className="logo-img" />
+            <span className="brand-name">StudyBuddy</span>
+          </Link>
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/matching" className="nav-link">Matching</Link>
           <Link to="/chat" className="nav-link">Chat</Link>

@@ -84,3 +84,22 @@
   .theme-toggle:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+  
+  .logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  
+  .brand-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--text-color);
+  }
