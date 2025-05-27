@@ -1,8 +1,8 @@
 import { Outlet, Link } from 'react-router-dom';
-import './Root.css';
-import ThemeToggle from './ComponentsMain/ThemeToggle';
+import './AppLayout.css';
+import ThemeToggle from '../ComponentsMain/ThemeToggle';
 
-export function Root() {
+export function AppLayout() {
   return (
     <div className="layout">
       <nav className="navbar">
