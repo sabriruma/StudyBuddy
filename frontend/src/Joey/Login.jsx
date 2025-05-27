@@ -1,5 +1,4 @@
 import './Login.css';
-import backgroundImg from './assets/SBbackground.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { auth } from '../firebase/firebase'; 
@@ -27,7 +26,7 @@ function Login() {
     <div
       className="login-simple-bg"
       style={{
-        backgroundImage: `url(${backgroundImg})`,
+        backgroundImage: `url("/SBbackground.png"})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
