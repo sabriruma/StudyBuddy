@@ -1,11 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home } from '../Home/Home';
-import { Matching } from '../Matching/Matching';
-import { Root } from '../../Root';
-import { NotFound } from '../NotFound/NotFound';
-import Chat from '../Chat/Chat';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';;
 
 //Different tabs
 function App() {
