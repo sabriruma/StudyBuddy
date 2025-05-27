@@ -1,3 +1,9 @@
+.chat-wrapper {
+  display: flex;
+  height: 90vh;
+  width: 90vw;
+}
+
 /* Layout container */
 .chat-page {
   display: flex;
@@ -7,7 +13,8 @@
 
 /* Sidebar styles */
 .chat-sidebar {
-  width: 250px;
+  width: 300
+  px;
   background-color: #eae5eb;
   padding: 16px;
   border-right: 1px solid #d1d5db;
