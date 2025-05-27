@@ -1,13 +1,26 @@
 import './Login.css';
 import backgroundImg from './assets/SBbackground.png';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { auth } from '../firebase/firebase'; 
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form from refreshing the page
+     try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('Login success:', userCredential.user);
     navigate('/tutor'); // Navigate to AI Tutor page
+    } catch (err) {
+      console.error('Login error:', err.message);
+      setError('Invalid email or password.');
+    }
   };
 
   return (
@@ -25,10 +38,20 @@ function Login() {
         <p className="subheader">We're so excited to see you again!</p>
         <form onSubmit={handleLogin}>
           <label>EMAIL OR PHONE NUMBER</label>
-          <input type="email" />
+           <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
           <label>PASSWORD</label>
-          <input type="password" />
+         <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
           <button type="submit">Log In</button>
 
