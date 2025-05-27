@@ -1,14 +1,21 @@
 .theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    color: var(--text-color);
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: background 0.3s;
-  }
-  
-  .theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
+  color: var(--text-color);
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.2);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: currentColor;
+  stroke: none;
+}
