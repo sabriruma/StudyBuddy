@@ -12,8 +12,8 @@ import { ThemeProvider } from './ThemeContext';
 import { AppLayout } from './layouts/AppLayout';
 import { LandingLayout } from './layouts/LandingLayout';
 
-import { Login } from './pages/Login/Login'; // your login page component
-import { Signup } from './pages/Signup/Signup'; // if you have this page
+import Login  from './pages/Login/Login'; // your login page component
+import Signup  from './pages/Signup/Signup'; // if you have this page
 
 
 //Different tabs
