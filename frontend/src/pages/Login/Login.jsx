@@ -15,7 +15,7 @@ function Login() {
      try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('Login success:', userCredential.user);
-    navigate('/tutor'); // Navigate to AI Tutor page
+    navigate('/dashboard'); 
     } catch (err) {
       console.error('Login error:', err.message);
       setError('Invalid email or password.');
