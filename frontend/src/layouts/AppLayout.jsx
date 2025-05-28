@@ -1,12 +1,13 @@
 import './AppLayout.css';
 import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../ComponentsMain/ThemeToggle';
 
 export function AppLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -14,6 +15,15 @@ export function AppLayout() {
     });
     return () => unsubscribe();
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/'); // Redirect to home after logout
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
 
   return (
     <div className="layout">
@@ -45,7 +55,16 @@ export function AppLayout() {
             </>
           )}
         </div>
-        <ThemeToggle />
+        <div className="nav-right">
+        <div className="nav-buttons">
+  {isLoggedIn && (
+    <button onClick={handleLogout} className="btn logout-btn">
+      Logout
+    </button>
+  )}
+  <ThemeToggle />
+</div>
+</div>
       </nav>
     
       <main className="main-content">

@@ -103,3 +103,24 @@
     font-weight: bold;
     color: var(--text-color);
   }
+
+  .logout-btn {
+    margin-left: 1rem;
+    padding: 6px 14px;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    color: var(--text-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
