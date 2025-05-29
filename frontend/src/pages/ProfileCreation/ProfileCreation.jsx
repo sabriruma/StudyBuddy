@@ -1,6 +1,8 @@
 import './ProfileCreation.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../../firebase/firebase'; 
+import { collection, addDoc } from 'firebase/firestore';
 
 function CreateProfile() {
     const navigate = useNavigate();
@@ -18,11 +20,17 @@ function CreateProfile() {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Profile data submitted:', formData);
-    navigate('/dashboard');// You can add navigation or Firebase logic here
-  };
+    try {
+      await addDoc(collection(db, "profiles"), formData);
+      console.log("Profile successfully stored in Firestore:", formData);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error("Error saving profile:", error);
+    }
+};
+
 
   return (
     <div
