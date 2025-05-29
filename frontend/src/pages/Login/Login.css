@@ -7,13 +7,21 @@ html, body, #root {
   background-color: #0f0f0f;
 }
 
+.login-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 70px); /* adjust 70px to match your navbar height */
+}
+
 .login-simple-bg {
-  height: 100vh;
-  width: 100%;
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Background image now set in JSX */
 }
 
 .login-simple-card {

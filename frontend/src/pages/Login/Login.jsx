@@ -23,10 +23,11 @@ function Login() {
   };
 
   return (
+    <div className="login-wrapper">
     <div
       className="login-simple-bg"
       style={{
-        backgroundImage: `url("/SBbackground.png"})`,
+        backgroundImage: `url("/SBbackground.png")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -59,6 +60,7 @@ function Login() {
           </p>
         </form>
       </div>
+    </div>
     </div>
   );
 }
