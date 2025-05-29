@@ -2,18 +2,21 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 const Section = styled.div`
-  width: 100vw;
-  color: #f5f5f5;
-  font-family: 'Inter', sans-serif;
+  width: 100%;
+  overflow-x: hidden;
+  color: var(--text-color);
+  font-family: inherit;
+
 `;
 
 const Row = styled.div`
-  background-color: ${({ $alt }) => ($alt ? '#151824' : '#1c1f2b')};
+  background-color: ${({ $alt }) =>
+    $alt ? 'var(--sidebar-bg)' : 'var(--bg-color)'};
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 4rem 6vw;
+  padding: 4rem clamp(1rem, 5vw, 4rem);
   box-sizing: border-box;
   flex-direction: ${({ $reverse }) => ($reverse ? 'row-reverse' : 'row')};
 `;
@@ -21,6 +24,7 @@ const Row = styled.div`
 const Text = styled.div`
   flex: 1;
   max-width: 500px;
+  min-width: 280px;
 
   h2 {
     font-size: 2.2rem;
@@ -31,14 +35,15 @@ const Text = styled.div`
   p {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #d1d5db;
+    color: var(--text-color);
   }
 `;
 
 const Img = styled.img`
-  width: 40%;
-  max-width: 500px;
   flex: 1;
+  width: 100%;
+  max-width: 500px;
+  min-width: 280px;
   object-fit: contain;
 `;
 

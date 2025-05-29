@@ -5,6 +5,7 @@ import { auth } from '../firebase/firebase';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import ThemeToggle from '../ComponentsMain/ThemeToggle';
 
+
 export function AppLayout() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();

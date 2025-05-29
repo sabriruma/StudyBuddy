@@ -1,13 +1,14 @@
+import styled from 'styled-components';
 
-function Footer(){
+const FooterContainer = styled.footer`
+  color: var(--text-color);
+  font-size: 0.9rem;
+`;
 
-    return(
-        <footer>
-            <p>&copy; {new Date().getFullYear()} StudyBuddy</p>
-        </footer>
-    );
+export default function Footer() {
+  return (
+    <FooterContainer>
+      <p>&copy; {new Date().getFullYear()} StudyBuddy</p>
+    </FooterContainer>
+  );
 }
-
-
-
-export default Footer

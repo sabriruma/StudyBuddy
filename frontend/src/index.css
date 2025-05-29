@@ -3,6 +3,7 @@
     --text-color: #000000;
     --sidebar-bg: #f5f5f5;
     --border-color: #ccc;
+    --highlight-color: #00bfa5;
   }
   
   [data-theme="dark"] {
@@ -10,6 +11,7 @@
     --text-color: #ffffff;
     --sidebar-bg: #2b2b2b;
     --border-color: #444;
+    --highlight-color: #00bfa5;
   }
   
   body {
