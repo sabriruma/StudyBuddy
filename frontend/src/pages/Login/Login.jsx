@@ -1,5 +1,5 @@
 import './Login.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { auth } from '../../firebase/firebase'; 
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -37,6 +37,7 @@ function Login() {
         <h2>Welcome back!</h2>
         <p className="subheader">We're so excited to see you again!</p>
         <form onSubmit={handleLogin}>
+        {error && <p className="error-message">{error}</p>}
           <label>EMAIL OR PHONE NUMBER</label>
            <input
             type="email"
@@ -56,7 +57,7 @@ function Login() {
           <button type="submit">Log In</button>
 
           <p className="footer-link">
-            Don't have an account? <a href="#">Register</a>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
         </form>
       </div>

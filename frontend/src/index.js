@@ -15,7 +15,7 @@ import { LandingLayout } from './layouts/LandingLayout';
 
 import Login  from './pages/Login/Login'; // your login page component
 import Signup  from './pages/Signup/Signup'; // if you have this page
-
+import ProfileCreation  from './pages/ProfileCreation/ProfileCreation';
 
 //Different tabs
 function App() {
@@ -26,6 +26,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/profilecreation" element={<ProfileCreation />} />
           </Route>
 
         <Route path="/" element={<AppLayout />}>
