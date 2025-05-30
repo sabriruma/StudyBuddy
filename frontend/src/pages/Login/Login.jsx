@@ -11,57 +11,32 @@ function Login() {
   const [error, setError] = useState(null);
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page
-     try {
+    e.preventDefault();
+    try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Login success:', userCredential.user);
-    navigate('/dashboard'); 
+      navigate('/dashboard');
     } catch (err) {
-      console.error('Login error:', err.message);
       setError('Invalid email or password.');
     }
   };
 
   return (
-    <div className="login-wrapper">
-    <div
-      className="login-simple-bg"
-      style={{
-        backgroundImage: `url("/SBbackground.png")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <div className="login-simple-card">
+    <div className="login-page">
+      <div className="login-card">
         <h2>Welcome back!</h2>
         <p className="subheader">We're so excited to see you again!</p>
         <form onSubmit={handleLogin}>
-        {error && <p className="error-message">{error}</p>}
-          <label>EMAIL OR PHONE NUMBER</label>
-           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          <label>PASSWORD</label>
-         <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
+          {error && <p className="error-message">{error}</p>}
+          <label>Email or Phone Number</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           <button type="submit">Log In</button>
-
           <p className="footer-link">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+            Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
         </form>
       </div>
-    </div>
     </div>
   );
 }
