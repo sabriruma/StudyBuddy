@@ -18,13 +18,14 @@ function Login() {
     } catch (err) {
       setError('Invalid email or password.');
     }
+
   };
 
   return (
     <div className="login-page">
       <div className="login-card">
         <h2>Welcome back!</h2>
-        <p className="subheader">We're so excited to see you again!</p>
+        <p className="subheader">SSSS</p>
         <form onSubmit={handleLogin}>
           {error && <p className="error-message">{error}</p>}
           <label>Email or Phone Number</label>
