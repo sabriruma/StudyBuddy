@@ -3,17 +3,25 @@ html, body, #root {
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .login-page {
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
+
   background-image: url("/SBbackground.png");
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 0;
 }
 
 .login-card {
