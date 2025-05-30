@@ -25,7 +25,7 @@ function Login() {
     <div className="login-page">
       <div className="login-card">
         <h2>Welcome back!</h2>
-        <p className="subheader">SSSS</p>
+        <p className="subheader">We're so excited to see you again</p>
         <form onSubmit={handleLogin}>
           {error && <p className="error-message">{error}</p>}
           <label>Email or Phone Number</label>
