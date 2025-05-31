@@ -1,0 +1,50 @@
+.matching-container {
+    padding: 2rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+  }
+
+  .matching-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .matching-subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #aaa;
+  }
+  
+  .match-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .match-card {
+    width: 280px;
+    min-height: 240px;
+    padding: 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .match-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .connect-btn {
+    margin-top: 1rem;
+    padding: 0.6rem;
+    background-color: #00a78f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import  HomePage from './pages/Home/HomePage';
-import { Matching } from './pages/Matching/Matching';
+import Matching from './pages/Matching/Matching';
 import { NotFound } from './pages/NotFound/NotFound';
 import Chat from './pages/Chat/Chat';
 import Dashboard from './pages/Dashboard/Dashboard';

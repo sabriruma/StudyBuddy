@@ -87,6 +87,14 @@ export default function Dashboard() {
       <strong>Liam Martinez</strong> – Economics
       <button className="connect-btn">View Profile</button>
     </div>
+    <div className="match-row">
+      <strong>Samantha Lopez</strong> – Engineering
+      <button className="connect-btn">View Profile</button>
+    </div>
+    <div className="match-row">
+      <strong>Marcus Gomez</strong> – Programming
+      <button className="connect-btn">View Profile</button>
+    </div>
     {/* Add more match rows as needed */}
   </div>
 

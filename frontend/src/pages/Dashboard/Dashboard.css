@@ -79,9 +79,9 @@
   }
 
   .recommended-matches-scroll {
-    max-height: 200px;
+    max-height: 290px;
     overflow-y: auto;
-    margin-top: 1rem;
+    margin-top: 0rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
