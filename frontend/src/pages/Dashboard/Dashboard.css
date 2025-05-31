@@ -77,3 +77,61 @@
     font-size: 14px;
     color: var(--text-color);
   }
+
+  .recommended-matches-scroll {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-right: 0.5rem; /* for scrollbar spacing */
+  }
+  
+  .match-row {
+    background-color: var(--bg-color);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .match-row strong {
+    font-size: 0.95rem;
+  }
+  
+  .connect-btn {
+    background-color: #00bfa5;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .connect-btn:hover {
+    background-color: #009b87;
+  }
+
+  .upcoming-sessions-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-color);
+  }
+  
+  .upcoming-sessions-list li {
+    background-color: var(--bg-color);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  }

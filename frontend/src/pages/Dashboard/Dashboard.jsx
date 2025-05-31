@@ -1,6 +1,10 @@
 import React from "react";
 import "./Dashboard.css";
 import { Link } from "react-router-dom";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import './DashboardCalendar.css'; // for custom styling override
+import { useState } from 'react';
 
 const groupChats = [
   {
@@ -50,17 +54,49 @@ export default function Dashboard() {
   <Link to="/groups" className="dashboard-btn">View Groups</Link>
 </div>
 
-        <div className="dashboard-card">
-          <h2>Recommended Matches</h2>
-          <p>Find new study partners based on your profile.</p>
-          <Link to="/match" className="dashboard-btn">Find Matches</Link>
-        </div>
+<div className="dashboard-card recommended-matches-card">
+  <h2>Recommended Matches</h2>
+  <div className="recommended-matches-scroll">
+    <div className="match-row">
+      <strong>Alex Johnson</strong> – Calculus
+      <button className="connect-btn">View Profile</button>
+    </div>
+    <div className="match-row">
+      <strong>Maria Lee</strong> – Physics
+      <button className="connect-btn">View Profile</button>
+    </div>
+    <div className="match-row">
+      <strong>Chris Tan</strong> – Chemistry
+      <button className="connect-btn">View Profile</button>
+    </div>
+    <div className="match-row">
+      <strong>Sophia Nguyen</strong> – Biology
+      <button className="connect-btn">View Profile</button>
+    </div>
+    <div className="match-row">
+      <strong>Liam Martinez</strong> – Economics
+      <button className="connect-btn">View Profile</button>
+    </div>
+    {/* Add more match rows as needed */}
+  </div>
 
-        <div className="dashboard-card">
-          <h2>Upcoming Sessions</h2>
-          <p>Next session: Math 204 – Today at 4:00 PM</p>
-          <Link to="/calendar" className="dashboard-btn">View Schedule</Link>
-        </div>
+  <Link to="/match" className="dashboard-btn">Find More Matches</Link>
+</div>
+
+<div className="dashboard-card calendar-card">
+  <h2>Upcoming Sessions</h2>
+  <Calendar
+    onChange={() => {}}
+    value={new Date()}
+    tileClassName={({ date }) => {
+      // Highlight specific upcoming dates (example)
+      const highlightDates = ['2025-06-01', '2025-06-04', '2025-06-10'];
+      const dateStr = date.toISOString().split('T')[0];
+      return highlightDates.includes(dateStr) ? 'highlight' : null;
+    }}
+  />
+  <Link to="/calendar" className="dashboard-btn">View Full Calendar</Link>
+</div>
       </div>
     </div>
   );
