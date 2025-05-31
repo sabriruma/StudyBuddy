@@ -30,6 +30,14 @@ const groupChats = [
       text: "Push your code when you're done testing.",
     },
   },
+  {
+    id: 4,
+    name: "CS 101 – Final Exam Prep",
+    lastMessage: {
+      sender: "Alex",
+      text: "Don't forget, the professor said recursion will be on the test!",
+    },
+  },
 ];
 
 export default function Dashboard() {
