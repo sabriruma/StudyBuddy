@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './DashboardCalendar.css'; // for custom styling override
-import { useState } from 'react';
 
 const groupChats = [
   {
@@ -36,7 +35,10 @@ const groupChats = [
 export default function Dashboard() {
   return (
     <div className="dashboard-container">
-      <h1 className="dashboard-title">Welcome Back, StudyBuddy!</h1>
+     <div className="dashboard-header">
+      <img src="/SBmascot.png" alt="StudyBuddy Mascot" className="mascot-img" />
+      <h1 className="dashboard-title">Welcome to the Den, StudyBuddy!</h1>
+     </div>
 
       <div className="dashboard-cards">
       <div className="dashboard-card">

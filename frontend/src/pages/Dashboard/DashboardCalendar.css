@@ -27,3 +27,30 @@
     color: white;
     font-weight: bold;
   }
+
+  .dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+  
+  .mascot-img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--bg-color);
+    padding: 4px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+    color: var(--text-color);
+    font-weight: bold;
+  }
+  
