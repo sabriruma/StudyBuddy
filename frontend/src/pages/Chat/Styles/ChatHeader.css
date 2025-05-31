@@ -1,14 +1,19 @@
 .chat-header {
-    padding: 20px;
-    border-bottom: 1px solid #ccc;
-    background-color: #f0f0f0;
-  }
-  .chat-header h3 {
-    margin: 0;
-    font-size: 18px;
-  }
-  .chat-header p {
-    margin: 5px 0 0;
-    color: gray;
-    font-size: 14px;
-  }
+  padding: 20px;
+  background-color: var(--sidebar-bg);
+  border-bottom: 2px solid var(--border-color);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.chat-header p {
+  margin: 5px 0 0;
+  color: gray;
+  font-size: 14px;
+}

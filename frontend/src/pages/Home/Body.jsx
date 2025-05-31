@@ -4,18 +4,19 @@ import { motion } from 'framer-motion';
 const Section = styled.div`
   width: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
   color: var(--text-color);
   font-family: inherit;
 
 `;
 
-const Row = styled.div`
+const Row = styled(motion.div)`
   background-color: ${({ $alt }) =>
     $alt ? 'var(--sidebar-bg)' : 'var(--bg-color)'};
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 4rem clamp(1rem, 5vw, 4rem);
   box-sizing: border-box;
   flex-direction: ${({ $reverse }) => ($reverse ? 'row-reverse' : 'row')};
@@ -50,15 +51,14 @@ const Img = styled.img`
 function Body() {
   return (
     <Section>
-      <motion.div
+       <Row
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-      >
-        <Row>
+       >
           <Text>
-            <h2>study. connect. grow.</h2>
+            <h2>Study. Connect. Grow.</h2>
             <p>
               With StudyBuddy, matching with the right academic partner is fun and rewarding.
               Earn XP for consistency, and unlock new badges as you build better study habits!
@@ -67,17 +67,16 @@ function Body() {
 
           <Img src="/SBmascot.png" alt="Leaderboard" />
         </Row>
-      </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
+        <Row
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
         <Row $alt $reverse>
           <Text>
-            <h2>backed by purpose</h2>
+            <h2>Backed By Purpose</h2>
             <p>
               Our AI-driven matching is based on learning styles, academic interests, and study behavior
               not popularity. We help you level up <em>your way</em>!
@@ -85,17 +84,17 @@ function Body() {
           </Text>
           <Img src="/SBmascotR.png" alt="Research" />
         </Row>
-      </motion.div>
+        </Row>
 
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
+        <Row
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
         <Row>
           <Text>
-            <h2>progress made visible</h2>
+            <h2>Progress Made Visible</h2>
             <p>
               Track your study streak, XP, and milestones with a gamified dashboard.
               Your academic progress has never looked this good or this motivating.
@@ -103,7 +102,7 @@ function Body() {
           </Text>
           <Img src="/SBmascotG.png" alt="Dashboard" />
         </Row>
-      </motion.div>
+        </Row>
     </Section>
   );
 }

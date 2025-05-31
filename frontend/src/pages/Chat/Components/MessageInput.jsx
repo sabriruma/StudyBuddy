@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../Styles/MessageInput.css";
 
-export default function MessageInput({ selectedChat }) {
+export default function MessageInput({ selectedChat, onSendMessage }) {
   const [text, setText] = useState("");
 
   const handleSend = () => {
     if (text.trim()) {
-      console.log(`Send to ${selectedChat}:`, text);
+      onSendMessage(selectedChat, text);
       setText("");
     }
   };

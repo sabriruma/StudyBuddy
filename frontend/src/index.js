@@ -6,7 +6,7 @@ import  HomePage from './pages/Home/HomePage';
 import { Matching } from './pages/Matching/Matching';
 import { NotFound } from './pages/NotFound/NotFound';
 import Chat from './pages/Chat/Chat';
-import { Dashboard } from './pages/Dashboard/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 import { ThemeProvider } from './ThemeContext';
 
@@ -32,7 +32,7 @@ function App() {
         <Route path="/" element={<AppLayout />}>
           <Route path="matching" element={<Matching />} />
           <Route path="chat" element={<Chat />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

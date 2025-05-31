@@ -1,22 +1,23 @@
 .message-list {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .message {
-    max-width: 60%;
-    padding: 10px;
-    border-radius: 10px;
-  }
-  .sent {
-    align-self: flex-end;
-    background-color: #007bff;
-    color: white;
-  }
-  .received {
-    align-self: flex-start;
-    background-color: #e0e0e0;
-  }
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.message {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 10px;
+  word-break: break-word;
+}
+.sent {
+  align-self: flex-end;
+  background-color:  #00bfa5;
+  color: white;
+}
+.received {
+  align-self: flex-start;
+  background-color: var(--sidebar-bg);
+}

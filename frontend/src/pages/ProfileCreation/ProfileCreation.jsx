@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase/firebase'; 
 import { collection, addDoc } from 'firebase/firestore';
+import backgroundImage from '../../ComponentsMain/SBBG.png';
+
 
 function CreateProfile() {
     const navigate = useNavigate();
@@ -36,11 +38,8 @@ function CreateProfile() {
     <div
       className="profile-bg"
       style={{
-        backgroundImage: `url("/SBbackground.png")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
+           backgroundImage: `url(${backgroundImage})`,
+        }}
     >
       <div className="profile-card">
         <h2>Create Your Profile</h2>
