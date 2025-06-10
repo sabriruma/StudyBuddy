@@ -45,21 +45,21 @@ function CreateProfile() {
       <div className="profile-card">
         <h2>Create Your Profile</h2>
         <form onSubmit={handleSubmit}>
-          <label>First Name</label>
-          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
-
-          <label>Last Name</label>
-          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
 
           <label>Subject</label>
-          <select name="subject" value={formData.subject} onChange={handleChange} required>
-            <option value="">Select a subject</option>
-            {subjects.map((course, idx) => (
-            <option key={idx} value={course.code}>
-            {course.code} – {course.name}
-            </option>
-            ))}
-          </select>
+<input
+  list="subject-options"
+  name="subject"
+  value={formData.subject}
+  onChange={handleChange}
+  placeholder="Select a subject"
+  required
+/>
+<datalist id="subject-options">
+  {subjects.map((course, idx) => (
+    <option key={idx} value={`${course.code} – ${course.name}`} />
+  ))}
+</datalist>
         
           <label>Study Style</label>
           <select name="studyStyle" value={formData.studyStyle} onChange={handleChange} required>

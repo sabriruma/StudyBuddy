@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
   const allCourses = [];
 
@@ -18,10 +18,12 @@ const fs = require('fs');
         const codeEl = el.querySelector('span.pill-label');
         const titleEl = el.querySelector('h3 a');
         if (codeEl && titleEl) {
-          items.push({
-            code: codeEl.textContent.trim(),
-            name: titleEl.textContent.trim()
-          });
+          const code = codeEl.textContent.trim();
+          const name = titleEl.textContent.trim();
+          // Avoid duplicates
+          if (!items.some(item => item.code === code && item.name === name)) {
+            items.push({ code, name });
+          }
         }
       });
       return items;
@@ -33,6 +35,12 @@ const fs = require('fs');
 
   await browser.close();
 
-  fs.writeFileSync('./src/data/subjects.json', JSON.stringify(allCourses, null, 2));
-  console.log(`✅ Done! Saved ${allCourses.length} courses.`);
+  const seen = new Set();
+const uniqueCourses = allCourses.filter(course => {
+  const key = `${course.code}-${course.name}`;
+  return seen.has(key) ? false : seen.add(key);
+});
+
+  fs.writeFileSync('./src/data/subjects.json', JSON.stringify(uniqueCourses, null, 2));
+  console.log(`✅ Done! Saved ${uniqueCourses.length} unique courses.`);
 })();

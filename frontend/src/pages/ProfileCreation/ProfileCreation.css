@@ -38,6 +38,7 @@ html, body, #root {
   }
   
   .profile-card input,
+  .profile-card select,
   .profile-card textarea {
     width: 100%;
     padding: 0.6rem;
@@ -47,6 +48,9 @@ html, body, #root {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box; /* ensures padding doesn’t change total width */
+    font-family: inherit;  /* keep font consistent */
+    font-size: 1rem;       /* keep font size consistent */
   }
   
   .profile-card button {
@@ -64,15 +68,4 @@ html, body, #root {
   
   .profile-card button:hover {
     background-color: #00a78f;
-  }
-
-  .profile-card select {
-    width: 100%;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-    border: none;
-    border-radius: 4px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
