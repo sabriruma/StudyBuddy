@@ -1,0 +1,5682 @@
+[
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  },
+  {
+    "code": "ARH4355",
+    "name": "18th Century European Art"
+  },
+  {
+    "code": "FRW4213",
+    "name": "18th Century French Prose"
+  },
+  {
+    "code": "SPW4341",
+    "name": "19th and 20th Century Traditions in Spanish Poetry"
+  },
+  {
+    "code": "ENL3261",
+    "name": "19th Century British Women Novelists"
+  },
+  {
+    "code": "ARH4414",
+    "name": "19th Century European Art"
+  },
+  {
+    "code": "SPW5475",
+    "name": "19th Century Latin American Literature"
+  },
+  {
+    "code": "WST4230",
+    "name": "19th Century Women Write the Empire"
+  },
+  {
+    "code": "ARH4670",
+    "name": "20th Century Latin American Art"
+  },
+  {
+    "code": "PHH4600",
+    "name": "20th Century Philosophy"
+  },
+  {
+    "code": "ART5017C",
+    "name": "2D Animation"
+  },
+  {
+    "code": "ART1201C",
+    "name": "2D Design"
+  },
+  {
+    "code": "ART5018C",
+    "name": "3D Animation"
+  },
+  {
+    "code": "ARC4173",
+    "name": "3D Computer Modeling"
+  },
+  {
+    "code": "ART1203C",
+    "name": "3D Design"
+  },
+  {
+    "code": "ART5668",
+    "name": "3D Digital Sculpture and Experimental Virtual Environments"
+  },
+  {
+    "code": "ARH4672",
+    "name": "A History of Cuban Art"
+  },
+  {
+    "code": "HIS4492",
+    "name": "A History of U.S. Health Policy"
+  },
+  {
+    "code": "PHH4930",
+    "name": "A Major Philosopher"
+  },
+  {
+    "code": "MAP5620",
+    "name": "A Primer on the Mathematics of Environmental Financial Engineering"
+  },
+  {
+    "code": "ARH4553",
+    "name": "A Social History of Chinese Painting"
+  }
+]

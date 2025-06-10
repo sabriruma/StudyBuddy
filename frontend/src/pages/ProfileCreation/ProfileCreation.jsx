@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../../firebase/firebase'; 
 import { collection, addDoc } from 'firebase/firestore';
 import backgroundImage from '../../ComponentsMain/SBBG.png';
+import subjects from '../../data/subjects.json';
 
 
 function CreateProfile() {
@@ -51,16 +52,44 @@ function CreateProfile() {
           <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
 
           <label>Subject</label>
-          <input type="text" name="subject" value={formData.subject} onChange={handleChange} required />
-
-          <label>Study Styles</label>
-          <input type="text" name="studyStyle" value={formData.studyStyle} onChange={handleChange} required />
+          <select name="subject" value={formData.subject} onChange={handleChange} required>
+            <option value="">Select a subject</option>
+            {subjects.map((course, idx) => (
+            <option key={idx} value={course.code}>
+            {course.code} – {course.name}
+            </option>
+            ))}
+          </select>
+        
+          <label>Study Style</label>
+          <select name="studyStyle" value={formData.studyStyle} onChange={handleChange} required>
+            <option value="">Select a style</option>
+            <option value="Solo">Solo</option>
+            <option value="Group">Group</option>
+            <option value="Pomodoro">Pomodoro</option>
+            <option value="Visual">Visual</option>
+            <option value="Auditory">Auditory</option>
+          </select>
 
           <label>Availability</label>
-          <input type="text" name="availability" value={formData.availability} onChange={handleChange} required />
+          <select name="availability" value={formData.availability} onChange={handleChange} required>
+            <option value="">Select availability</option>
+            <option value="Weekdays">Weekdays</option>
+            <option value="Weekends">Weekends</option>
+            <option value="Evenings">Evenings</option>
+            <option value="Mornings">Mornings</option>
+            <option value="Anytime">Anytime</option>
+          </select>     
 
           <label>Academic Level</label>
-          <input type="text" name="academicLevel" value={formData.academicLevel} onChange={handleChange} required />
+          <select name="academicLevel" value={formData.academicLevel} onChange={handleChange} required>
+            <option value="">Select level</option>
+            <option value="Freshman">Freshman</option>
+            <option value="Sophomore">Sophomore</option>
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+            <option value="Graduate">Graduate</option>
+          </select>
 
           <label>Goals</label>
           <textarea name="goals" value={formData.goals} onChange={handleChange} rows="3" required />
