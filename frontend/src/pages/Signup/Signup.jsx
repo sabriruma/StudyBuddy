@@ -21,7 +21,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      navigate('/ProfileCreation');
+      navigate('/create-profile-step1');
     } catch (error) {
       console.error("Signup error:", error.message);
     }

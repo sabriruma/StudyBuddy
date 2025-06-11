@@ -10,7 +10,6 @@ const fs = require('fs');
     const url = `https://catalog.fiu.edu/courses?cq=&page=${i}`;
     console.log(`Scraping ${url}`);
     await page.goto(url, { waitUntil: 'networkidle2' });
-    await new Promise(r => setTimeout(r, 2000));
 
     const coursesOnPage = await page.evaluate(() => {
       const items = [];
@@ -36,7 +35,7 @@ const fs = require('fs');
   await browser.close();
 
   const seen = new Set();
-const uniqueCourses = allCourses.filter(course => {
+  const uniqueCourses = allCourses.filter(course => {
   const key = `${course.code}-${course.name}`;
   return seen.has(key) ? false : seen.add(key);
 });

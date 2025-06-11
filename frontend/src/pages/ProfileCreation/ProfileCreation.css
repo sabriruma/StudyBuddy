@@ -69,3 +69,28 @@ html, body, #root {
   .profile-card button:hover {
     background-color: #00a78f;
   }
+
+  /* Avatar selection container: flex layout with spacing */
+.avatar-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+/* Each avatar image style */
+.avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+  object-fit: cover;
+}
+
+/* When an avatar is selected, highlight its border */
+.avatar-img.selected {
+  border: 3px solid var(--accent-color); /* Use your theme’s accent color */
+}
