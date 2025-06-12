@@ -138,3 +138,25 @@ input[type="text"] {
   cursor: pointer;
   font-size: 0.9rem;
 }
+
+.dropdown-list {
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: white;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+}
+
+.dropdown-item {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
