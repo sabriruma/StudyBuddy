@@ -27,11 +27,6 @@ export default function CreateProfileStep1() {
     setFormData(prev => ({ ...prev, avatar }));
   };
 
-
-
-
-
-
   const handleNext = async (e) => {
      e.preventDefault();
 
@@ -55,7 +50,7 @@ const filteredCities = floridaCities.filter(city =>
   const handleCitySelect = (city) => {
     setCitySearch(city);
     setShowDropdown(false);
-    setFormData(prev => ({ ...prev, city }));
+setFormData(prev => ({ ...prev, location: city }));
   };
 
   return (
