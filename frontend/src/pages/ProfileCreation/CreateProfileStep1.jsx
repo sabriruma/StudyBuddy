@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileLayout from './ProfileLayout';
+import { saveProfilePart } from '../../firebase/saveProfilePart';
 
 const avatars = [
   '/SBmascot.png',
@@ -24,9 +25,11 @@ export default function CreateProfileStep1() {
     setFormData(prev => ({ ...prev, avatar }));
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    navigate('/create-profile-step2', { state: formData });
+  const handleNext = async (e) => {
+     e.preventDefault();
+
+     await saveProfilePart(formData);
+     navigate('/create-profile-step2');
   };
 
   return (

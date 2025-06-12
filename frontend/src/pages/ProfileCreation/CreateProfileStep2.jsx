@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProfileLayout from './ProfileLayout';
 import subjects from '../../data/subjects.json'; // Adjust path as needed
+import { saveProfilePart } from '../../firebase/saveProfilePart';
 
 const majorsBySchool = {
   "Florida International University": [
@@ -53,8 +54,11 @@ export default function CreateProfileStep2() {
     }));
   };
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
+
+    await saveProfilePart(academicInfo); 
+
     const combinedData = { ...prevData, ...academicInfo };
     navigate('/create-profile-step3', { state: combinedData });
   };
