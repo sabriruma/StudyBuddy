@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileLayout from './ProfileLayout';
+import floridaCities from '../../data/cities.json';
 
 const avatars = [
   '/SBmascot.png',
@@ -14,6 +15,7 @@ export default function CreateProfileStep1() {
     firstName: '',
     lastName: '',
     avatar: '',
+    location: '',
   });
 
   const handleChange = (e) => {
@@ -27,6 +29,25 @@ export default function CreateProfileStep1() {
   const handleNext = (e) => {
     e.preventDefault();
     navigate('/create-profile-step2', { state: formData });
+  };
+
+  const handleCityChange = (e) => {
+    const value = e.target.value;
+    setCitySearch(value);
+    setShowDropdown(value.trim().length > 0);
+  };
+
+  const [citySearch, setCitySearch] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+
+const filteredCities = floridaCities.filter(city =>
+    city.toLowerCase().includes(citySearch.toLowerCase())
+  );
+
+  const handleCitySelect = (city) => {
+    setCitySearch(city);
+    setShowDropdown(false);
+    setFormData(prev => ({ ...prev, city }));
   };
 
   return (
@@ -50,6 +71,47 @@ export default function CreateProfileStep1() {
           onChange={handleChange}
           required
         />
+
+<label>City</label>
+<div className="city-dropdown" style={{ position: 'relative' }}>
+<input
+  type="text"
+  value={citySearch}
+  onChange={handleCityChange}  // <-- Now defined
+  placeholder="Search for your city..."
+  autoComplete="off"
+/>
+  {showDropdown && filteredCities.length > 0 && (
+    <ul
+      style={{
+        position: 'absolute',
+        background: '#fff',
+        border: '1px solid #ccc',
+        width: '100%',
+        maxHeight: '150px',
+        overflowY: 'auto',
+        zIndex: 1000,
+        marginTop: '2px',
+        listStyleType: 'none',
+        padding: 0,
+      }}
+    >
+      {filteredCities.map((city, index) => (
+        <li
+          key={index}
+          style={{
+            padding: '0.5rem',
+            cursor: 'pointer',
+            borderBottom: '1px solid #eee',
+          }}
+          onClick={() => handleCitySelect(city)}
+        >
+          {city}
+        </li>
+      ))}
+    </ul>
+  )}
+  </div>
 
         <label>Select an Avatar</label>
         <div className="avatar-selection">
