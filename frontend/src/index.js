@@ -17,6 +17,7 @@ import Login  from './pages/Login/Login'; // your login page component
 import Signup  from './pages/Signup/Signup'; // if you have this page
 import CreateProfileStep1 from './pages/ProfileCreation/CreateProfileStep1';
 import CreateProfileStep2 from './pages/ProfileCreation/CreateProfileStep2';
+import CreateProfileStep3 from './pages/ProfileCreation/CreateProfileStep3';
 
 //Different tabs
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-profile-step1" element={<CreateProfileStep1 />} />
           <Route path="/create-profile-step2" element={<CreateProfileStep2 />} />
+          <Route path="/create-profile-step3" element={<CreateProfileStep3 />} />
           </Route>
 
         <Route path="/" element={<AppLayout />}>
