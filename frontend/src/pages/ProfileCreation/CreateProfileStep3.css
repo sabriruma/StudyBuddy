@@ -3,8 +3,13 @@
     justify-content: center;
     align-items: center;
     padding: 3rem 1rem;
-    background-color: var(--bg-color, #f5f5f5);
     min-height: 100vh;
+  
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    background-color: #f5f5f5; /* Fallback */
   }
   
   .step3-card {
@@ -48,23 +53,56 @@
     font-weight: 500;
   }
   
+  /* Adjusted slider-container for vertical stacking */
   .slider-container {
+    margin-top: 1rem;
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 0.25rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
   
-  input[type='range'] {
-    flex: 1;
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 0 5px;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+  
+  .slider-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .slider-wrapper input[type='range'] {
+    width: 100%;
     appearance: none;
     height: 6px;
     border-radius: 5px;
     background: #ccc;
     outline: none;
+    position: relative;
+    z-index: 2;
   }
   
-  input[type='range']::-webkit-slider-thumb {
+  /* Value Bubble */
+  .slider-value {
+    position: absolute;
+    top: -25px;
+    transform: translateX(-50%);
+    background: #00a78f;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 3;
+    transition: left 0.1s ease-in-out;
+  }
+  
+  /* Range slider thumbs */
+  .slider-wrapper input[type='range']::-webkit-slider-thumb {
     appearance: none;
     width: 18px;
     height: 18px;
@@ -72,16 +110,21 @@
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid white;
+    position: relative;
+    z-index: 3;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   }
   
-  input[type='range']::-moz-range-thumb {
+  .slider-wrapper input[type='range']::-moz-range-thumb {
     width: 18px;
     height: 18px;
     background: #00a78f;
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid white;
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   }
   
   .step3-buttons {
@@ -103,18 +146,4 @@
   
   .step3-buttons button:hover {
     background-color: #00a78ec3;
-  }
-
-  .step3-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 3rem 1rem;
-    min-height: 100vh;
-  
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  
-    background-color: #f5f5f5; /* Fallback */
   }

@@ -55,16 +55,30 @@ export default function CreateProfileStep3() {
 
             <label className="slider-label">How important is this to you?</label>
             <div className="slider-container">
-              <input
-                type="range"
-                name="importanceStudyEnvironment"
-                min="1"
-                max="10"
-                value={formData.importanceStudyEnvironment}
-                onChange={handleChange}
-              />
-              <span>{formData.importanceStudyEnvironment}/10</span>
-            </div>
+  <div className="slider-labels">
+    {Array.from({ length: 10 }, (_, i) => (
+      <span key={i}>{i + 1}</span>
+    ))}
+  </div>
+  <div className="slider-wrapper">
+    <input
+      type="range"
+      name="importanceStudyEnvironment"
+      min="1"
+      max="10"
+      value={formData.importanceStudyEnvironment}
+      onChange={handleChange}
+    />
+    <div
+      className="slider-value"
+      style={{
+        left: `${(formData.importanceStudyEnvironment - 1) * 11.11}%`,
+      }}
+    >
+      {formData.importanceStudyEnvironment}
+    </div>
+  </div>
+</div>
           </div>
 
           {/* Question 2 */}
@@ -84,16 +98,30 @@ export default function CreateProfileStep3() {
 
             <label className="slider-label">How important is this to you?</label>
             <div className="slider-container">
-              <input
-                type="range"
-                name="importanceStudyTime"
-                min="1"
-                max="10"
-                value={formData.importanceStudyTime}
-                onChange={handleChange}
-              />
-              <span>{formData.importanceStudyTime}/10</span>
-            </div>
+  <div className="slider-labels">
+    {Array.from({ length: 10 }, (_, i) => (
+      <span key={i}>{i + 1}</span>
+    ))}
+  </div>
+  <div className="slider-wrapper">
+    <input
+      type="range"
+      name="importanceStudyTime"
+      min="1"
+      max="10"
+      value={formData.importanceStudyTime}
+      onChange={handleChange}
+    />
+    <div
+      className="slider-value"
+      style={{
+        left: `${(formData.importanceStudyTime - 1) * 11.11}%`,
+      }}
+    >
+      {formData.importanceStudyTime}
+    </div>
+  </div>
+</div>
           </div>
 
           {/* Question 3 */}
@@ -113,16 +141,30 @@ export default function CreateProfileStep3() {
 
             <label className="slider-label">How important is this to you?</label>
             <div className="slider-container">
-              <input
-                type="range"
-                name="importanceStudyMethod"
-                min="1"
-                max="10"
-                value={formData.importanceStudyMethod}
-                onChange={handleChange}
-              />
-              <span>{formData.importanceStudyMethod}/10</span>
-            </div>
+  <div className="slider-labels">
+    {Array.from({ length: 10 }, (_, i) => (
+      <span key={i}>{i + 1}</span>
+    ))}
+  </div>
+  <div className="slider-wrapper">
+    <input
+      type="range"
+      name="importanceStudyMethod"
+      min="1"
+      max="10"
+      value={formData.importanceStudyMethod}
+      onChange={handleChange}
+    />
+    <div
+      className="slider-value"
+      style={{
+        left: `${(formData.importanceStudyMethod - 1) * 11.11}%`,
+      }}
+    >
+      {formData.importanceStudyMethod}
+    </div>
+  </div>
+</div>
           </div>
 
           <div className="step3-buttons">
