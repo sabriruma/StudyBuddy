@@ -18,7 +18,7 @@ function Login() {
       console.log("Logged in user:", userCredential.user.email); //might cause errors
       navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password.');
+      setError('Invalid email or password. Try again.');
     }
 
   };

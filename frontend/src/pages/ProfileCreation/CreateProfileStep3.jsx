@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveProfilePart } from '../../firebase/saveProfilePart';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
 import './CreateProfileStep3.css';
 import backgroundImage from '../../ComponentsMain/SBBG.png';
 
@@ -23,7 +25,16 @@ export default function CreateProfileStep3() {
   const handleNext = async (e) => {
     e.preventDefault();
     await saveProfilePart(formData);
-    navigate('/create-profile-step4');
+  
+    // Wait until Firebase confirms auth
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate('/dashboard');
+      } else {
+        // fallback if something went wrong
+        navigate('/');
+      }
+    });
   };
 
   const handleBack = () => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProfileLayout from './ProfileLayout';
-import subjects from '../../data/subjects.json'; // Adjust path as needed
+import subjects from '../../data/subjects.json';
 import { saveProfilePart } from '../../firebase/saveProfilePart';
 
 const majorsBySchool = {
@@ -27,7 +27,6 @@ export default function CreateProfileStep2() {
   });
 
   const [availableMajors, setAvailableMajors] = useState([]);
-
   const [courseSearch, setCourseSearch] = useState('');
 
   const filteredSubjects = subjects.filter(subject =>
@@ -56,12 +55,29 @@ export default function CreateProfileStep2() {
 
   const handleNext = async (e) => {
     e.preventDefault();
-
-    await saveProfilePart(academicInfo); 
-
+    await saveProfilePart(academicInfo);
     const combinedData = { ...prevData, ...academicInfo };
     navigate('/create-profile-step3', { state: combinedData });
   };
+
+  <style>
+  {`
+    .selected-course-tag {
+      background-color: var(--highlight-color);
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .selected-course-tag:hover {
+      background-color: #00a38f;
+    }
+  `}
+</style>
 
   return (
     <ProfileLayout>
@@ -110,47 +126,75 @@ export default function CreateProfileStep2() {
           </>
         )}
 
-{academicInfo.major && (
-  <>
-    <label>Courses</label>
-    <input
-      type="text"
-      placeholder="Start typing to search for a course..."
-      value={courseSearch}
-      onChange={(e) => setCourseSearch(e.target.value)}
-    />
+        {academicInfo.major && (
+          <>
+            <label>Courses</label>
 
-    {/* Show dropdown only if user has typed something */}
-    {courseSearch && filteredSubjects.length > 0 && (
-      <div className="dropdown-list">
-        {filteredSubjects.slice(0, 50).map((subject, index) => (
-          <div
-            key={index}
-            className="dropdown-item"
-            onClick={() => toggleCourse(subject.code)}
-          >
-            {subject.code} — {subject.name}
-          </div>
-        ))}
-      </div>
-    )}
-
-    {/* Show selected course tags */}
-    {academicInfo.courses.length > 0 && (
-      <div className="selected-tags">
-        {academicInfo.courses.map((course, index) => (
-          <span
-            key={index}
-            className="tag selected"
-            onClick={() => toggleCourse(course)}
-          >
-            {course} ✕
-          </span>
-        ))}
-      </div>
-    )}
-  </>
+            {/* Selected tags go above input */}
+            {academicInfo.courses.length > 0 && (
+  <div style={{ marginBottom: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+    {academicInfo.courses.map((course, index) => (
+      <span
+        key={index}
+        style={{
+          backgroundColor: '#00bfa5', // Teal primary
+          color: '#ffffff',
+          padding: '0.4rem 0.8rem',
+          borderRadius: '999px',
+          fontSize: '0.9rem',
+          fontWeight: '500',
+          cursor: 'pointer',
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
+          transition: 'background-color 0.3s',
+        }}
+        onClick={() => toggleCourse(course)}
+        title="Click to remove"
+      >
+        {course} ✕
+      </span>
+    ))}
+  </div>
 )}
+
+            <input
+              type="text"
+              placeholder="Start typing to search for a course..."
+              value={courseSearch}
+              onChange={(e) => setCourseSearch(e.target.value)}
+            />
+
+            {/* Dropdown menu */}
+            {courseSearch && filteredSubjects.length > 0 && (
+              <div
+                style={{
+                  position: 'relative',
+                  maxHeight: '200px',
+                  overflowY: 'auto',
+                  background: 'var(--bg-color)',
+                  border: '1px solid var(--border-color)',
+                  color: 'var(--text-color)',
+                  marginTop: '2px',
+                  borderRadius: '4px',
+                  zIndex: 1000
+                }}
+              >
+                {filteredSubjects.slice(0, 50).map((subject, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      padding: '0.5rem',
+                      cursor: 'pointer',
+                      borderBottom: '1px solid var(--border-color)'
+                    }}
+                    onClick={() => toggleCourse(subject.code)}
+                  >
+                    {subject.code} — {subject.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
 
         <button type="submit" style={{ marginTop: '1rem' }}>Next</button>
       </form>

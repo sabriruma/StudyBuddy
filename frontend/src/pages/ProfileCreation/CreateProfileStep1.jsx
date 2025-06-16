@@ -10,6 +10,23 @@ const avatars = [
   '/SBmascotR.png',
 ];
 
+const styles = {
+  avatarImg: {
+    width: '80px',
+    height: '80px',
+    borderRadius: '50%',
+    margin: '0.5rem',
+    transition: 'all 0.2s ease',
+    cursor: 'pointer',
+    border: '2px solid transparent',
+  },
+  selected: {
+    border: '3px solid #00a78f',
+    transform: 'scale(1.05)',
+    boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)',
+  },
+};
+
 export default function CreateProfileStep1() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -85,34 +102,16 @@ setFormData(prev => ({ ...prev, location: city }));
   autoComplete="off"
 />
   {showDropdown && filteredCities.length > 0 && (
-    <ul
-      style={{
-        position: 'absolute',
-        background: '#fff',
-        border: '1px solid #ccc',
-        width: '100%',
-        maxHeight: '150px',
-        overflowY: 'auto',
-        zIndex: 1000,
-        marginTop: '2px',
-        listStyleType: 'none',
-        padding: 0,
-      }}
+    <ul>
+  {filteredCities.map((city, index) => (
+    <li
+      key={index}
+      onClick={() => handleCitySelect(city)}
     >
-      {filteredCities.map((city, index) => (
-        <li
-          key={index}
-          style={{
-            padding: '0.5rem',
-            cursor: 'pointer',
-            borderBottom: '1px solid #eee',
-          }}
-          onClick={() => handleCitySelect(city)}
-        >
-          {city}
-        </li>
-      ))}
-    </ul>
+      {city}
+    </li>
+  ))}
+</ul>
   )}
   </div>
 
@@ -120,14 +119,43 @@ setFormData(prev => ({ ...prev, location: city }));
         <div className="avatar-selection">
           {avatars.map((avatar, index) => (
             <img
-              key={index}
-              src={avatar}
-              alt={`Avatar ${index + 1}`}
-              className={`avatar-img ${formData.avatar === avatar ? 'selected' : ''}`}
-              onClick={() => selectAvatar(avatar)}
-            />
+  key={index}
+  src={avatar}
+  alt={`Avatar ${index + 1}`}
+  style={{
+    ...styles.avatarImg,
+    ...(formData.avatar === avatar ? styles.selected : {}),
+  }}
+  onClick={() => selectAvatar(avatar)}
+/>
           ))}
         </div>
+
+        <style>{`
+  .city-dropdown ul {
+    position: absolute;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 2px;
+    list-style-type: none;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    z-index: 1000;
+  }
+
+  .city-dropdown ul li {
+    padding: 0.5rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .city-dropdown ul li:hover {
+    background-color: var(--sidebar-bg);
+  }
+`}</style>
 
         <button type="submit" style={{ marginTop: '1rem' }}>Next</button>
       </form>
