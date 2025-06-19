@@ -30,18 +30,19 @@ export default function Matching() {
     setLoading(false);
   }
 
- async function runMatching() {
-  if (!userId) return;
-  setLoading(true);
-  try {
-    await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/runMatching/${userId}`);
-    await fetchMatches();
-  } catch (error) {
-    console.error("Error running matching:", error);
+  async function runMatching() {
+    if (!userId) return;
+    setLoading(true);
+    try {
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/runMatching/${userId}`, {
+        method: 'POST'
+      });
+      await fetchMatches();
+    } catch (error) {
+      console.error("Error running matching:", error);
+    }
+    setLoading(false);
   }
-  setLoading(false);
-}
-
 
   return (
     <div className="matching-container">
