@@ -4,8 +4,11 @@ const apiRoutes = require('./api');
 const cors = require('cors');
 
 admin.initializeApp({
-  credential: admin.credential.cert(require('./serviceAccountKey.json')),
+  credential: admin.credential.cert(
+    JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY)
+  ),
 });
+
 const db = admin.firestore();
 module.exports = db;
 
