@@ -34,7 +34,7 @@ function App() {
           </Route>
 
         <Route path="/" element={<AppLayout />}>
-          <Route path="matching" element={<Matching />} />
+         <Route path="/matching" element={<Matching />} />
           <Route path="chat" element={<Chat />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
