@@ -30,17 +30,18 @@ export default function Matching() {
     setLoading(false);
   }
 
-  async function runMatching() {
-    if (!userId) return;
-    setLoading(true);
-    try {
-      await fetch(`https://studybuddy-one-chi.vercel.app/api/runMatching/${userId}`);
-      await fetchMatches();
-    } catch (error) {
-      console.error("Error running matching:", error);
-    }
-    setLoading(false);
+ async function runMatching() {
+  if (!userId) return;
+  setLoading(true);
+  try {
+    await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/runMatching/${userId}`);
+    await fetchMatches();
+  } catch (error) {
+    console.error("Error running matching:", error);
   }
+  setLoading(false);
+}
+
 
   return (
     <div className="matching-container">
