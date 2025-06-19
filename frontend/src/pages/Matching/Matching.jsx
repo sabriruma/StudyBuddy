@@ -34,7 +34,7 @@ export default function Matching() {
     if (!userId) return;
     setLoading(true);
     try {
-      await fetch(`https://studybuddy-backend.vercel.app/api/runMatching/${userId}`);
+      await fetch(`https://studybuddy-one-chi.vercel.app/api/runMatching/${userId}`);
       await fetchMatches();
     } catch (error) {
       console.error("Error running matching:", error);
