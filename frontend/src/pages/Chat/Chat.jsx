@@ -1,46 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db, auth } from "../../firebase/firebase";
+import {
+  collection,
+  onSnapshot,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  query
+} from "firebase/firestore";
 import Sidebar from "./Components/Sidebar";
 import ChatWindow from "./Components/ChatWindow";
 import "./Chat.css";
 
-export default function ChatPage() {
-  const [selectedChat, setSelectedChat] = useState("Alice");
+export default function Chat() {
+  const currentUserId = auth.currentUser?.uid;
+  const [confirmedUsers, setConfirmedUsers] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [chatMessages, setChatMessages] = useState({});
 
-  const [chatMessages, setChatMessages] = useState({
-    Alice: [
-      { from: "me", text: "Hi Alice!" },
-      { from: "Alice", text: "Hey! How's it going?" }
-    ],
-    Bob: [
-      { from: "me", text: "Hi Bob!" },
-      { from: "Bob", text: "Yo! What's up?" }
-    ],
-    Charlie: [
-      { from: "me", text: "Hey Charlie!" },
-      { from: "Charlie", text: "Hi!" }
-    ],
-    Dana: [
-      { from: "me", text: "Hello Dana!" },
-      { from: "Dana", text: "Hey there!" }
-    ]
-  });
+  // Get the full user object for the selected chat
+  const selectedUser = confirmedUsers.find(user => user.id === selectedChat);
 
-  const handleSendMessage = (chatName, messageText) => {
-    setChatMessages((prevMessages) => ({
-      ...prevMessages,
-      [chatName]: [...(prevMessages[chatName] || []), { from: "me", text: messageText }]
-    }));
+  useEffect(() => {
+    if (!currentUserId) return;
+
+    const fetchConfirmedMatches = async () => {
+      const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
+      const snapshot = await getDocs(ref);
+      const matches = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setConfirmedUsers(matches);
+    };
+
+    fetchConfirmedMatches();
+  }, [currentUserId]);
+
+  useEffect(() => {
+    if (!selectedChat || !currentUserId) return;
+
+    const chatId = [currentUserId, selectedChat].sort().join("_");
+    const messagesRef = query(collection(db, "chats", chatId, "messages"));
+
+    const unsubscribe = onSnapshot(messagesRef, (snapshot) => {
+      const msgs = snapshot.docs.map(doc => doc.data()).sort((a, b) => a.timestamp?.seconds - b.timestamp?.seconds);
+      setChatMessages(prev => ({ ...prev, [selectedChat]: msgs }));
+    });
+
+    return () => unsubscribe();
+  }, [selectedChat, currentUserId]);
+
+  const handleSendMessage = async (chatPartnerId, messageText) => {
+    const chatId = [currentUserId, chatPartnerId].sort().join("_");
+    const messageRef = collection(db, "chats", chatId, "messages");
+
+    await addDoc(messageRef, {
+      from: currentUserId,
+      to: chatPartnerId,
+      text: messageText,
+      timestamp: serverTimestamp()
+    });
   };
 
   return (
     <div className="chat-page">
-      <Sidebar selectedChat={selectedChat} onSelectChat={setSelectedChat} />
-      <ChatWindow
+      <Sidebar
+        confirmedUsers={confirmedUsers}
         selectedChat={selectedChat}
-        messages={chatMessages[selectedChat] || []}
-        onSendMessage={handleSendMessage}
+        onSelectChat={setSelectedChat}
       />
+      {selectedChat && selectedUser && (
+        <ChatWindow
+          selectedChat={selectedChat}
+          chatDisplayName={selectedUser.userName || "Student"}
+          messages={chatMessages[selectedChat] || []}
+          onSendMessage={handleSendMessage}
+        />
+      )}
     </div>
-
   );
 }

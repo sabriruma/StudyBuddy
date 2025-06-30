@@ -1,22 +1,18 @@
 import React from "react";
 import "../Styles/Sidebar.css";
 
-const chats = ["Alice", "Bob", "Charlie", "Dana"];
-
-export default function Sidebar({ selectedChat, onSelectChat }) {
+export default function Sidebar({ confirmedUsers, selectedChat, onSelectChat }) {
   return (
     <div className="sidebar">
       <h2>Chats</h2>
       <ul className="chat-list">
-        {chats.map((chat, index) => (
+        {confirmedUsers.map(user => (
           <li
-            key={index}
-            className={
-              chat === selectedChat ? "active" : ""
-            }
-            onClick={() => onSelectChat(chat)}
+            key={user.id}
+            className={selectedChat === user.id ? "active" : ""}
+            onClick={() => onSelectChat(user.id)}
           >
-            {chat}
+            {user.userName || "Student"}
           </li>
         ))}
       </ul>
