@@ -10,6 +10,7 @@ export default function ChatWindow({ selectedChat, chatDisplayName, messages, on
     setNewMessage("");
   };
 
+  //test
   return (
     <div className="chat-window">
       <div className="chat-header">

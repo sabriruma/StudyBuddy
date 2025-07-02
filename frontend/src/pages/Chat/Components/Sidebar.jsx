@@ -1,6 +1,7 @@
 import React from "react";
 import "../Styles/Sidebar.css";
 
+//test
 export default function Sidebar({ confirmedUsers, selectedChat, onSelectChat }) {
   return (
     <div className="sidebar">

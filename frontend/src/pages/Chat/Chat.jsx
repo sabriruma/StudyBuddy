@@ -12,6 +12,7 @@ import Sidebar from "./Components/Sidebar";
 import ChatWindow from "./Components/ChatWindow";
 import "./Chat.css";
 
+//test
 export default function Chat() {
   const currentUserId = auth.currentUser?.uid;
   const [confirmedUsers, setConfirmedUsers] = useState([]);
