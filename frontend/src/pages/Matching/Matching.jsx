@@ -12,7 +12,16 @@ import {
 } from 'firebase/firestore';
 import './Matching.css';
 
-//test
+const profileColors = [
+  '#e17055', // orange
+  '#0984e3', // blue
+  '#6c5ce7', // purple
+  '#00b894', // green
+  '#d63031', // red
+  '#fd79a8', // pink
+  '#fdcb6e', // yellow
+];
+
 export default function Matching() {
   const [user] = useAuthState(auth);
   const userId = user?.uid;
@@ -57,7 +66,6 @@ export default function Matching() {
     }
   }
 
-  // When user clicks "Connect"
   async function handleConnect(matchUserId, matchData) {
     try {
       const currentUserRef = doc(db, `users/${userId}/confirmedMatches/${matchUserId}`);
@@ -89,38 +97,47 @@ export default function Matching() {
 
   return (
     <div className="matching-container">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Your Top Matches</h2>
-        <button className="refresh-btn" onClick={runMatching} disabled={loading}>
-          {loading ? "Refreshing..." : "Run Matching Again"}
-        </button>
-      </div>
+<div className="matching-header">
+  <h2 className="matching-title">Best StudyBuddies For You</h2>
+  <button className="refresh-btn" onClick={runMatching} disabled={loading}>
+    {loading ? "Refreshing..." : "Run Matching Again"}
+  </button>
+</div>
 
       <div className="match-cards">
         {matches.length === 0 && !loading && (
-          <p>No matches found. Try running matching again!</p>
+          <p className="no-matches">No matches found. Try running matching again!</p>
         )}
 
         {matches.map((match) => {
           const isConnected = confirmedMatches[match.id];
 
           return (
-            <div key={match.id} className="match-card" style={{ backgroundColor: '#ffeaa7', border: '2px solid #fd79a8' }}>
-              <div className="match-header">
-                <h3>{match.userName || "Student"}</h3>
-                <div className="profile-photo" style={{ backgroundColor: '#fd79a8' }}>
-                  {match.userName ? match.userName.split(' ').map(n => n[0]).join('') : 'S'}
-                </div>
+            <div key={match.id} className="match-card">
+<div className="match-card-header" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+  <div
+    className="profile-photo"
+    style={{
+      backgroundColor: profileColors[matches.indexOf(match) % profileColors.length]
+    }}
+  >
+    {match.userName ? match.userName.split(' ').map(n => n[0]).join('') : 'S'}
+  </div>
+  <h3 style={{ margin: 0 }}>{match.userName || "Student"}</h3>
+</div>
+
+              <div className="match-details">
+                <p><strong>Mutual Score:</strong> {match.mutualScore}</p>
+                <p><strong>Reasons:</strong></p>
+                <ul>
+                  {match.reasonsAtoB && match.reasonsAtoB.map((reason, i) => (
+                    <li key={i}>{reason}</li>
+                  ))}
+                </ul>
               </div>
-              <p><strong>Mutual Score:</strong> {match.mutualScore}</p>
-              <p><strong>Reasons:</strong></p>
-              <ul>
-                {match.reasonsAtoB && match.reasonsAtoB.map((reason, i) => (
-                  <li key={i}>{reason}</li>
-                ))}
-              </ul>
+
               <button
-                className="connect-btn"
+                className={`connect-btn ${isConnected ? 'connected' : ''}`}
                 onClick={() => handleConnect(match.id, match)}
                 disabled={isConnected}
               >
