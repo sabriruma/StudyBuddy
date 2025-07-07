@@ -79,7 +79,41 @@ export default function Matching() {
       console.error("Error confirming match:", err);
     }
   }
+  
+  //New function for connecting users
 
+  /*
+  async function handleConnect(matchUserId, matchData) {
+  setLoading(true);
+  try {
+    // 1) Record your one-way intent
+    await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/matchRequest/${userId}/${matchUserId}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(matchData),
+      }
+    );
+
+    // 2) Immediately process any mutual requests for you
+    await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/processMutualRequests/${userId}`,
+      { method: 'POST' }
+    );
+
+    // 3) Refresh both suggestion and confirmed lists
+    await fetchMatches();
+    await fetchConfirmedMatches();
+  } catch (err) {
+    console.error('Error connecting:', err);
+    } finally {
+    setLoading(false);
+    }
+  }
+  */
+  //Some space
+  
   // Trigger matching algorithm again (if needed)
   async function runMatching() {
     if (!userId) return;
