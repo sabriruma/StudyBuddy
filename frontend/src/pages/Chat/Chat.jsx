@@ -66,19 +66,24 @@ export default function Chat() {
 
   return (
     <div className="chat-page">
-      <Sidebar
-        confirmedUsers={confirmedUsers}
-        selectedChat={selectedChat}
-        onSelectChat={setSelectedChat}
-      />
-      {selectedChat && selectedUser && (
-        <ChatWindow
-          selectedChat={selectedChat}
-          chatDisplayName={selectedUser.userName || "Student"}
-          messages={chatMessages[selectedChat] || []}
-          onSendMessage={handleSendMessage}
-        />
-      )}
+  <Sidebar
+    confirmedUsers={confirmedUsers}
+    selectedChat={selectedChat}
+    onSelectChat={setSelectedChat}
+  />
+  {selectedChat && selectedUser ? (
+    <ChatWindow
+      selectedChat={selectedChat}
+      chatDisplayName={selectedUser.userName || "Student"}
+      messages={chatMessages[selectedChat] || []}
+      onSendMessage={handleSendMessage}
+    />
+  ) : (
+    <div className="chat-placeholder">
+      <h2>Select a chat to start messaging</h2>
+      <p>Your confirmed matches will appear here. Click on a name to begin chatting!</p>
     </div>
+  )}
+</div>
   );
 }

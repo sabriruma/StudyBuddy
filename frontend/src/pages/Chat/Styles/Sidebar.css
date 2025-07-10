@@ -25,6 +25,6 @@
   background-color: var(--border-color);
 }
 .sidebar ul li.active {
-  background-color:  #00bfa5;
-  color: white;
+  background-color:  #00a78f;
+  color: #fff;
 }
