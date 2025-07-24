@@ -8,7 +8,8 @@ import {
   orderBy,
   limit,
   doc,
-  setDoc
+  setDoc,
+  getDoc,
 } from 'firebase/firestore';
 import './Matching.css';
 
@@ -43,12 +44,36 @@ export default function Matching() {
       const matchRef = collection(db, `users/${userId}/matches`);
       const q = query(matchRef, orderBy('mutualScore', 'desc'), limit(5));
       const snapshot = await getDocs(q);
-      const matchList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setMatches(matchList);
-    } catch (error) {
-      console.error("Error fetching matches:", error);
-    }
-    setLoading(false);
+
+      const matchList = await Promise.all(snapshot.docs.map(async (docSnap) => {
+        const matchData = docSnap.data();
+        const matchId = docSnap.id;
+      
+        const matchProfileRef = doc(db, `users/${matchId}`);
+        const matchProfileSnap = await getDoc(matchProfileRef);
+      
+        let avatar = '';
+        let userName = '';
+      
+        if (matchProfileSnap.exists()) {
+          const matchProfile = matchProfileSnap.data();
+          avatar = matchProfile.avatar || '';
+          userName = `${matchProfile.firstName || ''} ${matchProfile.lastName || ''}`.trim();
+        }
+      
+        return {
+          id: matchId,
+          avatar,
+          userName,
+          ...matchData
+        };
+      }));
+      
+    setMatches(matchList);
+  } catch (error) {
+    console.error("Error fetching matches:", error);
+  }
+  setLoading(false);
   }
 
   // Fetch confirmed matches
@@ -149,14 +174,36 @@ export default function Matching() {
           return (
             <div key={match.id} className="match-card">
 <div className="match-card-header" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-  <div
-    className="profile-photo"
-    style={{
-      backgroundColor: profileColors[matches.indexOf(match) % profileColors.length]
-    }}
-  >
-    {match.userName ? match.userName.split(' ').map(n => n[0]).join('') : 'S'}
-  </div>
+  {match.avatar ? (
+    <img
+      src={match.avatar}
+      alt="Avatar"
+      style={{
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        objectFit: 'cover',
+        border: '2px solid #ccc',
+      }}
+    />
+  ) : (
+    <div
+      className="profile-photo"
+      style={{
+        backgroundColor: profileColors[matches.indexOf(match) % profileColors.length],
+        width: '50px',
+        height: '50px',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        color: 'white',
+      }}
+    >
+      {match.userName ? match.userName.split(' ').map(n => n[0]).join('') : 'S'}
+    </div>
+  )}
   <h3 style={{ margin: 0 }}>{match.userName || "Student"}</h3>
 </div>
 
@@ -183,5 +230,6 @@ export default function Matching() {
       </div>
     </div>
   );
+
 }
 
