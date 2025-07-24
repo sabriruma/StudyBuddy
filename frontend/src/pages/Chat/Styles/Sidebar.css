@@ -33,3 +33,28 @@
   font-size: 20px;
   margin-left: 6px;
 }
+
+.group-title {
+  margin-bottom: 2px; /* Reduce space between title and button */
+  font-size: 1.1rem;
+}
+
+.group-header {
+  margin-bottom: 8px; /* Slight spacing before the list */
+}
+
+.group-header button {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #00a78f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: 2px;
+}
+
+.group-header button:hover {
+  opacity: 0.9;
+}

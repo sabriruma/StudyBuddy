@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import Sidebar from "./Components/Sidebar";
 import ChatWindow from "./Components/ChatWindow";
-import GroupSidebar from "./Components/GroupSideBar";
+
 import GroupChatWindow from "./Components/GroupChatWindow";
 import CreateGroupModal from "./CreateGroupModal.jsx";
 import "./Chat.css";
@@ -123,34 +123,30 @@ export default function Chat() {
 
   return (
     <div className="chat-page">
-      <Sidebar
-        confirmedUsers={confirmedUsers}
-        selectedChat={selectedChat}
-        onSelectChat={(id) => {
-          setSelectedChat(id);
-          setSelectedGroup(null);
-        }}
-      />
+<Sidebar
+  confirmedUsers={confirmedUsers}
+  selectedChat={selectedChat}
+  onSelectChat={(id) => {
+    setSelectedChat(id);
+    setSelectedGroup(null);
+  }}
+  groups={groups}
+  selectedGroupId={selectedGroup}
+  onSelectGroup={async (id) => {
+    setSelectedGroup(id);
+    setSelectedChat(null);
+
+    const lastSeenRef = doc(db, "groups", id, "lastSeen", currentUserId);
+    await setDoc(lastSeenRef, {
+      timestamp: serverTimestamp(),
+    });
+  }}
+  onCreateGroup={() => setShowCreateModal(true)}
+/>
+
 
       <div style={{ width: "100%" }}>
-        <div className="group-header">
-          <h2>Group Chats</h2>
-          <button onClick={() => setShowCreateModal(true)}>+ Create Group</button>
-        </div>
 
-        <GroupSidebar
-          groups={groups}
-          selectedGroupId={selectedGroup}
-          onSelectGroup={async (id) => {
-            setSelectedGroup(id);
-            setSelectedChat(null);
-
-            const lastSeenRef = doc(db, "groups", id, "lastSeen", currentUserId);
-            await setDoc(lastSeenRef, {
-              timestamp: serverTimestamp()
-            });
-          }}
-        />
 
         {selectedChat && selectedUser ? (
           <ChatWindow

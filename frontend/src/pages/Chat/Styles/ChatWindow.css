@@ -65,7 +65,7 @@
   flex: 1;
   padding: 10px;
   border-radius: 20px;
-  background-color: #00a78f;
+  background-color: #c5c5c539;
   color: var(--text-color);
   border: 1px solid var(--input-border);
 }

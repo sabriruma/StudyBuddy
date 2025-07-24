@@ -26,18 +26,5 @@
   font-size: 16px;
   color: var(--text-muted);
 }
-.group-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-}
-.group-header button {
-  background-color: #00b894;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+
 
