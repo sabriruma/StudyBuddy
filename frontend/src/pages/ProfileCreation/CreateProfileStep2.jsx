@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ProfileLayout from './ProfileLayout';
-import subjects from '../../data/subjects.json';
+import courses from '../../data/courses.json';
+import majors from '../../data/majors.json';
 import { saveProfilePart } from '../../firebase/saveProfilePart';
 
 const majorsBySchool = {
@@ -29,10 +30,32 @@ export default function CreateProfileStep2() {
   const [availableMajors, setAvailableMajors] = useState([]);
   const [courseSearch, setCourseSearch] = useState('');
 
-  const filteredSubjects = subjects.filter(subject =>
-    subject.code.toLowerCase().includes(courseSearch.toLowerCase()) ||
-    subject.name.toLowerCase().includes(courseSearch.toLowerCase())
+  const filteredCourses = courses.filter(course =>
+    (course.code && course.code.toLowerCase().includes(courseSearch.toLowerCase())) ||
+    (course.name && course.name.toLowerCase().includes(courseSearch.toLowerCase()))
   );
+
+  const [majorSearch, setMajorSearch] = useState(academicInfo.major || '');
+  const [showMajorDropdown, setShowMajorDropdown] = useState(false);
+
+  const filteredMajors = majors.filter((major) =>
+    major.toLowerCase().includes(majorSearch.toLowerCase())
+  );
+
+const handleMajorSearchChange = (e) => {
+  const value = e.target.value;
+  setMajorSearch(value);
+  setShowMajorDropdown(value.trim().length > 0);
+
+  // Update form state while typing
+  setAcademicInfo(prev => ({ ...prev, major: value }));
+};
+
+const handleMajorSelect = (major) => {
+  setMajorSearch(major);
+  setShowMajorDropdown(false);
+  setAcademicInfo(prev => ({ ...prev, major }));
+};
 
   useEffect(() => {
     if (academicInfo.school) {
@@ -111,22 +134,50 @@ export default function CreateProfileStep2() {
 
         {academicInfo.school && (
           <>
-            <label>Major</label>
-            <select
-              name="major"
-              value={academicInfo.major}
-              onChange={handleChange}
-              required
+          <label>Major</label>
+          <input
+            type="text"
+            placeholder="Start typing to search for your major..."
+            value={majorSearch}
+            onChange={handleMajorSearchChange}
+            autoComplete="off"
+            style={{ width: '100%' }}
+            required
+          />
+        
+          {showMajorDropdown && filteredMajors.length > 0 && (
+            <div
+              style={{
+                position: 'relative',
+                maxHeight: '200px',
+                overflowY: 'auto',
+                background: 'var(--bg-color)',
+                border: '1px solid var(--border-color)',
+                color: 'var(--text-color)',
+                marginTop: '2px',
+                borderRadius: '4px',
+                zIndex: 1000,
+              }}
             >
-              <option value="">Select your major</option>
-              {availableMajors.map((major, index) => (
-                <option key={index} value={major}>{major}</option>
+              {filteredMajors.slice(0, 50).map((major, index) => (
+                <div
+                  key={index}
+                  style={{
+                    padding: '0.5rem',
+                    cursor: 'pointer',
+                    borderBottom: '1px solid var(--border-color)',
+                  }}
+                  onClick={() => handleMajorSelect(major)}
+                >
+                  {major}
+                </div>
               ))}
-            </select>
-          </>
+            </div>
+          )}
+        </>
         )}
 
-        {academicInfo.major && (
+        {academicInfo.major && majors.includes(academicInfo.major) && (
           <>
             <label>Courses</label>
 
@@ -156,43 +207,43 @@ export default function CreateProfileStep2() {
   </div>
 )}
 
-            <input
-              type="text"
-              placeholder="Start typing to search for a course..."
-              value={courseSearch}
-              onChange={(e) => setCourseSearch(e.target.value)}
-            />
+<input
+  type="text"
+  placeholder="Start typing to search for a course..."
+  value={courseSearch}
+  onChange={(e) => setCourseSearch(e.target.value)}
+/>
 
             {/* Dropdown menu */}
-            {courseSearch && filteredSubjects.length > 0 && (
-              <div
-                style={{
-                  position: 'relative',
-                  maxHeight: '200px',
-                  overflowY: 'auto',
-                  background: 'var(--bg-color)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-color)',
-                  marginTop: '2px',
-                  borderRadius: '4px',
-                  zIndex: 1000
-                }}
-              >
-                {filteredSubjects.slice(0, 50).map((subject, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      padding: '0.5rem',
-                      cursor: 'pointer',
-                      borderBottom: '1px solid var(--border-color)'
-                    }}
-                    onClick={() => toggleCourse(subject.code)}
-                  >
-                    {subject.code} — {subject.name}
-                  </div>
-                ))}
-              </div>
-            )}
+            {courseSearch && filteredCourses.length > 0 && (
+  <div
+    style={{
+      position: 'relative',
+      maxHeight: '200px',
+      overflowY: 'auto',
+      background: 'var(--bg-color)',
+      border: '1px solid var(--border-color)',
+      color: 'var(--text-color)',
+      marginTop: '2px',
+      borderRadius: '4px',
+      zIndex: 1000
+    }}
+  >
+    {filteredCourses.slice(0, 50).map((course, index) => (
+      <div
+        key={index}
+        style={{
+          padding: '0.5rem',
+          cursor: 'pointer',
+          borderBottom: '1px solid var(--border-color)'
+        }}
+        onClick={() => toggleCourse(course.code)}
+      >
+        {course.code}
+      </div>
+    ))}
+  </div>
+)}
           </>
         )}
 
