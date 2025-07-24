@@ -1,0 +1,79 @@
+
+.group-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.group-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.group-modal h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.group-modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.avatar-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.avatar-options img.selected {
+  border: 3px solid #0984e3 !important;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.user-list li {
+  margin-bottom: 8px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #00b894;
+  color: white;
+}
+
+.modal-actions button:hover {
+  background-color: #019875;
+}
