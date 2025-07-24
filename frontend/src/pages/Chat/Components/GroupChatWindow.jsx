@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../../../firebase/firebase";
 import "../Styles/ChatWindow.css";
 import EditGroupModal from "./EditGroupModal";
 
@@ -12,17 +14,46 @@ export default function GroupChatWindow({
 }) {
   const [newMessage, setNewMessage] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
+  const [userCache, setUserCache] = useState({});
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    const fetchMissingUserInfo = async () => {
+      const missingIds = messages
+        .map((msg) => msg.from)
+        .filter((uid) => uid !== currentUserId && !userCache[uid]);
+
+      const uniqueIds = [...new Set(missingIds)];
+
+      const newCache = {};
+      for (let uid of uniqueIds) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", uid));
+          if (userDoc.exists()) {
+            newCache[uid] = userDoc.data();
+          }
+        } catch (error) {
+          console.error("Failed to fetch user info:", error);
+        }
+      }
+
+      if (Object.keys(newCache).length > 0) {
+        setUserCache((prev) => ({ ...prev, ...newCache }));
+      }
+    };
+
+    fetchMissingUserInfo();
+  }, [messages, currentUserId, userCache]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSend = () => {
     if (!newMessage.trim()) return;
     onSendMessage(group.id, newMessage);
     setNewMessage("");
   };
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
 
   return (
     <div className="chat-window">
@@ -42,15 +73,35 @@ export default function GroupChatWindow({
         </div>
 
         <div className="chat-messages">
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`chat-bubble ${msg.from === currentUserId ? "outgoing" : "incoming"}`}
-            >
-              <strong>{msg.senderName}</strong>
-              <p>{msg.text}</p>
-            </div>
-          ))}
+          {messages.map((msg, idx) => {
+            const isCurrentUser = msg.from === currentUserId;
+            const senderData = userCache[msg.from];
+
+            return (
+              <div
+                key={idx}
+                className={`chat-bubble ${isCurrentUser ? "outgoing" : "incoming"}`}
+              >
+                {!isCurrentUser && senderData && (
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                    <img
+                      src={senderData.avatar}
+                      alt="avatar"
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        borderRadius: "50%",
+                        objectFit: "cover"
+                      }}
+                    />
+                    <strong>{`${senderData.firstName} ${senderData.lastName}`}</strong>
+                  </div>
+                )}
+                {isCurrentUser && <strong>You</strong>}
+                <p>{msg.text}</p>
+              </div>
+            );
+          })}
           <div ref={messagesEndRef} />
         </div>
 
@@ -76,3 +127,4 @@ export default function GroupChatWindow({
     </div>
   );
 }
+

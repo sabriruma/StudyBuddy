@@ -1,31 +1,30 @@
 import React, { useState } from "react";
 import { db, auth } from "../../firebase/firebase";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import "./CreateGroupModal.css";
 
-const avatarOptions = [
-  "/group1.png",
-  "/group2.png",
-  "/group3.png",
-];
+const avatarOptions = ["/group1.png", "/group2.png", "/group3.png"];
 
 export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreated }) {
   const [groupName, setGroupName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedAvatar, setSelectedAvatar] = useState(avatarOptions[0]);
+  const [dropdownValue, setDropdownValue] = useState("");
 
   const currentUserId = auth.currentUser?.uid;
 
-  const toggleUser = (userId) => {
-    setSelectedUsers(prev =>
-      prev.includes(userId)
-        ? prev.filter(id => id !== userId)
-        : [...prev, userId]
-    );
+  // Clean and deduplicate confirmedUsers
+  const cleanedConfirmedUsers = confirmedUsers.filter(
+    (u, index, self) =>
+      u && u.id && u.userName &&
+      index === self.findIndex(other => other.id === u.id)
+  );
+
+  const addUser = (userId) => {
+    if (userId && !selectedUsers.includes(userId)) {
+      setSelectedUsers(prev => [...prev, userId]);
+      setDropdownValue(""); // Reset dropdown
+    }
   };
 
   const handleCreateGroup = async () => {
@@ -33,7 +32,7 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
 
     const groupRef = collection(db, "groups");
 
-    const docRef = await addDoc(groupRef, {
+    await addDoc(groupRef, {
       name: groupName,
       avatar: selectedAvatar,
       members: [...selectedUsers, currentUserId],
@@ -41,8 +40,8 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
       createdAt: serverTimestamp()
     });
 
-    onGroupCreated(); // Refresh list
-    onClose(); // Close modal
+    onGroupCreated();
+    onClose();
   };
 
   return (
@@ -80,20 +79,33 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
         </div>
 
         <h4>Add users to group:</h4>
-        <ul className="user-list">
-          {confirmedUsers.map(user => (
-            <li key={user.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedUsers.includes(user.id)}
-                  onChange={() => toggleUser(user.id)}
-                />
-                {user.userName}
-              </label>
-            </li>
-          ))}
-        </ul>
+        <div style={{ marginBottom: "10px" }}>
+          <select
+            value={dropdownValue}
+            onChange={(e) => addUser(e.target.value)}
+            style={{ width: "100%", padding: "8px", borderRadius: "6px" }}
+          >
+            <option value="" disabled hidden>-- Select user to add --</option>
+            {cleanedConfirmedUsers
+              .filter(user => !selectedUsers.includes(user.id))
+              .map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.userName}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {selectedUsers.length > 0 && (
+          <ul className="user-list">
+            {selectedUsers.map(userId => {
+              const user = cleanedConfirmedUsers.find(u => u.id === userId);
+              return (
+                <li key={userId}>{user?.userName}</li>
+              );
+            })}
+          </ul>
+        )}
 
         <div className="modal-actions">
           <button onClick={handleCreateGroup}>Create Group</button>
@@ -103,4 +115,12 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
     </div>
   );
 }
+
+
+
+
+
+
+
+
 
