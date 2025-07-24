@@ -8,7 +8,8 @@ import {
   serverTimestamp,
   query,
   doc,
-  setDoc
+  setDoc,
+  getDoc
 } from "firebase/firestore";
 import Sidebar from "./Components/Sidebar";
 import ChatWindow from "./Components/ChatWindow";
@@ -30,16 +31,38 @@ export default function Chat() {
   const selectedUser = confirmedUsers.find(user => user.id === selectedChat);
   const selectedGroupObj = groups.find(group => group.id === selectedGroup);
 
+  const enhancedUsers = confirmedUsers.map((user) => ({
+    ...user,
+    userName: `${user.firstName} ${user.lastName}`,
+  }));
+
   useEffect(() => {
     if (!currentUserId) return;
 
     const fetchConfirmedMatches = async () => {
       const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
       const snapshot = await getDocs(ref);
-      const matches = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+    
+      const matches = await Promise.all(
+        snapshot.docs.map(async (docSnap) => {
+          const matchId = docSnap.id;
+    
+          // Fetch full user profile from 'users' collection
+          const userProfileRef = doc(db, "users", matchId);
+          const userProfileSnap = await getDoc(userProfileRef);
+          const userProfileData = userProfileSnap.exists() ? userProfileSnap.data() : {};
+    
+          return {
+            id: matchId,
+            ...docSnap.data(),
+            firstName: userProfileData.firstName || '',
+            lastName: userProfileData.lastName || '',
+            avatar: userProfileData.avatar || '',
+            userName: `${userProfileData.firstName || ''} ${userProfileData.lastName || ''}`.trim(),
+          };
+        })
+      );
+    
       setConfirmedUsers(matches);
     };
 
@@ -125,6 +148,7 @@ export default function Chat() {
     <div className="chat-page">
 <Sidebar
   confirmedUsers={confirmedUsers}
+  enhancedUsers={enhancedUsers} 
   selectedChat={selectedChat}
   onSelectChat={(id) => {
     setSelectedChat(id);
@@ -151,7 +175,7 @@ export default function Chat() {
         {selectedChat && selectedUser ? (
           <ChatWindow
             selectedChat={selectedChat}
-            chatDisplayName={selectedUser.userName || "Student"}
+            chatDisplayName= {selectedUser?.userName || "Student"}
             messages={chatMessages[selectedChat] || []}
             onSendMessage={handleSendMessage}
           />
