@@ -46,29 +46,29 @@ export default function Matching() {
       const snapshot = await getDocs(q);
 
       const matchList = await Promise.all(snapshot.docs.map(async (docSnap) => {
-        const matchData = docSnap.data();
-        const matchId = docSnap.id;
-      
-        const matchProfileRef = doc(db, `users/${matchId}`);
-        const matchProfileSnap = await getDoc(matchProfileRef);
-      
-        let avatar = '';
-        let userName = '';
-      
-        if (matchProfileSnap.exists()) {
-          const matchProfile = matchProfileSnap.data();
-          avatar = matchProfile.avatar || '';
-          userName = `${matchProfile.firstName || ''} ${matchProfile.lastName || ''}`.trim();
-        }
-      
-        return {
-          id: matchId,
-          avatar,
-          userName,
-          ...matchData
-        };
-      }));
-      
+  const matchData = docSnap.data();
+  const matchId = docSnap.id;
+
+  const matchProfileRef = doc(db, `users/${matchId}`);
+  const matchProfileSnap = await getDoc(matchProfileRef);
+
+  let avatar = '';
+  let userName = '';
+
+  if (matchProfileSnap.exists()) {
+    const matchProfile = matchProfileSnap.data();
+    avatar = matchProfile.avatar || '';
+    userName = `${matchProfile.firstName || ''} ${matchProfile.lastName || ''}`.trim();
+  }
+
+  return {
+    id: matchId,
+    avatar,
+    userName,
+    ...matchData
+  };
+}));
+
     setMatches(matchList);
   } catch (error) {
     console.error("Error fetching matches:", error);
