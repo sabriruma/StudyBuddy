@@ -45,10 +45,16 @@ export default function CreateProfileStep1() {
   };
 
   const handleNext = async (e) => {
-     e.preventDefault();
+    e.preventDefault();
 
-     await saveProfilePart(formData);
-     navigate('/create-profile-step2');
+    // Add reputationScore to the initial user data
+    const dataToSave = {
+      ...formData,
+      reputationScore: 1000
+    };
+
+    await saveProfilePart(dataToSave);
+    navigate('/create-profile-step2');
   };
 
   const handleCityChange = (e) => {

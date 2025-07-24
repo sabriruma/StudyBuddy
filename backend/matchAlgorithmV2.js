@@ -1,5 +1,7 @@
 const admin = require('firebase-admin');
 
+const MAX_SCORE = 51; // Maximum possible raw score for normalization
+
 function calculateMatchScore(userA, userB) {
   let score = 0;
   const reasons = [];
@@ -58,12 +60,14 @@ function matchUsersV2(currentUser, allUsers) {
     if (matchAtoB.score < 0 || matchBtoA.score < 0) continue;
 
     const mutualScore = (matchAtoB.score + matchBtoA.score) / 2;
+    // Normalize the score to be out of 100 and round to nearest integer
+    const normalizedScore = Math.round((mutualScore / MAX_SCORE) * 100);
 
-    if (mutualScore >= 15) {
+    if (normalizedScore >= Math.round((15 / MAX_SCORE) * 100)) { // keep the same threshold logic
       matchList.push({
         userId: otherUser.id,
         userName: `${otherUser.firstName} ${otherUser.lastName}`,
-        mutualScore,
+        mutualScore: normalizedScore,
         reasonsAtoB: matchAtoB.reasons,
         reasonsBtoA: matchBtoA.reasons
       });
