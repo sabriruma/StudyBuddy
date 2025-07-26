@@ -10,7 +10,9 @@ import {
   query,
   doc,
   setDoc,
-  getDoc
+  getDoc,
+  orderBy,
+  where
 } from "firebase/firestore";
 import Sidebar from "./Components/Sidebar";
 import ChatWindow from "./Components/ChatWindow";
@@ -93,19 +95,59 @@ export default function Chat() {
   }, [searchParams, groups]);
   
 
-  useEffect(() => {
-    if (!selectedChat || !currentUserId) return;
+useEffect(() => {
+  if (!selectedChat || !currentUserId) return;
 
-    const chatId = [currentUserId, selectedChat].sort().join("_");
-    const messagesRef = query(collection(db, "chats", chatId, "messages"));
+  let unsubscribe;
 
-    const unsubscribe = onSnapshot(messagesRef, (snapshot) => {
-      const msgs = snapshot.docs.map(doc => doc.data()).sort((a, b) => a.timestamp?.seconds - b.timestamp?.seconds);
-      setChatMessages(prev => ({ ...prev, [selectedChat]: msgs }));
-    });
+  const fetchAndSubscribe = async () => {
+    try {
+      // Step 1: Get all chats where currentUserId is a member
+      const chatsRef = collection(db, "chats");
+      const chatQuery = query(chatsRef, where("members", "array-contains", currentUserId));
+      const chatSnap = await getDocs(chatQuery);
 
-    return () => unsubscribe();
-  }, [selectedChat, currentUserId]);
+      // Step 2: Find the chat that also includes selectedChat
+      const matchedChatDoc = chatSnap.docs.find((doc) => {
+        const members = doc.data().members || [];
+        return members.includes(selectedChat);
+      });
+
+      if (!matchedChatDoc) {
+        console.warn("No chat found with selected user.");
+        // Clear messages for this chat if no chat document exists
+        setChatMessages(prev => ({ ...prev, [selectedChat]: [] }));
+        return;
+      }
+
+      const chatId = matchedChatDoc.id;
+
+      // Step 3: Listen to messages in that chat
+      const messagesRef = query(
+        collection(db, "chats", chatId, "messages"),
+        orderBy("timestamp", "asc")
+      );
+
+      unsubscribe = onSnapshot(messagesRef, (snapshot) => {
+        const msgs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setChatMessages(prev => ({ ...prev, [selectedChat]: msgs }));
+      });
+
+    } catch (error) {
+      console.error("Error setting up chat listener:", error);
+      setChatMessages(prev => ({ ...prev, [selectedChat]: [] }));
+    }
+  };
+
+  fetchAndSubscribe();
+
+  // Cleanup function
+  return () => {
+    if (unsubscribe && typeof unsubscribe === 'function') {
+      unsubscribe();
+    }
+  };
+}, [selectedChat, currentUserId]);
 
   useEffect(() => {
     if (!selectedGroup || !currentUserId) return;
@@ -123,12 +165,27 @@ export default function Chat() {
   const handleSendMessage = async (chatPartnerId, messageText) => {
   const chatColRef = collection(db, "chats");
 
-  const newChatDocRef = await addDoc(chatColRef, {
-    members: [currentUserId, chatPartnerId],
-    createdAt: serverTimestamp(),
+  const chatQuery = query(chatColRef, where("members", "array-contains", currentUserId));
+  const chatSnap = await getDocs(chatQuery);
+
+  let existingChatDoc = chatSnap.docs.find(doc => {
+    const members = doc.data().members || [];
+    return members.includes(chatPartnerId);
   });
 
-  const messageColRef = collection(newChatDocRef, "messages");
+  let chatDocRef;
+
+  if (existingChatDoc) {
+    chatDocRef = doc(db, "chats", existingChatDoc.id);
+  } else {
+    const newDocRef = await addDoc(chatColRef, {
+      members: [currentUserId, chatPartnerId],
+      createdAt: serverTimestamp(),
+    });
+    chatDocRef = newDocRef;
+  }
+
+  const messageColRef = collection(chatDocRef, "messages");
 
   await addDoc(messageColRef, {
     senderId: currentUserId,
