@@ -146,7 +146,7 @@ export default function Matching() {
     setLoading(true);
     try {
       await fetch(`${process.env.REACT_APP_API_BASE_URL}api/runMatching/${userId}`, {
-        method: 'POST'
+        method: 'GET'
       });
       await fetchMatches();
     } catch (error) {
