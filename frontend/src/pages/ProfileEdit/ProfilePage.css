@@ -61,4 +61,27 @@
   .edit-btn:hover {
     background-color: #00957e;
   }
-  
+  .avatar-options {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.avatar-choice {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.avatar-choice:hover {
+  transform: scale(1.05);
+}
+
+.avatar-choice.selected {
+  border-color: #00a78f;
+}
