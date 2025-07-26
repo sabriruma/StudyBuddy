@@ -1,121 +1,233 @@
-import React from "react";
-import "./Dashboard.css";
+import React, { useEffect, useState } from "react";
+import { db, auth } from "../../firebase/firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import './DashboardCalendar.css'; // for custom styling override
-
-const groupChats = [
-  {
-    id: 1,
-    name: "Calculus Study Group",
-    lastMessage: {
-      sender: "Alice",
-      text: "Don’t forget our session at 5 PM!",
-    },
-  },
-  {
-    id: 2,
-    name: "Physics Problem Solvers",
-    lastMessage: {
-      sender: "Bob",
-      text: "I just solved problem 4 on the worksheet.",
-    },
-  },
-  {
-    id: 3,
-    name: "Intro to CS Team",
-    lastMessage: {
-      sender: "Charlie",
-      text: "Push your code when you're done testing.",
-    },
-  },
-  {
-    id: 4,
-    name: "CS 101 – Final Exam Prep",
-    lastMessage: {
-      sender: "Alex",
-      text: "Don't forget, the professor said recursion will be on the test!",
-    },
-  },
-];
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import "./Dashboard.css";
+import "./DashboardCalendar.css";
 
 export default function Dashboard() {
+  const [groupChats, setGroupChats] = useState([]);
+  const [individualChats, setIndividualChats] = useState([]);
+  const [potentialMatches, setPotentialMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentUserId, setCurrentUserId] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) return;
+      const currentUserId = user.uid;
+      setCurrentUserId(currentUserId);
+
+      try {
+        // === GROUP CHATS ===
+        const groupQuery = query(
+          collection(db, "groups"),
+          where("members", "array-contains", currentUserId)
+        );
+        const groupSnap = await getDocs(groupQuery);
+        const groups = groupSnap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+
+        const enrichedGroups = await Promise.all(groups.map(async group => {
+          const messagesRef = collection(db, "groups", group.id, "messages");
+          const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
+          const latestSnap = await getDocs(latestQuery);
+          const lastMessage = latestSnap.docs[0]?.data();
+
+          return {
+            ...group,
+            lastMessage,
+            unreadCount: 0
+          };
+        }));
+        setGroupChats(enrichedGroups);
+
+        // === INDIVIDUAL CHATS ===
+        const chatSnap = await getDocs(collection(db, "chats"));
+        const userChats = chatSnap.docs.filter(docSnap => {
+          const chatId = docSnap.id;
+          const participants = chatId.split("_");
+          return participants.includes(currentUserId);
+        });
+
+        const enrichedChats = await Promise.all(userChats.map(async (docSnap) => {
+          const chatId = docSnap.id;
+          const messagesRef = collection(db, "chats", chatId, "messages");
+          const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
+          const latestSnap = await getDocs(latestQuery);
+          const lastMessage = latestSnap.docs[0]?.data();
+
+          if (!lastMessage || !lastMessage.from || !lastMessage.to) return null;
+
+          const otherUserId = lastMessage.from === currentUserId ? lastMessage.to : lastMessage.from;
+          const userDoc = await getDoc(doc(db, "users", otherUserId));
+          const userData = userDoc.exists() ? userDoc.data() : {};
+
+          return {
+            chatId,
+            otherUserId,
+            displayName: `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim(),
+            avatar: userData.avatar || "/defaultAvatar.png",
+            lastMessage,
+            unreadCount: 0,
+          };
+        }));
+
+        setIndividualChats(enrichedChats.filter(Boolean));
+
+        // === POTENTIAL MATCHES ===
+        const matchesRef = collection(db, "users", currentUserId, "matches");
+        const confirmedRef = collection(db, "users", currentUserId, "confirmedMatches");
+
+        const [matchesSnap, confirmedSnap] = await Promise.all([
+          getDocs(matchesRef),
+          getDocs(confirmedRef)
+        ]);
+
+        const confirmedIds = new Set(confirmedSnap.docs.map(doc => doc.id));
+
+        const recommended = await Promise.all(matchesSnap.docs
+          .filter(matchDoc => !confirmedIds.has(matchDoc.id))
+          .map(async (matchDoc) => {
+            const matchData = matchDoc.data();
+            const profileDoc = await getDoc(doc(db, "users", matchData.userId));
+            const profile = profileDoc.exists() ? profileDoc.data() : {};
+
+            return {
+              userId: matchData.userId,
+              avatar: profile.avatar || "/SBmascot.png",
+              fullName: `${profile.firstName || "Unknown"} ${profile.lastName || ""}`,
+              mutualScore: matchData.mutualScore || 0
+            };
+          }));
+
+        setPotentialMatches(recommended);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading dashboard data:", error);
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="dashboard-container">
-     <div className="dashboard-header">
-      <img src="/SBmascot.png" alt="StudyBuddy Mascot" className="mascot-img" />
-      <h1 className="dashboard-title">Welcome to the Den, StudyBuddy!</h1>
-     </div>
+      <div className="dashboard-header">
+        <img src="/SBmascot.png" alt="StudyBuddy Mascot" className="mascot-img" />
+        <h1 className="dashboard-title">Welcome to the Den, StudyBuddy!</h1>
+      </div>
 
       <div className="dashboard-cards">
-      <div className="dashboard-card">
-  <h2>Study Groups</h2>
-  <div className="group-chat-list">
-    {groupChats.map((group) => (
-      <div key={group.id} className="group-chat-item">
-        <h3>{group.name}</h3>
-        <p>
-          <strong>{group.lastMessage.sender}:</strong> {group.lastMessage.text}
-        </p>
-      </div>
-    ))}
-  </div>
-  <Link to="/groups" className="dashboard-btn">View Groups</Link>
-</div>
+        {/* === GROUP & CHAT CARD === */}
+        <div className="dashboard-card">
+          <h2>Chats & Study Groups</h2>
+          {(groupChats.length > 0 || individualChats.length > 0) ? (
+            <div className="group-chat-list">
+              {groupChats.map(group => (
+                <div key={group.id} className="group-chat-item">
+                  <h3>
+                    <img
+                      src={group.avatar || "/defaultGroup.png"}
+                      alt="Group"
+                      style={{ width: "24px", height: "24px", borderRadius: "50%", marginRight: "8px", verticalAlign: "middle" }}
+                    />
+                    {group.name}
+                    {group.unreadCount > 0 && (
+                      <span className="unread-badge">{group.unreadCount}</span>
+                    )}
+                  </h3>
+                  <p>
+                    <strong>{group.lastMessage?.sender || "System"}:</strong>{" "}
+                    {group.lastMessage?.text || "No messages yet."}
+                  </p>
+                </div>
+              ))}
+              {individualChats.map((chat) => (
+                <div key={chat.chatId} className="group-chat-item">
+                  <h3>
+                    <img
+                      src={chat.avatar}
+                      alt={chat.displayName}
+                      style={{ width: "24px", height: "24px", borderRadius: "50%", marginRight: "8px", verticalAlign: "middle" }}
+                    />
+                    {chat.displayName}
+                    {chat.unreadCount > 0 && (
+                      <span className="unread-badge">{chat.unreadCount}</span>
+                    )}
+                  </h3>
+                  <p>
+                    <strong>{chat.lastMessage.from === currentUserId ? "You" : chat.displayName}:</strong>{" "}
+                    {chat.lastMessage.text || "Say hello!"}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No chats or groups yet. <Link to="/match">Start matching now!</Link></p>
+          )}
+          <Link to="/chat" className="dashboard-btn">Go to Chats</Link>
+        </div>
 
-<div className="dashboard-card recommended-matches-card">
-  <h2>Recommended Matches</h2>
-  <div className="recommended-matches-scroll">
-    <div className="match-row">
-      <strong>Alex Johnson</strong> – Calculus
-      <button className="connect-btn">View Profile</button>
-    </div>
-    <div className="match-row">
-      <strong>Maria Lee</strong> – Physics
-      <button className="connect-btn">View Profile</button>
-    </div>
-    <div className="match-row">
-      <strong>Chris Tan</strong> – Chemistry
-      <button className="connect-btn">View Profile</button>
-    </div>
-    <div className="match-row">
-      <strong>Sophia Nguyen</strong> – Biology
-      <button className="connect-btn">View Profile</button>
-    </div>
-    <div className="match-row">
-      <strong>Liam Martinez</strong> – Economics
-      <button className="connect-btn">View Profile</button>
-    </div>
-    <div className="match-row">
-      <strong>Samantha Lopez</strong> – Engineering
-      <button className="connect-btn">View Profile</button>
-    </div>
-    <div className="match-row">
-      <strong>Marcus Gomez</strong> – Programming
-      <button className="connect-btn">View Profile</button>
-    </div>
-    {/* Add more match rows as needed */}
-  </div>
+        {/* === POTENTIAL MATCHES === */}
+        <div className="dashboard-card recommended-matches-card">
+          <h2>Recommended Matches</h2>
+          {potentialMatches.length > 0 ? (
+            <div className="recommended-matches-scroll">
+              {potentialMatches.map((match, i) => (
+                <div key={i} className="match-row">
+                  <img
+                    src={match.avatar}
+                    alt="Avatar"
+                    style={{ width: "32px", height: "32px", borderRadius: "50%", marginRight: "8px" }}
+                  />
+                  <div>
+                    <strong>{match.fullName}</strong>
+                    <p style={{ margin: 0, fontSize: "0.85rem" }}>Mutual Score: {match.mutualScore}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No matches yet. <Link to="/match">Run the matching algorithm to begin!</Link></p>
+          )}
+          <Link to="/match" className="dashboard-btn">Find More Matches</Link>
+        </div>
 
-  <Link to="/match" className="dashboard-btn">Find More Matches</Link>
-</div>
-
-<div className="dashboard-card calendar-card">
-  <h2>Upcoming Sessions</h2>
-  <Calendar
-    onChange={() => {}}
-    value={new Date()}
-    tileClassName={({ date }) => {
-      // Highlight specific upcoming dates (example)
-      const highlightDates = ['2025-06-01', '2025-06-04', '2025-06-10'];
-      const dateStr = date.toISOString().split('T')[0];
-      return highlightDates.includes(dateStr) ? 'highlight' : null;
-    }}
-  />
-  <Link to="/calendar" className="dashboard-btn">View Full Calendar</Link>
-</div>
+        {/* === CALENDAR === */}
+        <div className="dashboard-card calendar-card">
+          <h2>Upcoming Sessions</h2>
+          <Calendar
+            onChange={() => {}}
+            value={new Date()}
+            tileClassName={({ date }) => {
+              try {
+                const dateStr = date?.toISOString?.().split("T")[0];
+                const highlightDates = ['2025-06-01', '2025-06-04', '2025-06-10'];
+                return highlightDates.includes(dateStr) ? "highlight" : null;
+              } catch {
+                return null;
+              }
+            }}
+          />
+          <Link to="/calendar" className="dashboard-btn">View Full Calendar</Link>
+        </div>
       </div>
     </div>
   );
 }
+
+
+

@@ -7,6 +7,7 @@ import Matching from './pages/Matching/Matching';
 import { NotFound } from './pages/NotFound/NotFound';
 import Chat from './pages/Chat/Chat';
 import Dashboard from './pages/Dashboard/Dashboard';
+import ProfilePage from './pages/ProfileEdit/ProfilePage';
 
 import { ThemeProvider } from './ThemeContext';
 
@@ -19,6 +20,8 @@ import CreateProfileStep1 from './pages/ProfileCreation/CreateProfileStep1';
 import CreateProfileStep2 from './pages/ProfileCreation/CreateProfileStep2';
 import CreateProfileStep3 from './pages/ProfileCreation/CreateProfileStep3';
 
+import "./index.css"
+
 //Different tabs
 function App() {
   return (
@@ -28,15 +31,17 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/create-profile-step1" element={<CreateProfileStep1 />} />
-          <Route path="/create-profile-step2" element={<CreateProfileStep2 />} />
-          <Route path="/create-profile-step3" element={<CreateProfileStep3 />} />
-          </Route>
+        </Route>
 
+        <Route path="/create-profile-step1" element={<CreateProfileStep1 />} />
+        <Route path="/create-profile-step2" element={<CreateProfileStep2 />} />
+        <Route path="/create-profile-step3" element={<CreateProfileStep3 />} />
+        
         <Route path="/" element={<AppLayout />}>
          <Route path="/matching" element={<Matching />} />
           <Route path="chat" element={<Chat />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

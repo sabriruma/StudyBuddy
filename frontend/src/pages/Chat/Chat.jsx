@@ -8,11 +8,12 @@ import {
   serverTimestamp,
   query,
   doc,
-  setDoc
+  setDoc,
+  getDoc
 } from "firebase/firestore";
 import Sidebar from "./Components/Sidebar";
 import ChatWindow from "./Components/ChatWindow";
-import GroupSidebar from "./Components/GroupSideBar";
+
 import GroupChatWindow from "./Components/GroupChatWindow";
 import CreateGroupModal from "./CreateGroupModal.jsx";
 import "./Chat.css";
@@ -30,16 +31,38 @@ export default function Chat() {
   const selectedUser = confirmedUsers.find(user => user.id === selectedChat);
   const selectedGroupObj = groups.find(group => group.id === selectedGroup);
 
+  const enhancedUsers = confirmedUsers.map((user) => ({
+    ...user,
+    userName: `${user.firstName} ${user.lastName}`,
+  }));
+
   useEffect(() => {
     if (!currentUserId) return;
 
     const fetchConfirmedMatches = async () => {
       const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
       const snapshot = await getDocs(ref);
-      const matches = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+    
+      const matches = await Promise.all(
+        snapshot.docs.map(async (docSnap) => {
+          const matchId = docSnap.id;
+    
+          // Fetch full user profile from 'users' collection
+          const userProfileRef = doc(db, "users", matchId);
+          const userProfileSnap = await getDoc(userProfileRef);
+          const userProfileData = userProfileSnap.exists() ? userProfileSnap.data() : {};
+    
+          return {
+            id: matchId,
+            ...docSnap.data(),
+            firstName: userProfileData.firstName || '',
+            lastName: userProfileData.lastName || '',
+            avatar: userProfileData.avatar || '',
+            userName: `${userProfileData.firstName || ''} ${userProfileData.lastName || ''}`.trim(),
+          };
+        })
+      );
+    
       setConfirmedUsers(matches);
     };
 
@@ -123,39 +146,36 @@ export default function Chat() {
 
   return (
     <div className="chat-page">
-      <Sidebar
-        confirmedUsers={confirmedUsers}
-        selectedChat={selectedChat}
-        onSelectChat={(id) => {
-          setSelectedChat(id);
-          setSelectedGroup(null);
-        }}
-      />
+<Sidebar
+  confirmedUsers={confirmedUsers}
+  enhancedUsers={enhancedUsers} 
+  selectedChat={selectedChat}
+  onSelectChat={(id) => {
+    setSelectedChat(id);
+    setSelectedGroup(null);
+  }}
+  groups={groups}
+  selectedGroupId={selectedGroup}
+  onSelectGroup={async (id) => {
+    setSelectedGroup(id);
+    setSelectedChat(null);
+
+    const lastSeenRef = doc(db, "groups", id, "lastSeen", currentUserId);
+    await setDoc(lastSeenRef, {
+      timestamp: serverTimestamp(),
+    });
+  }}
+  onCreateGroup={() => setShowCreateModal(true)}
+/>
+
 
       <div style={{ width: "100%" }}>
-        <div className="group-header">
-          <h2>Group Chats</h2>
-          <button onClick={() => setShowCreateModal(true)}>+ Create Group</button>
-        </div>
 
-        <GroupSidebar
-          groups={groups}
-          selectedGroupId={selectedGroup}
-          onSelectGroup={async (id) => {
-            setSelectedGroup(id);
-            setSelectedChat(null);
-
-            const lastSeenRef = doc(db, "groups", id, "lastSeen", currentUserId);
-            await setDoc(lastSeenRef, {
-              timestamp: serverTimestamp()
-            });
-          }}
-        />
 
         {selectedChat && selectedUser ? (
           <ChatWindow
             selectedChat={selectedChat}
-            chatDisplayName={selectedUser.userName || "Student"}
+            chatDisplayName= {selectedUser?.userName || "Student"}
             messages={chatMessages[selectedChat] || []}
             onSendMessage={handleSendMessage}
             currentUserId={currentUserId}
