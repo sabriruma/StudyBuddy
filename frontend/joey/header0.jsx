@@ -25,13 +25,13 @@ export default function Header({ onLoginClick, onSignupClick }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <span className="text-xl font-bold text-green-500 dark:text-green-400">StudyBuddy</span>
+            <span className="text-xl font-bold text-[#00bfa5]">StudyBuddy</span>
           </div>
 
           <nav className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
             <a
               href="#"
-              className="border-green-500 text-gray-900 dark:text-gray-100 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              className="border-[#00bfa5] text-gray-900 dark:text-gray-100 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
             >
               Home
             </a>
@@ -50,7 +50,7 @@ export default function Header({ onLoginClick, onSignupClick }) {
                 onClick={() => setIsSubjectsOpen(!isSubjectsOpen)}
                 className={`${
                   isSubjectsOpen
-                    ? 'border-green-500 text-gray-900 dark:text-gray-100'
+                    ? 'border-[#00bfa5] text-gray-900 dark:text-gray-100'
                     : 'border-transparent text-gray-500'
                 } hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full`}
               >
@@ -95,7 +95,7 @@ export default function Header({ onLoginClick, onSignupClick }) {
             </button>
             <button
               onClick={onSignupClick}
-              className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 text-white px-4 py-2 rounded-md text-sm font-medium"
+              className="bg-[#00bfa5] hover:bg-green-600 dark:bg-green-600 dark:hover:bg-[#00bfa5] text-white px-4 py-2 rounded-md text-sm font-medium"
             >
               Sign Up
             </button>

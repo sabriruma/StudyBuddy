@@ -113,7 +113,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin, onSignup
                   onChange={(e) => setAgreeToTerms(e.target.checked)}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
                 />
-                <label htmlFor="terms" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                <label htmlFor="terms" className="ml-2 mb-0 block text-sm text-gray-900 dark:text-gray-300">
                   I agree to the <a href="#" className="text-blue-400 hover:text-blue-500">Terms</a> and <a href="#" className="text-blue-400 hover:text-blue-500">Privacy Policy</a>
                 </label>
               </div>
@@ -122,7 +122,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin, onSignup
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-blue-400 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-600"
+                  className="w-full flex justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-400 dark:bg-primary-700 dark:hover:bg-primary-600"
                 >
                   {loading ? 'Creating Account...' : 'Create account'}
                 </button>

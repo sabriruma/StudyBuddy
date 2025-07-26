@@ -1,12 +1,18 @@
-import Body from './Body.jsx';
-import Footer from './Footer.jsx';
+import Hero from "../../components/Hero"
+import Footer from "../../components/Footer"
+import HowItWorks from "../../components/HowItWorks"
+import Testimonials from "../../components/Testimonials"
+import Features from "../../components/Features"
 
-function HomePage() {
+function HomePage({openSignUp}) {
   return (
-    <>
-      <Body />
-      <Footer />
-    </>
+    <div>
+        <Hero openSignUp={openSignUp}/>
+        <Features />
+        <HowItWorks />
+        <Testimonials />
+        <Footer />
+    </div>
   );
 }
 

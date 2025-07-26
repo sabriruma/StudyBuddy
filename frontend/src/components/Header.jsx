@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import DarkModeToggle from './DarkModeToggle';
+import ThemeToggle from "../ComponentsMain/ThemeToggle"
+import LoginModal from "./LoginModal"
+import SignupModal from "./SignupModal"
 
 const subjects = [
   'Mathematics',
@@ -16,22 +19,23 @@ const subjects = [
   'Languages'
 ];
 
-export default function Header({ onLoginClick, onSignupClick }) {
+export default function Header({onLoginClick, onSignUpClick}) {
   const [isSubjectsOpen, setIsSubjectsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-
+  
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <span className="text-xl font-bold text-green-500 dark:text-green-400">StudyBuddy</span>
+          <div className="flex items-center gap-4">
+            <img src="/logo.png" alt="primary-500 Logo" className="logo-img" />
+            <span className="text-xl font-bold text-black dark:text-white">StudyBuddy</span>
           </div>
 
           <nav className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
             <a
               href="#"
-              className="border-green-500 text-gray-900 dark:text-gray-100 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              className="border-primary-500 text-gray-900 dark:text-gray-100 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
             >
               Home
             </a>
@@ -50,7 +54,7 @@ export default function Header({ onLoginClick, onSignupClick }) {
                 onClick={() => setIsSubjectsOpen(!isSubjectsOpen)}
                 className={`${
                   isSubjectsOpen
-                    ? 'border-green-500 text-gray-900 dark:text-gray-100'
+                    ? 'border-primary-500 text-gray-900 dark:text-gray-100'
                     : 'border-transparent text-gray-500'
                 } hover:border-gray-300 hover:text-gray-700 dark:hover:text-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium h-full`}
               >
@@ -89,13 +93,13 @@ export default function Header({ onLoginClick, onSignupClick }) {
             <DarkModeToggle />
             <button
               onClick={onLoginClick}
-              className="text-black-500 hover:text-green-600 dark:text-green-400 dark:hover:text-green-300 px-3 py-2 rounded-md text-sm font-medium"
+              className="text-black-500 hover:text-primary-500/80 dark:text-primary-500 dark:hover:text-primary-500/80 px-3 py-2 rounded-md text-sm font-medium"
             >
               Log In
             </button>
             <button
-              onClick={onSignupClick}
-              className="bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500 text-white px-4 py-2 rounded-md text-sm font-medium"
+              onClick={onSignUpClick}
+              className="bg-primary-500 hover:bg-primary-500/80 dark:bg-primary-500 dark:hover:bg-primary-500/80 text-white px-4 py-2 rounded-md text-sm font-medium"
             >
               Sign Up
             </button>

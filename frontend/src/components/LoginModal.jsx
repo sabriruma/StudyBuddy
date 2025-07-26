@@ -120,9 +120,9 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
                     type="checkbox" 
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" 
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600" 
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300 mb-0">
                     Remember me
                   </label>
                 </div>
@@ -131,7 +131,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
                   <button 
                     type="button"
                     onClick={() => navigate('/forgot-password')}
-                    className="font-medium text-blue-500 hover:text-blue-300 dark:text-green-400 dark:hover:text-green-300"
+                    className="font-medium text-blue-500 hover:text-blue-300 dark:text-primary-400 dark:hover:text-primary-300"
                   >
                     Forgot password?
                   </button>
@@ -142,7 +142,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-green-700 dark:hover:bg-green-600 disabled:opacity-50"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:bg-primary-700 dark:hover:bg-primary-600 disabled:opacity-50"
                 >
                   {loading ? (
                     <>
@@ -174,7 +174,7 @@ export default function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
               <div className="mt-6">
                 <button
                   onClick={onSwitchToSignup}
-                  className="w-full flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="w-full flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                 >
                   Sign up
                 </button>

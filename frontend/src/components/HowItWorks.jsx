@@ -18,10 +18,10 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-white dark:bg-gray-800 py-12">
+    <section id="how-it-works" className="bg-white dark:bg-gray-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
-          <h2 className="text-base text-green-500 dark:text-green-500 font-semibold tracking-wide uppercase">
+          <h2 className="text-base text-primary-500 dark:text-primary-500 font-semibold tracking-wide uppercase">
             Process
           </h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
@@ -33,7 +33,7 @@ export default function HowItWorks() {
           <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
             {steps.map((step) => (
               <div key={step.name} className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-900 text-green-900 dark:text-green-200 font-bold text-xl">
+                <div className="absolute flex items-center justify-center h-12 w-12 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-200 font-bold text-xl">
                   {step.number}
                 </div>
                 <div className="ml-16">

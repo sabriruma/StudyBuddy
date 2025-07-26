@@ -3,39 +3,40 @@ import './LandingLayout.css';
 import ThemeToggle from '../ComponentsMain/ThemeToggle';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/firebase';
+import Header from "../components/Header"
+import LoginModal from '../components/LoginModal';
+import SignupModal from '../components/SignupModal';
+import { useState } from 'react';
+import HomePage from '../pages/Home/HomePage';
 
 export function LandingLayout() {
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
-
   const handleLoginClick = () => {
     navigate('/login'); // Navigate to login page
   };
 
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false)
+
+  const handleSwitchToggle = () => {
+    setIsLoginOpen(!isLoginOpen)
+    setIsSignUpOpen(!isSignUpOpen)
+  }
+
+  const onCreateAccountSuccess = () => {
+    navigate('/create-profile-step1')
+  }
   return (
     <div className="landing-layout">
-      <nav className="landing-navbar">
-      {user ? (
-              <div className="brand-link">
-              <img src="/logo.png" alt="StudyBuddy Logo" className="logo-img" />
-              <span className="brand-name">StudyBuddy</span>
-            </div>
-        ) : (
-          <Link to="/" className="brand-link">
-            <img src="/logo.png" alt="StudyBuddy Logo" className="logo-img" />
-            <span className="brand-name">StudyBuddy</span>
-          </Link>
-        )}
-
-        <div className="nav-buttons">
-          <button onClick={handleLoginClick} className="btn login-btn">Login</button>
-          <Link to="/signup" className="btn signup-btn">Sign Up</Link>
-          <ThemeToggle />
-        </div>
-      </nav>
-
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onSwitchToSignup={handleSwitchToggle}/>
+      <SignupModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} onSwitchToLogin={handleSwitchToggle} onSignupSuccess={onCreateAccountSuccess}/>
+      <Header 
+      onLoginClick={() => setIsLoginOpen(true)} 
+      onSignUpClick={() => setIsSignUpOpen(true)}
+      />
       <main className="landing-main">
-        <Outlet />
+        <HomePage openSignUp={() => setIsSignUpOpen(true)}/>
       </main>
     </div>
   );
