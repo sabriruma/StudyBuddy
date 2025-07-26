@@ -122,7 +122,7 @@ export default function SignupModal({ isOpen, onClose, onSwitchToLogin, onSignup
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-400 dark:bg-primary-700 dark:hover:bg-primary-600"
+                  className="w-full flex justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-400 dark:bg-primary-500 dark:hover:bg-primary-600"
                 >
                   {loading ? 'Creating Account...' : 'Create account'}
                 </button>

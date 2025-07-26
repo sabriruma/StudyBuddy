@@ -204,7 +204,7 @@ export default function Dashboard() {
                   />
                   <div className="match-info">
                     <strong>{match.fullName}</strong>
-                    <p style={{ margin: 0, fontSize: "0.85rem" }}>Mutual Score: {match.mutualScore}</p>
+                    <p style={{ margin: 0, fontSize: "0.85rem" }}>Mutual Score: {match.mutualScore}%</p>
                   </div>
                 </div>
               ))}

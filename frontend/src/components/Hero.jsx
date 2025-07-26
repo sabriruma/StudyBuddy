@@ -11,7 +11,7 @@ export default function Hero({ openSignUp }) {
         <div className="mt-10 flex justify-center space-x-4">
           <button 
             onClick={openSignUp}
-            className="bg-primary-500 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 text-white px-8 py-3 border border-transparent rounded-md text-base font-medium"
+            className="bg-primary-500 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white px-8 py-3 border border-transparent rounded-md text-base font-medium"
           >
             Get Started
           </button>

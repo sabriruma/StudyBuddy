@@ -21,7 +21,7 @@ export default function Features() {
     <section className="bg-gray-50 dark:bg-gray-800 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
-          <h2 className="text-base text-primary-500 dark:text-primary-400 font-semibold tracking-wide uppercase">Features</h2>
+          <h2 className="text-base text-primary-500 dark:text-primary-500 font-semibold tracking-wide uppercase">Features</h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
             Study better together
           </p>
