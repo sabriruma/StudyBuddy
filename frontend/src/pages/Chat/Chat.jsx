@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { db, auth } from "../../firebase/firebase";
 import {
   collection,
@@ -27,6 +28,7 @@ export default function Chat() {
   const [chatMessages, setChatMessages] = useState({});
   const [groupMessages, setGroupMessages] = useState({});
   const [showCreateModal, setShowCreateModal] = useState(false); // ✅ Modal control
+  const [searchParams] = useSearchParams();
 
   const selectedUser = confirmedUsers.find(user => user.id === selectedChat);
   const selectedGroupObj = groups.find(group => group.id === selectedGroup);
@@ -80,6 +82,18 @@ export default function Chat() {
   }, [currentUserId]);
 
   useEffect(() => {
+    const groupIdFromUrl = searchParams.get("groupId");
+    if (groupIdFromUrl && groups.length > 0) {
+      const exists = groups.some(group => group.id === groupIdFromUrl);
+      if (exists) {
+        setSelectedGroup(groupIdFromUrl);
+        setSelectedChat(null); // Make sure no individual chat is selected
+      }
+    }
+  }, [searchParams, groups]);
+  
+
+  useEffect(() => {
     if (!selectedChat || !currentUserId) return;
 
     const chatId = [currentUserId, selectedChat].sort().join("_");
@@ -107,28 +121,43 @@ export default function Chat() {
   }, [selectedGroup, currentUserId]);
 
   const handleSendMessage = async (chatPartnerId, messageText) => {
-    const chatId = [currentUserId, chatPartnerId].sort().join("_");
-    const messageRef = collection(db, "chats", chatId, "messages");
+  const chatColRef = collection(db, "chats");
 
-    await addDoc(messageRef, {
-      from: currentUserId,
-      to: chatPartnerId,
-      text: messageText,
-      timestamp: serverTimestamp()
-    });
-  };
+  const newChatDocRef = await addDoc(chatColRef, {
+    members: [currentUserId, chatPartnerId],
+    createdAt: serverTimestamp(),
+  });
 
-  const handleSendGroupMessage = async (groupId, messageText) => {
+  const messageColRef = collection(newChatDocRef, "messages");
+
+  await addDoc(messageColRef, {
+    senderId: currentUserId,
+    text: messageText,
+    timestamp: serverTimestamp(),
+  });
+};
+
+const handleSendGroupMessage = async (groupId, messageText) => {
+  try {
+    const userDocRef = doc(db, "users", currentUserId);
+    const userDocSnap = await getDoc(userDocRef);
+
+    const userData = userDocSnap.exists() ? userDocSnap.data() : {};
+    const senderName = `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim();
+
     const messageRef = collection(db, "groups", groupId, "messages");
-    const sender = confirmedUsers.find(user => user.id === currentUserId);
 
     await addDoc(messageRef, {
       from: currentUserId,
-      senderName: sender?.userName || "You",
+      senderName: senderName || "You",
       text: messageText,
-      timestamp: serverTimestamp()
+      timestamp: serverTimestamp(),
     });
-  };
+
+  } catch (error) {
+    console.error("Error sending group message:", error);
+  }
+};
 
   const onGroupUpdated = async () => {
     const ref = collection(db, "groups");

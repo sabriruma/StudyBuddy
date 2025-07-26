@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { db, auth } from "../../firebase/firebase";
 import {
   collection,
@@ -23,6 +24,7 @@ export default function Dashboard() {
   const [potentialMatches, setPotentialMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -39,7 +41,6 @@ export default function Dashboard() {
         const groupSnap = await getDocs(groupQuery);
         
         const groups = groupSnap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-        console.log("groups:", groups)
         const enrichedGroups = await Promise.all(groups.map(async group => {
           const messagesRef = collection(db, "groups", group.id, "messages");
           const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
@@ -52,38 +53,48 @@ export default function Dashboard() {
             unreadCount: 0
           };
         }));
+        console.log("enrichedGroups:", enrichedGroups)
+
         setGroupChats(enrichedGroups);
 
         // === INDIVIDUAL CHATS ===
-        const chatSnap = await getDocs(collection(db, "chats"));
+        const chatQuery = query(
+          collection(db, "chats"),
+          where("members", "array-contains", currentUserId)
+        );
+        const chatSnap = await getDocs(chatQuery);
         
         const chats = chatSnap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-        console.log("chats:", chats)
+        
 
-        const enrichedChats = await Promise.all(chats.map(async (docSnap) => {
-          const chatId = docSnap.id;
+        const enrichedChats = await Promise.all(
+  chats.map(async (chat) => {
+    const chatId = chat.id;
 
-          const messagesRef = collection(db, "chats", chatId, "messages");
-          const latestQuery = query(messagesRef, orderBy("timestamp", "desc"));
-          const latestSnap = await getDocs(latestQuery);
-          const lastMessage = latestSnap.docs[0]?.data();
+    const messagesRef = collection(db, "chats", chatId, "messages");
+    const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
+    const latestSnap = await getDocs(latestQuery);
+    const lastMessageDoc = latestSnap.docs[0];
 
-          if (!lastMessage || !lastMessage.from || !lastMessage.to) return null;
+    if (!lastMessageDoc) return null;
 
-          const otherUserId = lastMessage.from === currentUserId ? lastMessage.to : lastMessage.from;
-          const userDoc = await getDoc(doc(db, "users", otherUserId));
-          const userData = userDoc.exists() ? userDoc.data() : {};
+    const lastMessage = lastMessageDoc.data();
 
-          return {
-            chatId,
-            otherUserId,
-            displayName: `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim(),
-            avatar: userData.avatar || "/defaultAvatar.png",
-            lastMessage,
-            unreadCount: 0,
-          };
-        }));
+    const otherUserId = chat.members.find((id) => id !== currentUserId);
+    if (!otherUserId) return null;
 
+    const userDoc = await getDoc(doc(db, "users", otherUserId));
+    const userData = userDoc.exists() ? userDoc.data() : {};
+
+    return {
+      chatId,
+      otherUserId,
+      displayName: `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim(),
+      avatar: userData.avatar || "/defaultAvatar.png",
+      lastMessage,
+    };
+  })
+);
         setIndividualChats(enrichedChats.filter(Boolean));
 
         // === POTENTIAL MATCHES ===
@@ -138,24 +149,27 @@ export default function Dashboard() {
           {(groupChats.length > 0 || individualChats.length > 0) ? (
             <div className="recommended-matches-scroll">
               {groupChats.map(group => (
-                <div key={group.id} className="group-chat-item">
-<div className="group-chat-header">
-      <img
-        src={group.avatar || "/defaultGroup.png"}
-        alt="Group"
-        className="group-chat-avatar"
-      />
-      <div className="group-chat-title">
-        <h3>
-          {group.name}
-          {group.unreadCount > 0 && (
-            <span className="unread-badge">{group.unreadCount}</span>
-          )}
-        </h3>
-      </div>
-    </div>
+                <div key={group.id} className="group-chat-item"
+                onClick={() => navigate(`/chat?groupId=${group.id}`)} 
+                style={{ cursor: "pointer" }}
+                >
+              <div className="group-chat-header">
+              <img
+                src={group.avatar || "/defaultGroup.png"}
+                alt="Group"
+                className="group-chat-avatar"
+              />
+              <div className="group-chat-title">
+                <h3>
+                  {group.name}
+                  {group.unreadCount > 0 && (
+                  <span className="unread-badge">{group.unreadCount}</span>
+                  )}
+                </h3>
+              </div>
+            </div>
                   <p className="group-chat-preview">
-                    <strong>{group.lastMessage?.sender || "System"}:</strong>{" "}
+                    <strong>{group.lastMessage?.from === currentUserId ? "You" : group.lastMessage?.senderName}:</strong>{" "}
                     {group.lastMessage?.text || "No messages yet."}
                   </p>
                 </div>
@@ -178,7 +192,7 @@ export default function Dashboard() {
     </div>
   </div>
   <p className="group-chat-preview">
-    <strong>{chat.lastMessage?.from === currentUserId ? "You" : chat.displayName}:</strong>{" "}
+    <strong>{chat.lastMessage?.senderId === currentUserId ? "You" : chat.displayName}:</strong>{" "}
     {chat.lastMessage?.text || "Say hello!"}
   </p>
 </div>
@@ -204,7 +218,7 @@ export default function Dashboard() {
                   />
                   <div className="match-info">
                     <strong>{match.fullName}</strong>
-                    <p style={{ margin: 0, fontSize: "0.85rem" }}>Mutual Score: {match.mutualScore}%</p>
+                    <p style={{ margin: 0, fontSize: "0.85rem" }}>Mutual Score: {match.mutualScore}</p>
                   </div>
                 </div>
               ))}
