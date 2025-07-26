@@ -70,6 +70,7 @@ export default function ChatWindow({ selectedChat, chatDisplayName, messages, on
     }
   };
 
+  console.log("messages:", messages)
   //test
   return (
     <div className="chat-window">
@@ -80,7 +81,7 @@ export default function ChatWindow({ selectedChat, chatDisplayName, messages, on
       {messages.map((msg, idx) => (
         <div
           key={idx}
-          className={`chat-bubble ${msg.from === selectedChat ? "incoming" : "outgoing"}`}
+          className={`chat-bubble ${msg.senderId === selectedChat ? "incoming" : "outgoing"}`}
         >
           {msg.text}
         </div>
