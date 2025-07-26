@@ -1,7 +1,7 @@
 // src/components/ActivityFeed.jsx
 import { useState } from 'react';
 
-// Mock activity data - replace with real data later
+/* replace this with Sean's stuff later*/
 const mockActivities = [
   {
     id: 1,
