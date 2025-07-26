@@ -9,7 +9,7 @@ import {
   query,
   where,
   orderBy,
-  limit
+  limit,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
@@ -17,6 +17,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./Dashboard.css";
 import "./DashboardCalendar.css";
+import ChatAndGroupComponent from "./ChatAndGroupComponent";
+import useFetchChatsByUserId from "../../hooks/useFetchChatsByUserId";
 
 export default function Dashboard() {
   const [groupChats, setGroupChats] = useState([]);
@@ -24,7 +26,7 @@ export default function Dashboard() {
   const [potentialMatches, setPotentialMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -39,21 +41,29 @@ export default function Dashboard() {
           where("members", "array-contains", currentUserId)
         );
         const groupSnap = await getDocs(groupQuery);
-        
-        const groups = groupSnap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-        const enrichedGroups = await Promise.all(groups.map(async group => {
-          const messagesRef = collection(db, "groups", group.id, "messages");
-          const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
-          const latestSnap = await getDocs(latestQuery);
-          const lastMessage = latestSnap.docs[0]?.data();
 
-          return {
-            ...group,
-            lastMessage,
-            unreadCount: 0
-          };
+        const groups = groupSnap.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
         }));
-        console.log("enrichedGroups:", enrichedGroups)
+        const enrichedGroups = await Promise.all(
+          groups.map(async (group) => {
+            const messagesRef = collection(db, "groups", group.id, "messages");
+            const latestQuery = query(
+              messagesRef,
+              orderBy("timestamp", "desc"),
+              limit(1)
+            );
+            const latestSnap = await getDocs(latestQuery);
+            const lastMessage = latestSnap.docs[0]?.data();
+
+            return {
+              ...group,
+              lastMessage,
+              unreadCount: 0,
+            };
+          })
+        );
 
         setGroupChats(enrichedGroups);
 
@@ -63,65 +73,84 @@ export default function Dashboard() {
           where("members", "array-contains", currentUserId)
         );
         const chatSnap = await getDocs(chatQuery);
-        
-        const chats = chatSnap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-        
+
+        const chats = chatSnap.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+        }));
 
         const enrichedChats = await Promise.all(
-  chats.map(async (chat) => {
-    const chatId = chat.id;
+          chats.map(async (chat) => {
+            const chatId = chat.id;
 
-    const messagesRef = collection(db, "chats", chatId, "messages");
-    const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
-    const latestSnap = await getDocs(latestQuery);
-    const lastMessageDoc = latestSnap.docs[0];
+            const messagesRef = collection(db, "chats", chatId, "messages");
+            const latestQuery = query(
+              messagesRef,
+              orderBy("timestamp", "desc"),
+              limit(1)
+            );
+            const latestSnap = await getDocs(latestQuery);
+            const lastMessageDoc = latestSnap.docs[0];
 
-    if (!lastMessageDoc) return null;
+            if (!lastMessageDoc) return null;
 
-    const lastMessage = lastMessageDoc.data();
+            const lastMessage = lastMessageDoc.data();
 
-    const otherUserId = chat.members.find((id) => id !== currentUserId);
-    if (!otherUserId) return null;
+            const otherUserId = chat.members.find((id) => id !== currentUserId);
+            if (!otherUserId) return null;
 
-    const userDoc = await getDoc(doc(db, "users", otherUserId));
-    const userData = userDoc.exists() ? userDoc.data() : {};
+            const userDoc = await getDoc(doc(db, "users", otherUserId));
+            const userData = userDoc.exists() ? userDoc.data() : {};
 
-    return {
-      chatId,
-      otherUserId,
-      displayName: `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim(),
-      avatar: userData.avatar || "/defaultAvatar.png",
-      lastMessage,
-    };
-  })
-);
+            return {
+              chatId,
+              otherUserId,
+              displayName: `${userData.firstName || "Unknown"} ${
+                userData.lastName || ""
+              }`.trim(),
+              avatar: userData.avatar || "/defaultAvatar.png",
+              lastMessage,
+            };
+          })
+        );
         setIndividualChats(enrichedChats.filter(Boolean));
 
         // === POTENTIAL MATCHES ===
         const matchesRef = collection(db, "users", currentUserId, "matches");
-        const confirmedRef = collection(db, "users", currentUserId, "confirmedMatches");
+        const confirmedRef = collection(
+          db,
+          "users",
+          currentUserId,
+          "confirmedMatches"
+        );
 
         const [matchesSnap, confirmedSnap] = await Promise.all([
           getDocs(matchesRef),
-          getDocs(confirmedRef)
+          getDocs(confirmedRef),
         ]);
 
-        const confirmedIds = new Set(confirmedSnap.docs.map(doc => doc.id));
+        const confirmedIds = new Set(confirmedSnap.docs.map((doc) => doc.id));
 
-        const recommended = await Promise.all(matchesSnap.docs
-          .filter(matchDoc => !confirmedIds.has(matchDoc.id))
-          .map(async (matchDoc) => {
-            const matchData = matchDoc.data();
-            const profileDoc = await getDoc(doc(db, "users", matchData.userId));
-            const profile = profileDoc.exists() ? profileDoc.data() : {};
+        const recommended = await Promise.all(
+          matchesSnap.docs
+            .filter((matchDoc) => !confirmedIds.has(matchDoc.id))
+            .map(async (matchDoc) => {
+              const matchData = matchDoc.data();
+              const profileDoc = await getDoc(
+                doc(db, "users", matchData.userId)
+              );
+              const profile = profileDoc.exists() ? profileDoc.data() : {};
 
-            return {
-              userId: matchData.userId,
-              avatar: profile.avatar || "/SBmascot.png",
-              fullName: `${profile.firstName || "Unknown"} ${profile.lastName || ""}`,
-              mutualScore: matchData.mutualScore || 0
-            };
-          }));
+              return {
+                userId: matchData.userId,
+                avatar: profile.avatar || "/SBmascot.png",
+                fullName: `${profile.firstName || "Unknown"} ${
+                  profile.lastName || ""
+                }`,
+                mutualScore: matchData.mutualScore || 0,
+              };
+            })
+        );
 
         setPotentialMatches(recommended);
         setLoading(false);
@@ -134,11 +163,37 @@ export default function Dashboard() {
     return () => unsubscribe();
   }, []);
 
-  
+  const [combinedGroupsAndChats, setCombinedGroupsAndChats] = useState([]);
+
+  useEffect(() => {
+    if (!groupChats && !individualChats) return;
+
+    const combined = [...groupChats, ...individualChats];
+
+    combined.sort((a, b) => {
+      const aTimestamp = a.lastMessage?.timestamp?.seconds ?? 0;
+      const bTimestamp = b.lastMessage?.timestamp?.seconds ?? 0;
+
+      if (aTimestamp === bTimestamp) {
+        const aNanos = a.lastMessage?.timestamp?.nanoseconds ?? 0;
+        const bNanos = b.lastMessage?.timestamp?.nanoseconds ?? 0;
+        return aNanos - bNanos;
+      }
+
+      return bTimestamp - aTimestamp;
+    });
+
+    setCombinedGroupsAndChats(combined);
+  }, [groupChats, individualChats]);
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <img src="/SBmascot.png" alt="StudyBuddy Mascot" className="mascot-img" />
+        <img
+          src="/SBmascot.png"
+          alt="StudyBuddy Mascot"
+          className="mascot-img"
+        />
         <h1 className="dashboard-title">Welcome to the Den, StudyBuddy!</h1>
       </div>
 
@@ -146,62 +201,26 @@ export default function Dashboard() {
         {/* === GROUP & CHAT CARD === */}
         <div className="dashboard-card">
           <h2>Chats & Study Groups</h2>
-          {(groupChats.length > 0 || individualChats.length > 0) ? (
-            <div className="recommended-matches-scroll">
-              {groupChats.map(group => (
-                <div key={group.id} className="group-chat-item"
-                onClick={() => navigate(`/chat?groupId=${group.id}`)} 
-                style={{ cursor: "pointer" }}
-                >
-              <div className="group-chat-header">
-              <img
-                src={group.avatar || "/defaultGroup.png"}
-                alt="Group"
-                className="group-chat-avatar"
-              />
-              <div className="group-chat-title">
-                <h3>
-                  {group.name}
-                  {group.unreadCount > 0 && (
-                  <span className="unread-badge">{group.unreadCount}</span>
-                  )}
-                </h3>
-              </div>
-            </div>
-                  <p className="group-chat-preview">
-                    <strong>{group.lastMessage?.from === currentUserId ? "You" : group.lastMessage?.senderName}:</strong>{" "}
-                    {group.lastMessage?.text || "No messages yet."}
-                  </p>
-                </div>
-              ))}
-              {individualChats.map((chat) => (
-                <div key={chat.chatId} className="group-chat-item">
-  <div className="group-chat-header">
-    <img
-      src={chat.avatar || "/defaultAvatar.png"}
-      alt={chat.displayName}
-      className="group-chat-avatar"
-    />
-    <div className="group-chat-title">
-      <h3>
-        {chat.displayName}
-        {chat.unreadCount > 0 && (
-          <span className="unread-badge">{chat.unreadCount}</span>
-        )}
-      </h3>
-    </div>
-  </div>
-  <p className="group-chat-preview">
-    <strong>{chat.lastMessage?.senderId === currentUserId ? "You" : chat.displayName}:</strong>{" "}
-    {chat.lastMessage?.text || "Say hello!"}
-  </p>
-</div>
-              ))}
+          {groupChats.length > 0 || individualChats.length > 0 ? (
+            <div className="flex flex-col overflow-y-auto gap-3 max-h-[400px]">
+              {combinedGroupsAndChats.map((item) => {
+                return (
+                  <ChatAndGroupComponent
+                    item={item}
+                    currentUserId={currentUserId}
+                  />
+                );
+              })}
             </div>
           ) : (
-            <p>No chats or groups yet. <Link to="/match">Start matching now!</Link></p>
+            <p>
+              No chats or groups yet.{" "}
+              <Link to="/match">Start matching now!</Link>
+            </p>
           )}
-          <Link to="/chat" className="dashboard-btn">Go to Chats</Link>
+          <Link to="/chat" className="dashboard-btn">
+            Go to Chats
+          </Link>
         </div>
 
         {/* === POTENTIAL MATCHES === */}
@@ -218,15 +237,22 @@ export default function Dashboard() {
                   />
                   <div className="match-info">
                     <strong>{match.fullName}</strong>
-                    <p style={{ margin: 0, fontSize: "0.85rem" }}>Mutual Score: {match.mutualScore}</p>
+                    <p style={{ margin: 0, fontSize: "0.85rem" }}>
+                      Mutual Score: {match.mutualScore}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p>No new matches yet. <Link to="/matching">Run the matching algorithm to begin!</Link></p>
+            <p>
+              No new matches yet.{" "}
+              <Link to="/matching">Run the matching algorithm to begin!</Link>
+            </p>
           )}
-          <Link to="/matching" className="dashboard-btn">Find More Matches</Link>
+          <Link to="/matching" className="dashboard-btn">
+            Find More Matches
+          </Link>
         </div>
 
         {/* === CALENDAR === */}
@@ -238,19 +264,22 @@ export default function Dashboard() {
             tileClassName={({ date }) => {
               try {
                 const dateStr = date?.toISOString?.().split("T")[0];
-                const highlightDates = ['2025-06-01', '2025-06-04', '2025-06-10'];
+                const highlightDates = [
+                  "2025-06-01",
+                  "2025-06-04",
+                  "2025-06-10",
+                ];
                 return highlightDates.includes(dateStr) ? "highlight" : null;
               } catch {
                 return null;
               }
             }}
           />
-          <Link to="/calendar" className="dashboard-btn">View Full Calendar</Link>
+          <Link to="/calendar" className="dashboard-btn">
+            View Full Calendar
+          </Link>
         </div>
       </div>
     </div>
   );
 }
-
-
-
