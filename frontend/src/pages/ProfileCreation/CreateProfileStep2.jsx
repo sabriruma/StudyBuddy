@@ -15,7 +15,7 @@ const majorsBySchool = {
   ]
 };
 
-export default function CreateProfileStep2() {
+export default function CreateProfileStep2({handleGoNextStep, handleGoBackStep}) {
   const navigate = useNavigate();
   const location = useLocation();
   const prevData = location.state || {};
@@ -80,7 +80,7 @@ const handleMajorSelect = (major) => {
     e.preventDefault();
     await saveProfilePart(academicInfo);
     const combinedData = { ...prevData, ...academicInfo };
-    navigate('/create-profile-step3', { state: combinedData });
+    handleGoNextStep()
   };
 
   <style>
@@ -103,7 +103,7 @@ const handleMajorSelect = (major) => {
 </style>
 
   return (
-    <ProfileLayout>
+    <div className='profile-card'>
       <h2>Step 2: Academic Info</h2>
       <form onSubmit={handleNext}>
         <label>Academic Level</label>
@@ -247,8 +247,11 @@ const handleMajorSelect = (major) => {
           </>
         )}
 
-        <button type="submit" style={{ marginTop: '1rem' }}>Next</button>
+        <div className="step3-buttons gap-10">
+            <button type="button" onClick={handleGoBackStep}>Back</button>
+            <button type="submit" onClick={handleGoNextStep}>Next</button>
+          </div>
       </form>
-    </ProfileLayout>
+    </div>
   );
 }

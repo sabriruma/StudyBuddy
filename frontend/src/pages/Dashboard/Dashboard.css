@@ -87,18 +87,8 @@
     gap: 0.75rem;
     padding-right: 0.5rem; /* for scrollbar spacing */
   }
+
   
-  .match-row {
-    background-color: var(--bg-color);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    color: var(--text-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
   
   .match-row strong {
     font-size: 0.95rem;
@@ -145,3 +135,107 @@
   margin-left: 8px;
   vertical-align: middle;
 }
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.group-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.group-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.unread-badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+.group-chat-item {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.group-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.group-chat-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.group-chat-title h3 {
+  margin: 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unread-badge {
+  background-color: red;
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  padding: 2px 6px;
+  margin-left: 6px;
+}
+
+.group-chat-preview {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.match-row {
+  background-color: var(--bg-color);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.match-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.match-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mutual-score {
+  font-size: 0.85rem;
+  margin-top: 2px;
+  color: var(--text-color);
+}
+

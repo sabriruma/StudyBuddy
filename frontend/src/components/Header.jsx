@@ -29,7 +29,7 @@ export default function Header({onLoginClick, onSignUpClick}) {
         <div className="flex justify-between h-16">
           <div className="flex items-center gap-4">
             <img src="/logo.png" alt="primary-500 Logo" className="logo-img" />
-            <span className="text-xl font-bold text-black dark:text-white">StudyBuddy</span>
+            <span className="text-xl font-bold text-primary-500">StudyBuddy</span>
           </div>
 
           <nav className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">

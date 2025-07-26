@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveProfilePart } from '../../firebase/saveProfilePart';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { auth } from '../../firebase/firebase';
 import './CreateProfileStep3.css';
 import backgroundImage from '../../ComponentsMain/SBBG.png';
 
-export default function CreateProfileStep3() {
+export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, handleResetSteps}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     studyEnvironment: '',
@@ -25,27 +25,21 @@ export default function CreateProfileStep3() {
   const handleNext = async (e) => {
     e.preventDefault();
     await saveProfilePart(formData);
-  
-    // Wait until Firebase confirms auth
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate('/dashboard');
-      } else {
-        // fallback if something went wrong
-        navigate('/');
-      }
-    });
+
+    const user = getAuth().currentUser;
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
   };
 
   const handleBack = () => {
-    navigate('/create-profile-step2');
+    handleGoBackStep()
   };
 
   return (
-<div
-  className="step3-container"
-  style={{ backgroundImage: `url(${backgroundImage})` }}
->
+<div className='profile-card'>
   <div className="step3-card">
         <h2>Step 3: Study Style Info</h2>
         <form onSubmit={handleNext}>
@@ -178,9 +172,9 @@ export default function CreateProfileStep3() {
 </div>
           </div>
 
-          <div className="step3-buttons">
+          <div className="step3-buttons gap-10">
             <button type="button" onClick={handleBack}>Back</button>
-            <button type="submit">Next</button>
+            <button type="submit">Done</button>
           </div>
         </form>
       </div>

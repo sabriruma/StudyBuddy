@@ -8,6 +8,12 @@ const avatars = [
   '/SBmascot.png',
   '/SBmascotG.png',
   '/SBmascotR.png',
+  '/sb_boba.png',
+  '/sb_fishing.png',
+  '/sb_gamer.png',
+  '/studybuddy-mad-gamer.png',
+  '/sb-study.png',
+  '/SBMascotTeach.png',
 ];
 
 const styles = {
@@ -27,7 +33,7 @@ const styles = {
   },
 };
 
-export default function CreateProfileStep1() {
+export default function CreateProfileStep1({handleGoNextStep}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -54,7 +60,7 @@ export default function CreateProfileStep1() {
     };
 
     await saveProfilePart(dataToSave);
-    navigate('/create-profile-step2');
+    handleGoNextStep()
   };
 
   const handleCityChange = (e) => {
@@ -77,7 +83,7 @@ setFormData(prev => ({ ...prev, location: city }));
   };
 
   return (
-    <ProfileLayout>
+    <div className='profile-card'>
       <h2>Step 1: Your Info</h2>
       <form onSubmit={handleNext}>
         <label>First Name</label>
@@ -165,6 +171,6 @@ setFormData(prev => ({ ...prev, location: city }));
 
         <button type="submit" style={{ marginTop: '1rem' }}>Next</button>
       </form>
-    </ProfileLayout>
+    </div>
   );
 }
