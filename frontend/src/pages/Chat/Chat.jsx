@@ -158,6 +158,7 @@ export default function Chat() {
             chatDisplayName={selectedUser.userName || "Student"}
             messages={chatMessages[selectedChat] || []}
             onSendMessage={handleSendMessage}
+            currentUserId={currentUserId}
           />
         ) : selectedGroup && selectedGroupObj ? (
           <GroupChatWindow

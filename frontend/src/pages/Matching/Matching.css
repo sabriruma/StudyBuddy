@@ -136,3 +136,8 @@
   color: var(--text-muted);
   cursor: not-allowed;
 }
+
+.connect-btn.pending {
+  background-color: #ffa726; /* Orange for pending state */
+  color: white;
+}

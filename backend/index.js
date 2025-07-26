@@ -1,6 +1,5 @@
 const express = require('express');
 const admin = require('firebase-admin');
-const apiRoutes = require('./api');
 const cors = require('cors');
 
 // --- Handle local vs vercel service account key ---
@@ -24,6 +23,9 @@ module.exports = db;
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Import API routes after Firebase is initialized
+const apiRoutes = require('./api');
 app.use('/api', apiRoutes);
 
 const PORT = process.env.PORT || 3001;

@@ -1,6 +1,31 @@
 const admin = require('firebase-admin');
 
-const MAX_SCORE = 51; // Maximum possible raw score for normalization
+function calculateMaxPossibleScore(user) {
+  let maxScore = 0;
+  
+  // Course overlap (fixed +10)
+  maxScore += 10;
+  
+  // Study method (user-defined importance)
+  maxScore += Number(user.importanceStudyMethod) || 0;
+  
+  // Study time (user-defined importance)
+  maxScore += Number(user.importanceStudyTime) || 0;
+  
+  // Study environment (user-defined importance)
+  maxScore += Number(user.importanceStudyEnvironment) || 0;
+  
+  // Academic level (fixed +5)
+  maxScore += 5;
+  
+  // Same school (fixed +2)
+  maxScore += 2;
+  
+  // Same major (fixed +4)
+  maxScore += 4;
+  
+  return maxScore;
+}
 
 function calculateMatchScore(userA, userB) {
   let score = 0;
@@ -50,6 +75,9 @@ function calculateMatchScore(userA, userB) {
 
 function matchUsersV2(currentUser, allUsers) {
   const matchList = [];
+  
+  // Calculate the maximum possible score for the current user
+  const maxPossibleScore = calculateMaxPossibleScore(currentUser);
 
   for (const otherUser of allUsers) {
     if (currentUser.id === otherUser.id) continue;
@@ -60,10 +88,10 @@ function matchUsersV2(currentUser, allUsers) {
     if (matchAtoB.score < 0 || matchBtoA.score < 0) continue;
 
     const mutualScore = (matchAtoB.score + matchBtoA.score) / 2;
-    // Normalize the score to be out of 100 and round to nearest integer
-    const normalizedScore = Math.round((mutualScore / MAX_SCORE) * 100);
+    // Normalize the score to be out of 100 based on the user's actual maximum possible score
+    const normalizedScore = Math.round((mutualScore / maxPossibleScore) * 100);
 
-    if (normalizedScore >= Math.round((15 / MAX_SCORE) * 100)) { // keep the same threshold logic
+    if (normalizedScore >= Math.round((15 / maxPossibleScore) * 100)) { // back to original threshold of 15
       matchList.push({
         userId: otherUser.id,
         userName: `${otherUser.firstName} ${otherUser.lastName}`,
@@ -74,7 +102,7 @@ function matchUsersV2(currentUser, allUsers) {
     }
   }
 
-  return matchList.sort((a, b) => b.mutualScore - a.mutualScore).slice(0, 5);
+  return matchList.sort((a, b) => b.mutualScore - a.mutualScore).slice(0, 6); // adjusted to 6 users
 }
 
 async function runMatchingForUser(userId) {

@@ -1,10 +1,13 @@
 const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://studybuddy-8f130.firebaseio.com"
-});
+// Check if Firebase is already initialized
+let db;
+try {
+  db = admin.firestore();
+} catch (error) {
+  // If not initialized, this will be handled by index.js
+  console.log("Firebase not yet initialized, will be handled by index.js");
+  db = null;
+}
 
-const db = admin.firestore();
 module.exports = db;

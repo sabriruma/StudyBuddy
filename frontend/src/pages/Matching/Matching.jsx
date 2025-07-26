@@ -28,12 +28,14 @@ export default function Matching() {
   const userId = user?.uid;
   const [matches, setMatches] = useState([]);
   const [confirmedMatches, setConfirmedMatches] = useState({});
+  const [pendingRequests, setPendingRequests] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (userId) {
       fetchMatches();
       fetchConfirmedMatches();
+      fetchPendingRequests();
     }
   }, [userId]);
 
@@ -42,7 +44,7 @@ export default function Matching() {
     setLoading(true);
     try {
       const matchRef = collection(db, `users/${userId}/matches`);
-      const q = query(matchRef, orderBy('mutualScore', 'desc'), limit(5));
+      const q = query(matchRef, orderBy('mutualScore', 'desc'), limit(6));
       const snapshot = await getDocs(q);
 
       const matchList = await Promise.all(snapshot.docs.map(async (docSnap) => {
@@ -91,53 +93,52 @@ export default function Matching() {
     }
   }
 
-  async function handleConnect(matchUserId, matchData) {
+  // Fetch pending connection requests
+  async function fetchPendingRequests() {
     try {
-      const currentUserRef = doc(db, `users/${userId}/confirmedMatches/${matchUserId}`);
-      const matchUserRef = doc(db, `users/${matchUserId}/confirmedMatches/${userId}`);
+      const ref = collection(db, `users/${userId}/pendingRequests`);
+      const snapshot = await getDocs(ref);
+      const pending = {};
+      snapshot.docs.forEach(doc => {
+        pending[doc.id] = true;
+      });
+      setPendingRequests(pending);
+    } catch (error) {
+      console.error("Error fetching pending requests:", error);
+    }
+  }
 
-      await setDoc(currentUserRef, matchData);
-      await setDoc(matchUserRef, { fromMatch: true });
+  async function handleConnect(matchUserId, matchData) {
+    setLoading(true);
+    try {
+      // 1) Record your one-way intent
+      await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/matchRequest/${userId}/${matchUserId}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(matchData),
+        }
+      );
 
-      setConfirmedMatches(prev => ({ ...prev, [matchUserId]: true }));
+      // 2) Immediately process any mutual requests for you
+      await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/processMutualRequests/${userId}`,
+        { method: 'POST' }
+      );
+
+      // 3) Refresh all lists
+      await fetchMatches();
+      await fetchConfirmedMatches();
+      await fetchPendingRequests();
     } catch (err) {
-      console.error("Error confirming match:", err);
+      console.error('Error connecting:', err);
+    } finally {
+      setLoading(false);
     }
   }
   
-  //New function for connecting users
 
-  /*
-  async function handleConnect(matchUserId, matchData) {
-  setLoading(true);
-  try {
-    // 1) Record your one-way intent
-    await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/api/matchRequest/${userId}/${matchUserId}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(matchData),
-      }
-    );
-
-    // 2) Immediately process any mutual requests for you
-    await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/api/processMutualRequests/${userId}`,
-      { method: 'POST' }
-    );
-
-    // 3) Refresh both suggestion and confirmed lists
-    await fetchMatches();
-    await fetchConfirmedMatches();
-  } catch (err) {
-    console.error('Error connecting:', err);
-    } finally {
-    setLoading(false);
-    }
-  }
-  */
-  //Some space
   
   // Trigger matching algorithm again (if needed)
   async function runMatching() {
@@ -168,6 +169,7 @@ export default function Matching() {
 
         {matches.map((match) => {
           const isConnected = confirmedMatches[match.id];
+          const isPending = pendingRequests[match.id];
 
           return (
             <div key={match.id} className="match-card">
@@ -206,7 +208,7 @@ export default function Matching() {
 </div>
 
               <div className="match-details">
-                <p><strong>Mutual Score:</strong> {match.mutualScore}</p>
+                <p><strong>Mutual Score:</strong> {match.mutualScore}%</p>
                 <p><strong>Reasons:</strong></p>
                 <ul>
                   {match.reasonsAtoB && match.reasonsAtoB.map((reason, i) => (
@@ -216,11 +218,11 @@ export default function Matching() {
               </div>
 
               <button
-                className={`connect-btn ${isConnected ? 'connected' : ''}`}
+                className={`connect-btn ${isConnected ? 'connected' : ''} ${isPending ? 'pending' : ''}`}
                 onClick={() => handleConnect(match.id, match)}
-                disabled={isConnected}
+                disabled={isConnected || isPending}
               >
-                {isConnected ? "Connected!" : "Connect"}
+                {isConnected ? "Connected!" : isPending ? "Request Sent" : "Connect"}
               </button>
             </div>
           );
