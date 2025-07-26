@@ -28,6 +28,7 @@ export default function Dashboard() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) return;
       const currentUserId = user.uid;
+      setCurrentUserId(currentUserId);
 
       try {
         // === GROUP CHATS ===
@@ -54,57 +55,62 @@ export default function Dashboard() {
 
         // === INDIVIDUAL CHATS ===
         const chatSnap = await getDocs(collection(db, "chats"));
-        // Filter to chats involving currentUserId:
         const userChats = chatSnap.docs.filter(docSnap => {
           const chatId = docSnap.id;
-          // Assuming chatId is "uid1_uid2" sorted lexicographically
           const participants = chatId.split("_");
           return participants.includes(currentUserId);
         });
-  
+
         const enrichedChats = await Promise.all(userChats.map(async (docSnap) => {
           const chatId = docSnap.id;
           const messagesRef = collection(db, "chats", chatId, "messages");
           const latestQuery = query(messagesRef, orderBy("timestamp", "desc"), limit(1));
           const latestSnap = await getDocs(latestQuery);
           const lastMessage = latestSnap.docs[0]?.data();
-  
+
           if (!lastMessage || !lastMessage.from || !lastMessage.to) return null;
-  
-          // Identify the other user ID in the chat:
+
           const otherUserId = lastMessage.from === currentUserId ? lastMessage.to : lastMessage.from;
-  
-          // Get other user profile:
           const userDoc = await getDoc(doc(db, "users", otherUserId));
           const userData = userDoc.exists() ? userDoc.data() : {};
-  
+
           return {
             chatId,
             otherUserId,
             displayName: `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim(),
-            avatar: userData.avatar || "/defaultAvatar.png",  // optional
+            avatar: userData.avatar || "/defaultAvatar.png",
             lastMessage,
-            unreadCount: 0,  // update as needed
+            unreadCount: 0,
           };
         }));
-  
+
         setIndividualChats(enrichedChats.filter(Boolean));
-  
 
         // === POTENTIAL MATCHES ===
-        const matchesSnap = await getDocs(collection(db, "users", currentUserId, "matches"));
-        const recommended = await Promise.all(matchesSnap.docs.map(async (matchDoc) => {
-          const matchData = matchDoc.data();
-          const profileDoc = await getDoc(doc(db, "users", matchData.userId));
-          const profile = profileDoc.exists() ? profileDoc.data() : {};
+        const matchesRef = collection(db, "users", currentUserId, "matches");
+        const confirmedRef = collection(db, "users", currentUserId, "confirmedMatches");
 
-          return {
-            userId: matchData.userId,
-            avatar: profile.avatar || "/SBmascot.png",
-            fullName: `${profile.firstName || "Unknown"} ${profile.lastName || ""}`,
-            mutualScore: matchData.mutualScore || 0
-          };
-        }));
+        const [matchesSnap, confirmedSnap] = await Promise.all([
+          getDocs(matchesRef),
+          getDocs(confirmedRef)
+        ]);
+
+        const confirmedIds = new Set(confirmedSnap.docs.map(doc => doc.id));
+
+        const recommended = await Promise.all(matchesSnap.docs
+          .filter(matchDoc => !confirmedIds.has(matchDoc.id))
+          .map(async (matchDoc) => {
+            const matchData = matchDoc.data();
+            const profileDoc = await getDoc(doc(db, "users", matchData.userId));
+            const profile = profileDoc.exists() ? profileDoc.data() : {};
+
+            return {
+              userId: matchData.userId,
+              avatar: profile.avatar || "/SBmascot.png",
+              fullName: `${profile.firstName || "Unknown"} ${profile.lastName || ""}`,
+              mutualScore: matchData.mutualScore || 0
+            };
+          }));
 
         setPotentialMatches(recommended);
         setLoading(false);
@@ -129,50 +135,49 @@ export default function Dashboard() {
         <div className="dashboard-card">
           <h2>Chats & Study Groups</h2>
           {(groupChats.length > 0 || individualChats.length > 0) ? (
-  <div className="group-chat-list">
-    {groupChats.map(group => (
-      <div key={group.id} className="group-chat-item">
-        <h3>
-          <img
-            src={group.avatar || "/defaultGroup.png"}
-            alt="Group"
-            style={{ width: "24px", height: "24px", borderRadius: "50%", marginRight: "8px", verticalAlign: "middle" }}
-          />
-          {group.name}
-          {group.unreadCount > 0 && (
-            <span className="unread-badge">{group.unreadCount}</span>
+            <div className="group-chat-list">
+              {groupChats.map(group => (
+                <div key={group.id} className="group-chat-item">
+                  <h3>
+                    <img
+                      src={group.avatar || "/defaultGroup.png"}
+                      alt="Group"
+                      style={{ width: "24px", height: "24px", borderRadius: "50%", marginRight: "8px", verticalAlign: "middle" }}
+                    />
+                    {group.name}
+                    {group.unreadCount > 0 && (
+                      <span className="unread-badge">{group.unreadCount}</span>
+                    )}
+                  </h3>
+                  <p>
+                    <strong>{group.lastMessage?.sender || "System"}:</strong>{" "}
+                    {group.lastMessage?.text || "No messages yet."}
+                  </p>
+                </div>
+              ))}
+              {individualChats.map((chat) => (
+                <div key={chat.chatId} className="group-chat-item">
+                  <h3>
+                    <img
+                      src={chat.avatar}
+                      alt={chat.displayName}
+                      style={{ width: "24px", height: "24px", borderRadius: "50%", marginRight: "8px", verticalAlign: "middle" }}
+                    />
+                    {chat.displayName}
+                    {chat.unreadCount > 0 && (
+                      <span className="unread-badge">{chat.unreadCount}</span>
+                    )}
+                  </h3>
+                  <p>
+                    <strong>{chat.lastMessage.from === currentUserId ? "You" : chat.displayName}:</strong>{" "}
+                    {chat.lastMessage.text || "Say hello!"}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No chats or groups yet. <Link to="/match">Start matching now!</Link></p>
           )}
-        </h3>
-        <p>
-          <strong>{group.lastMessage?.sender || "System"}:</strong>{" "}
-          {group.lastMessage?.text || "No messages yet."}
-        </p>
-      </div>
-    ))}
-    {individualChats.map((chat) => (
-      <div key={chat.chatId} className="group-chat-item">
-        <h3>
-          <img
-            src={chat.avatar}
-            alt={chat.displayName}
-            style={{ width: "24px", height: "24px", borderRadius: "50%", marginRight: "8px", verticalAlign: "middle" }}
-          />
-          {chat.displayName}
-          {chat.unreadCount > 0 && (
-            <span className="unread-badge">{chat.unreadCount}</span>
-          )}
-        </h3>
-        <p>
-          <strong>{chat.lastMessage.from === currentUserId ? "You" : chat.displayName}:</strong>{" "}
-          {chat.lastMessage.text || "Say hello!"}
-        </p>
-      </div>
-    ))}
-  </div>
-) : (
-  <p>No chats or groups yet. <Link to="/match">Start matching now!</Link></p>
-)}
-
           <Link to="/chat" className="dashboard-btn">Go to Chats</Link>
         </div>
 
@@ -223,5 +228,6 @@ export default function Dashboard() {
     </div>
   );
 }
+
 
 
