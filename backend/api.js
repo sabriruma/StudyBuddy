@@ -68,14 +68,14 @@ router.post('/processMutualRequests/:userId', async (req, res) => {
       
       if (mutualRequestDoc.exists) {
         // Both users want to connect - create a chat and mark as confirmed
-        const chatId = `${userId}_${targetUserId}`;
-        
-        // Create chat document
-        await db.collection('chats').doc(chatId).set({
-          participants: [userId, targetUserId],
+        // Use dynamic chat creation (let Firestore generate the ID)
+        const chatRef = await db.collection('chats').add({
+          members: [userId, targetUserId],
           createdAt: new Date(),
           lastMessage: null
         });
+        
+        const chatId = chatRef.id;
         
         // Mark both requests as confirmed
         await db.collection('users').doc(userId)
@@ -180,8 +180,25 @@ router.get('/checkFeedbackEligibility/:fromUserId/:toUserId', async (req, res) =
       });
     }
     
-    // Get chat ID
-    const chatId = [fromUserId, toUserId].sort().join('_');
+    // Get chat ID using the new dynamic chat discovery logic
+    const chatsRef = db.collection('chats');
+    const chatQuery = chatsRef.where("members", "array-contains", fromUserId);
+    const chatSnap = await chatQuery.get();
+    
+    // Find the chat that includes both users
+    const matchedChatDoc = chatSnap.docs.find((doc) => {
+      const members = doc.data().members || [];
+      return members.includes(toUserId);
+    });
+    
+    if (!matchedChatDoc) {
+      return res.status(200).send({ 
+        eligible: false, 
+        reason: 'No chat found between users' 
+      });
+    }
+    
+    const chatId = matchedChatDoc.id;
     
     // Get messages count
     const messagesRef = db.collection('chats').doc(chatId).collection('messages');
@@ -210,6 +227,17 @@ router.get('/checkFeedbackEligibility/:fromUserId/:toUserId', async (req, res) =
     const timeEligible = minutesSinceConnection >= 3;
     
     const eligible = messageEligible && timeEligible;
+    
+    console.log(`Feedback eligibility check for ${fromUserId} -> ${toUserId}:`, {
+      chatId,
+      messageCount,
+      messageEligible,
+      minutesSinceConnection: Math.round(minutesSinceConnection),
+      timeEligible,
+      eligible,
+      reason: eligible ? 'Eligible for feedback' : 
+        !messageEligible ? 'Need more messages' : 'Need more time'
+    });
     
     res.status(200).send({
       eligible,

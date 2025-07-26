@@ -6,6 +6,7 @@ import {
   setDoc
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import courses from '../../data/courses.json';
 import './ProfilePage.css';
 
 const studyEnvironmentOptions = ["quiet", "moderate", "collaborative"];
@@ -19,6 +20,7 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
+  const [courseSearch, setCourseSearch] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -42,28 +44,24 @@ const ProfilePage = () => {
     }));
   };
 
-  const handleCourseChange = (index, value) => {
-    const updatedCourses = [...formData.courses];
-    updatedCourses[index] = value;
+  const filteredCourses = courses.filter(course =>
+    (course.code && course.code.toLowerCase().includes(courseSearch.toLowerCase())) ||
+    (course.name && course.name.toLowerCase().includes(courseSearch.toLowerCase()))
+  );
+
+  const toggleCourse = (course) => {
     setFormData(prev => ({
       ...prev,
-      courses: updatedCourses
+      courses: prev.courses?.includes(course)
+        ? prev.courses.filter(c => c !== course)
+        : [...(prev.courses || []), course]
     }));
   };
 
-  const addCourse = () => {
+  const removeCourse = (course) => {
     setFormData(prev => ({
       ...prev,
-      courses: [...(prev.courses || []), '']
-    }));
-  };
-
-  const removeCourse = (index) => {
-    const updatedCourses = [...formData.courses];
-    updatedCourses.splice(index, 1);
-    setFormData(prev => ({
-      ...prev,
-      courses: updatedCourses
+      courses: prev.courses?.filter(c => c !== course) || []
     }));
   };
 
@@ -142,16 +140,70 @@ const ProfilePage = () => {
 </div>
 
               <p><span>Courses:</span>
-                {formData.courses?.map((course, i) => (
-                  <div key={i}>
-                    <input
-                      value={course}
-                      onChange={(e) => handleCourseChange(i, e.target.value)}
-                    />
-                    <button type="button" onClick={() => removeCourse(i)}>Remove</button>
+                {/* Selected courses display */}
+                {formData.courses?.length > 0 && (
+                  <div style={{ marginBottom: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    {formData.courses.map((course, index) => (
+                      <span
+                        key={index}
+                        style={{
+                          backgroundColor: '#00bfa5',
+                          color: '#ffffff',
+                          padding: '0.4rem 0.8rem',
+                          borderRadius: '999px',
+                          fontSize: '0.9rem',
+                          fontWeight: '500',
+                          cursor: 'pointer',
+                          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)',
+                          transition: 'background-color 0.3s',
+                        }}
+                        onClick={() => removeCourse(course)}
+                        title="Click to remove"
+                      >
+                        {course} ✕
+                      </span>
+                    ))}
                   </div>
-                ))}
-                <button type="button" onClick={addCourse}>Add Course</button>
+                )}
+
+                {/* Course search input */}
+                <input
+                  type="text"
+                  placeholder="Start typing to search for a course..."
+                  value={courseSearch}
+                  onChange={(e) => setCourseSearch(e.target.value)}
+                />
+
+                {/* Course dropdown */}
+                {courseSearch && filteredCourses.length > 0 && (
+                  <div
+                    style={{
+                      position: 'relative',
+                      maxHeight: '200px',
+                      overflowY: 'auto',
+                      background: 'var(--bg-color)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-color)',
+                      marginTop: '2px',
+                      borderRadius: '4px',
+                      zIndex: 1000
+                    }}
+                  >
+                    {filteredCourses.slice(0, 50).map((course, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          padding: '0.5rem',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid var(--border-color)'
+                        }}
+                        onClick={() => toggleCourse(course.code)}
+                      >
+                        {course.code}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </p>
             </>
           ) : (

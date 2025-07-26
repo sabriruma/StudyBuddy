@@ -132,12 +132,12 @@
 
 .connect-btn:disabled,
 .connect-btn.connected {
-  background-color: var(--border-color);
-  color: var(--text-muted);
+  background-color: #8b5cf6; /* Purple for connected state */
+  color: white;
   cursor: not-allowed;
 }
 
 .connect-btn.pending {
-  background-color: #ffa726; /* Orange for pending state */
+  background-color: #a855f7; /* Lighter purple for pending state */
   color: white;
 }

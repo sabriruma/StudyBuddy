@@ -32,6 +32,16 @@ function calculateMatchScore(userA, userB) {
   const reasons = [];
 
   const courseOverlap = userA.courses?.some(course => userB.courses?.includes(course));
+  
+  // Debug: Log course overlap detection
+  if (userA.id && userB.id) {
+    console.log(`Course overlap check - ${userA.id} vs ${userB.id}:`, {
+      userACourses: userA.courses,
+      userBCourses: userB.courses,
+      hasOverlap: courseOverlap
+    });
+  }
+  
   if (courseOverlap) {
     score += 10;
     reasons.push('Course overlap (+10)');
@@ -73,15 +83,36 @@ function calculateMatchScore(userA, userB) {
   return { score, reasons };
 }
 
-function matchUsersV2(currentUser, allUsers) {
+function matchUsersV2(currentUser, allUsers, excludeUserIds = []) {
   const matchList = [];
   
   // Calculate the maximum possible score for the current user
   const maxPossibleScore = calculateMaxPossibleScore(currentUser);
 
-  for (const otherUser of allUsers) {
-    if (currentUser.id === otherUser.id) continue;
+  // Filter users by reputation score band (±10 points from current user's reputation)
+  const myReputation = currentUser.reputationScore || 1000;
+  const reputationBand = 10; // Adjustable band width
+  const minReputation = myReputation - reputationBand;
+  const maxReputation = myReputation + reputationBand;
 
+  // Filter candidates by reputation score and exclude connected users
+  const reputationFilteredUsers = allUsers.filter(user => {
+    const userReputation = user.reputationScore || 1000;
+    return user.id !== currentUser.id && 
+           !excludeUserIds.includes(user.id) &&
+           userReputation >= minReputation && 
+           userReputation <= maxReputation;
+  });
+
+  console.log(`User ${currentUser.id} (reputation: ${myReputation}) - Found ${reputationFilteredUsers.length} users within reputation band [${minReputation}-${maxReputation}] (excluding ${excludeUserIds.length} connected users)`);
+
+  for (const otherUser of reputationFilteredUsers) {
+    // Debug: Log user data for first few users
+    if (reputationFilteredUsers.indexOf(otherUser) < 3) {
+      console.log(`Debug - Current User Courses:`, currentUser.courses);
+      console.log(`Debug - Other User (${otherUser.id}) Courses:`, otherUser.courses);
+    }
+    
     const matchAtoB = calculateMatchScore(currentUser, otherUser);
     const matchBtoA = calculateMatchScore(otherUser, currentUser);
 
@@ -97,12 +128,13 @@ function matchUsersV2(currentUser, allUsers) {
         userName: `${otherUser.firstName} ${otherUser.lastName}`,
         mutualScore: normalizedScore,
         reasonsAtoB: matchAtoB.reasons,
-        reasonsBtoA: matchBtoA.reasons
+        reasonsBtoA: matchBtoA.reasons,
+        reputationScore: otherUser.reputationScore || 1000
       });
     }
   }
 
-  return matchList.sort((a, b) => b.mutualScore - a.mutualScore).slice(0, 6); // adjusted to 6 users
+  return matchList.sort((a, b) => b.mutualScore - a.mutualScore); // Return all matches, let caller decide how many to take
 }
 
 async function runMatchingForUser(userId) {
@@ -112,27 +144,57 @@ async function runMatchingForUser(userId) {
   if (!userDoc.exists) throw new Error(`User ${userId} not found!`);
 
   const currentUser = { id: userId, ...userDoc.data() };
+  console.log(`Matching for user ${userId} - Current user data:`, {
+    courses: currentUser.courses,
+    studyMethod: currentUser.studyMethod,
+    studyTime: currentUser.studyTime,
+    studyEnvironment: currentUser.studyEnvironment
+  });
 
+  // Get all users
   const allUsersSnapshot = await db.collection('users').get();
   const allUsers = [];
   allUsersSnapshot.forEach(doc => {
     allUsers.push({ id: doc.id, ...doc.data() });
   });
 
-  const matches = matchUsersV2(currentUser, allUsers);
+  // Get connected users (users the current user has confirmed matches with)
+  const confirmedMatchesRef = db.collection('users').doc(userId).collection('confirmedMatches');
+  const confirmedMatchesSnapshot = await confirmedMatchesRef.get();
+  const connectedUserIds = [];
+  confirmedMatchesSnapshot.forEach(doc => {
+    connectedUserIds.push(doc.id);
+  });
 
+  console.log(`User ${userId} has ${connectedUserIds.length} confirmed connections`);
+
+  // Get all potential matches (excluding connected users)
+  const allPotentialMatches = matchUsersV2(currentUser, allUsers, connectedUserIds);
+  
+  console.log(`Found ${allPotentialMatches.length} potential matches after filtering`);
+
+  // Take top 6 matches (or however many are available)
+  const maxMatches = 6;
+  const finalMatches = allPotentialMatches.slice(0, maxMatches);
+  
+  console.log(`Selected top ${finalMatches.length} matches`);
+
+  // Store the final matches
   const batch = db.batch();
   const matchesRef = db.collection('users').doc(userId).collection('matches');
 
+  // Clear old matches
   const oldMatches = await matchesRef.get();
   oldMatches.forEach(doc => batch.delete(doc.ref));
 
-  matches.forEach(match => {
+  // Set new matches
+  finalMatches.forEach(match => {
     const matchDoc = matchesRef.doc(match.userId);
     batch.set(matchDoc, match);
   });
 
   await batch.commit();
+  console.log(`Final match count: ${finalMatches.length}`);
 }
 
 module.exports = { calculateMatchScore, matchUsersV2, runMatchingForUser };

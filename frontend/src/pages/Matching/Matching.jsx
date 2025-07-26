@@ -211,6 +211,7 @@ export default function Matching() {
 
               <div className="match-details">
                 <p><strong>Mutual Score:</strong> {match.mutualScore}%</p>
+                <p><strong>Reputation Score:</strong> {match.reputationScore || 1000}</p>
                 <p><strong>Reasons:</strong></p>
                 <ul>
                   {match.reasonsAtoB && match.reasonsAtoB.map((reason, i) => (
