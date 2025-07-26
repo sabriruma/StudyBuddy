@@ -90,7 +90,7 @@ export default function Matching() {
       console.error("Error fetching confirmed matches:", error);
     }
   }
-
+  
   async function handleConnect(matchUserId, matchData) {
     try {
       const currentUserRef = doc(db, `users/${userId}/confirmedMatches/${matchUserId}`);

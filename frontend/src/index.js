@@ -7,6 +7,7 @@ import Matching from './pages/Matching/Matching';
 import { NotFound } from './pages/NotFound/NotFound';
 import Chat from './pages/Chat/Chat';
 import Dashboard from './pages/Dashboard/Dashboard';
+import ProfilePage from './pages/ProfileEdit/ProfilePage';
 
 import { ThemeProvider } from './ThemeContext';
 
@@ -37,6 +38,7 @@ function App() {
          <Route path="/matching" element={<Matching />} />
           <Route path="chat" element={<Chat />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
