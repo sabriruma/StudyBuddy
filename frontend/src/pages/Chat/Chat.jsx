@@ -29,12 +29,12 @@ export default function Chat() {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [chatMessages, setChatMessages] = useState({});
   const [groupMessages, setGroupMessages] = useState({});
-  const [showCreateModal, setShowCreateModal] = useState(false); // ✅ Modal control
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchParams] = useSearchParams();
-  const chatIdParam = searchParams.get("chatId"); // for individual chats
-  const groupIdParam = searchParams.get("groupId"); // for group chats
+  const chatIdParam = searchParams.get("chatId");
+  const groupIdParam = searchParams.get("groupId");
   const [individualChats, setIndividualChats] = useState([]);
-  const [forceRefresh, setForceRefresh] = useState(0); // Force listener refresh
+  const [forceRefresh, setForceRefresh] = useState(0);
 
   const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
