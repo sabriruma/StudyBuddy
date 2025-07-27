@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../../firebase/firebase';
+import Sidebar from '../../components/Sidebar';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import {
   collection,
   getDocs,
@@ -8,10 +10,8 @@ import {
   orderBy,
   limit,
   doc,
-  setDoc,
-  getDoc,
+  getDoc
 } from 'firebase/firestore';
-import './Matching.css';
 
 const profileColors = [
   '#e17055', // orange
@@ -33,13 +33,16 @@ export default function Matching() {
 
   useEffect(() => {
     if (userId) {
-      fetchMatches();
-      fetchConfirmedMatches();
-      fetchPendingRequests();
+      const fetchData = async () => {
+        await fetchMatches();
+        await fetchConfirmedMatches();
+        await fetchPendingRequests();
+      };
+      fetchData();
     }
   }, [userId]);
 
-  // Fetch suggested matches (from algorithm)
+  // Fetch suggested matches (from algorithm) with enhanced profile data
   async function fetchMatches() {
     setLoading(true);
     try {
@@ -48,34 +51,34 @@ export default function Matching() {
       const snapshot = await getDocs(q);
 
       const matchList = await Promise.all(snapshot.docs.map(async (docSnap) => {
-  const matchData = docSnap.data();
-  const matchId = docSnap.id;
+        const matchData = docSnap.data();
+        const matchId = docSnap.id;
 
-  const matchProfileRef = doc(db, `users/${matchId}`);
-  const matchProfileSnap = await getDoc(matchProfileRef);
+        const matchProfileRef = doc(db, `users/${matchId}`);
+        const matchProfileSnap = await getDoc(matchProfileRef);
 
-  let avatar = '';
-  let userName = '';
+        let avatar = '';
+        let userName = '';
 
-  if (matchProfileSnap.exists()) {
-    const matchProfile = matchProfileSnap.data();
-    avatar = matchProfile.avatar || '';
-    userName = `${matchProfile.firstName || ''} ${matchProfile.lastName || ''}`.trim();
-  }
+        if (matchProfileSnap.exists()) {
+          const matchProfile = matchProfileSnap.data();
+          avatar = matchProfile.avatar || '';
+          userName = `${matchProfile.firstName || ''} ${matchProfile.lastName || ''}`.trim();
+        }
 
-  return {
-    id: matchId,
-    avatar,
-    userName,
-    ...matchData
-  };
-}));
+        return {
+          id: matchId,
+          avatar,
+          userName,
+          ...matchData
+        };
+      }));
 
-    setMatches(matchList);
-  } catch (error) {
-    console.error("Error fetching matches:", error);
-  }
-  setLoading(false);
+      setMatches(matchList);
+    } catch (error) {
+      console.error("Error fetching matches:", error);
+    }
+    setLoading(false);
   }
 
   // Fetch confirmed matches
@@ -137,9 +140,7 @@ export default function Matching() {
       setLoading(false);
     }
   }
-  
 
-  
   // Trigger matching algorithm again (if needed)
   async function runMatching() {
     if (!userId) return;
@@ -156,83 +157,92 @@ export default function Matching() {
   }
 
   return (
-    <div className="matching-container">
-<div className="matching-header">
-  <h2 className="matching-title">Best StudyBuddies For You</h2>
-  <button className="refresh-btn" onClick={runMatching} disabled={loading}>
-    {loading ? "Refreshing..." : "Run Matching Again"}
-  </button>
-</div>
+    <div className="flex min-h-screen bg-gray-50 text-black">
+      {/* Sidebar on the left */}
+      <Sidebar />
 
-      <div className="match-cards">
+      {/* Main content on the right */}
+      <div className="flex-1 max-w-6xl mx-auto px-4 py-8">
+        {/* Centered Title with Refresh Button */}
+        <div className="flex flex-col items-center justify-center text-center mb-10">
+          <div className="flex items-center space-x-2 mb-4">
+            <UsersIcon className="h-6 w-6 text-teal-400" />
+            <h2 className="text-2xl font-bold">Best StudyBuddies For You</h2>
+          </div>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold shadow-md transition-all duration-300"
+            onClick={runMatching}
+            disabled={loading}
+          >
+            {loading ? "Refreshing..." : "Run Matching Again"}
+          </button>
+        </div>
+
+        {/* No Matches */}
         {matches.length === 0 && !loading && (
-          <p className="no-matches">No matches found. Try running matching again!</p>
+          <p className="text-gray-900 text-center mb-6">
+            No matches found. Try running matching again!
+          </p>
         )}
 
-        {matches.map((match) => {
-          const isConnected = confirmedMatches[match.id];
-          const isPending = pendingRequests[match.id];
+        {/* Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          {matches.map((match, index) => {
+            const isConnected = confirmedMatches[match.id];
+            const isPending = pendingRequests[match.id];
 
-          return (
-            <div key={match.id} className="match-card">
-<div className="match-card-header" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-  {match.avatar ? (
-    <img
-      src={match.avatar}
-      alt="Avatar"
-      style={{
-        width: '50px',
-        height: '50px',
-        borderRadius: '50%',
-        objectFit: 'cover',
-        border: '2px solid #ccc',
-      }}
-    />
-  ) : (
-    <div
-      className="profile-photo"
-      style={{
-        backgroundColor: profileColors[matches.indexOf(match) % profileColors.length],
-        width: '50px',
-        height: '50px',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 'bold',
-        color: 'white',
-      }}
-    >
-      {match.userName ? match.userName.split(' ').map(n => n[0]).join('') : 'S'}
-    </div>
-  )}
-  <h3 style={{ margin: 0 }}>{match.userName || "Student"}</h3>
-</div>
-
-              <div className="match-details">
-                <p><strong>Mutual Score:</strong> {match.mutualScore}%</p>
-                <p><strong>Reputation Score:</strong> {match.reputationScore || 1000}</p>
-                <p><strong>Reasons:</strong></p>
-                <ul>
-                  {match.reasonsAtoB && match.reasonsAtoB.map((reason, i) => (
-                    <li key={i}>{reason}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <button
-                className={`connect-btn ${isConnected ? 'connected' : ''} ${isPending ? 'pending' : ''}`}
-                onClick={() => handleConnect(match.id, match)}
-                disabled={isConnected || isPending}
+            return (
+              <div
+                key={match.id}
+                className="bg-[#1e293b] border border-teal-500 p-5 rounded-xl shadow-md"
               >
-                {isConnected ? "Connected!" : isPending ? "Request Sent" : "Connect"}
-              </button>
-            </div>
-          );
-        })}
+                <div className="flex items-center space-x-4 mb-3">
+                  {match.avatar ? (
+                    <img
+                      src={match.avatar}
+                      alt="Avatar"
+                      className="w-12 h-12 rounded-full object-cover border-2 border-gray-300"
+                    />
+                  ) : (
+                    <div
+                      className="h-12 w-12 rounded-full flex items-center justify-center text-black font-bold"
+                      style={{ backgroundColor: profileColors[index % profileColors.length] }}
+                    >
+                      {match.userName ? match.userName.split(' ').map(n => n[0]).join('') : 'S'}
+                    </div>
+                  )}
+                  <h3 className="text-lg font-semibold">{match.userName || "Student"}</h3>
+                </div>
+
+                <div className="text-sm text-gray-900 mb-3">
+                  <p><strong>Mutual Score:</strong> {match.mutualScore}%</p>
+                  <p><strong>Reputation Score:</strong> {match.reputationScore || 1000}</p>
+                  <p className="mt-2 font-semibold">Reasons:</p>
+                  <ul className="list-disc list-inside">
+                    {match.reasonsAtoB?.map((reason, i) => (
+                      <li key={i}>{reason}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => handleConnect(match.id, match)}
+                  disabled={isConnected || isPending}
+                  className={`w-full mt-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isConnected
+                      ? 'bg-green-500 text-white cursor-not-allowed'
+                      : isPending
+                      ? 'bg-yellow-500 text-white cursor-not-allowed'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  {isConnected ? "Connected!" : isPending ? "Request Sent" : "Connect"}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
-
 }
-
