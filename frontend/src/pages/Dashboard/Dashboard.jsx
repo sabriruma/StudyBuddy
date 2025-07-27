@@ -15,7 +15,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "./Dashboard.css";
 import "./DashboardCalendar.css";
 import ChatAndGroupComponent from "./ChatAndGroupComponent";
 import useFetchChatsByUserId from "../../hooks/useFetchChatsByUserId";
