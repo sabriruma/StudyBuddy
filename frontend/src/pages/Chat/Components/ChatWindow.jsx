@@ -21,6 +21,13 @@ export default function ChatWindow({
     setNewMessage("");
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent default to avoid new line
+      handleSend();
+    }
+  };
+
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -103,6 +110,7 @@ export default function ChatWindow({
             value={newMessage}
             placeholder="Type a message..."
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
           <button onClick={handleSend}>Send</button>
         </div>

@@ -34,6 +34,7 @@ export default function Chat() {
   const chatIdParam = searchParams.get("chatId"); // for individual chats
   const groupIdParam = searchParams.get("groupId"); // for group chats
   const [individualChats, setIndividualChats] = useState([]);
+  const [forceRefresh, setForceRefresh] = useState(0); // Force listener refresh
 
   const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
@@ -201,15 +202,28 @@ export default function Chat() {
       }
     };
 
-    fetchAndSubscribe();
+    // Add a small delay to ensure any pending database operations are complete
+    const timeoutId = setTimeout(() => {
+      fetchAndSubscribe();
+    }, 100);
+
+    // Also set up a retry mechanism in case the chat doesn't exist yet
+    const retryTimeoutId = setTimeout(() => {
+      // Check if we still don't have messages for this chat
+      if (!chatMessages[selectedChat] || chatMessages[selectedChat].length === 0) {
+        fetchAndSubscribe();
+      }
+    }, 1000);
 
     // Cleanup function
     return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(retryTimeoutId);
       if (unsubscribe && typeof unsubscribe === "function") {
         unsubscribe();
       }
     };
-  }, [selectedChat, currentUserId]);
+  }, [selectedChat, currentUserId, forceRefresh]);
 
   useEffect(() => {
     if (!selectedGroup || !currentUserId) return;
@@ -243,6 +257,7 @@ export default function Chat() {
     });
 
     let chatDocRef;
+    let isNewChat = false;
 
     if (existingChatDoc) {
       chatDocRef = doc(db, "chats", existingChatDoc.id);
@@ -252,15 +267,84 @@ export default function Chat() {
         createdAt: serverTimestamp(),
       });
       chatDocRef = newDocRef;
+      isNewChat = true;
     }
 
     const messageColRef = collection(chatDocRef, "messages");
 
-    await addDoc(messageColRef, {
+    const messageRef = await addDoc(messageColRef, {
       senderId: currentUserId,
       text: messageText,
       timestamp: serverTimestamp(),
     });
+    
+    // If this was a new chat, we need to trigger a re-fetch of the chat list
+    // to update the chatId in the confirmedUsers
+    if (isNewChat) {
+      // Force a re-fetch of confirmed users to get the new chatId
+      const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
+      const snapshot = await getDocs(ref);
+
+      const matches = await Promise.all(
+        snapshot.docs.map(async (docSnap) => {
+          const matchId = docSnap.id;
+
+          // Fetch full user profile from 'users' collection
+          const userProfileRef = doc(db, "users", matchId);
+          const userProfileSnap = await getDoc(userProfileRef);
+          const userProfileData = userProfileSnap.exists()
+            ? userProfileSnap.data()
+            : {};
+
+          // Find chat document with both users in 'members'
+          let chatId = null;
+          const chatsQuery = query(
+            collection(db, "chats"),
+            where("members", "array-contains", currentUserId)
+          );
+          const chatsSnapshot = await getDocs(chatsQuery);
+
+          const existingChat = chatsSnapshot.docs.find((chatDoc) => {
+            const members = chatDoc.data().members || [];
+            return members.includes(matchId);
+          });
+
+          if (existingChat) {
+            chatId = existingChat.id;
+          }
+
+          return {
+            id: matchId,
+            ...docSnap.data(),
+            firstName: userProfileData.firstName || "",
+            lastName: userProfileData.lastName || "",
+            avatar: userProfileData.avatar || "",
+            userName: `${userProfileData.firstName || ""} ${
+              userProfileData.lastName || ""
+            }`.trim(),
+            chatId,
+          };
+        })
+      );
+
+      setConfirmedUsers(matches);
+      
+      // Force the listener to refresh by incrementing the forceRefresh counter
+      setForceRefresh(prev => prev + 1);
+      
+      // Also immediately add the message to the local state to show it right away
+      const newMessage = {
+        id: messageRef.id,
+        senderId: currentUserId,
+        text: messageText,
+        timestamp: new Date(),
+      };
+      
+      setChatMessages((prev) => ({
+        ...prev,
+        [chatPartnerId]: [...(prev[chatPartnerId] || []), newMessage]
+      }));
+    }
   };
 
   const handleSendGroupMessage = async (groupId, messageText) => {
