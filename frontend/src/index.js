@@ -20,7 +20,7 @@ import CreateProfileStep1 from "./pages/ProfileCreation/CreateProfileStep1";
 import CreateProfileStep2 from "./pages/ProfileCreation/CreateProfileStep2";
 import CreateProfileStep3 from "./pages/ProfileCreation/CreateProfileStep3";
 import StudyBuddyDashboard from "./components/Dashboard";
-
+import ProfileEditor from "./pages/ProfileEdit/ProfileEditor";
 import "./index.css";
 
 //Different tabs
@@ -43,7 +43,7 @@ function App() {
           <Route path="chat" element={<Chat />} />
           <Route path="/dashboard" element={<StudyBuddyDashboard />} />
           <Route path="/old-dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfileEditor />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
