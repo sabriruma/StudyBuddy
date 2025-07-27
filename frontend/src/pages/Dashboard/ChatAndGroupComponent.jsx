@@ -4,18 +4,12 @@ import { useNavigate } from "react-router-dom";
 const ChatAndGroupComponent = ({ item, currentUserId }) => {
   const isGroupChat = !!item.id && !item.chatId;
   const navigate = useNavigate();
-  console.log("clicked item:", item);
 
   const handleOnClick = () => {
     const id = isGroupChat ? item.id : item.otherUserId;
     const path = isGroupChat ? `groupId=${id}` : `chatId=${id}`;
     navigate(`/chat?${path}`);
   };
-  console.log(
-    (item?.name || item?.displayName || "Err") +
-      "===" +
-      (item?.id || item?.chatId)
-  );
 
   return (
     <div

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { db, auth } from "../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
   collection,
   onSnapshot,
@@ -12,30 +14,54 @@ import {
   getDoc,
   orderBy,
   where,
+  limit,
 } from "firebase/firestore";
-import CreateGroupModal from "../components/GroupModal";
+import CreateGroupModal from "../pages/Chat/CreateGroupModal";
 
 // Timestamp formatting utility
 const formatTimestamp = (timestamp) => {
   if (!timestamp?.seconds) return "Just now";
-  
+
   const date = new Date(timestamp.seconds * 1000);
   const now = new Date();
   const diffInDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
 
   if (diffInDays === 0) {
-    return `Today at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    return `Today at ${date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   } else if (diffInDays === 1) {
-    return `Yesterday at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    return `Yesterday at ${date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   } else if (diffInDays < 7) {
-    return `${date.toLocaleDateString([], { weekday: 'short' })} at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    return `${date.toLocaleDateString([], {
+      weekday: "short",
+    })} at ${date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   } else {
-    return `${date.toLocaleDateString([], { month: 'short', day: 'numeric' })} at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    return `${date.toLocaleDateString([], {
+      month: "short",
+      day: "numeric",
+    })} at ${date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   }
 };
 
 export default function Chat() {
-  const currentUserId = auth.currentUser?.uid;
+  const params = useParams();
+  const [searchParams] = useSearchParams();
+
+  // Add authentication state management
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [isAuthLoaded, setIsAuthLoaded] = useState(false);
+
   const [confirmedUsers, setConfirmedUsers] = useState([]);
   const [groups, setGroups] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
@@ -46,118 +72,229 @@ export default function Chat() {
   const [activeTab, setActiveTab] = useState("private");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [individualChats, setIndividualChats] = useState([]);
-  const [forceRefresh, setForceRefresh] = useState(0); // Force listener refresh
+  const [forceRefresh, setForceRefresh] = useState(0);
   const messagesEndRef = useRef(null);
 
+  useEffect(() => {
+    // Check URL params or search params for chatId or groupId
+    const urlChatId = params.chatId || searchParams.get("chatId");
+    const urlGroupId = params.groupId || searchParams.get("groupId");
+
+    if (urlChatId) {
+      setSelectedChat(urlChatId);
+      setSelectedGroup(null);
+      setActiveTab("private");
+      console.log("Auto-selecting chat from URL:", urlChatId);
+    } else if (urlGroupId) {
+      setSelectedGroup(urlGroupId);
+      setSelectedChat(null);
+      setActiveTab("group");
+      console.log("Auto-selecting group from URL:", urlGroupId);
+    }
+  }, [params, searchParams]);
+
+  // Set up auth state listener
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth state changed:", user?.uid);
+      setCurrentUserId(user?.uid || null);
+      setIsAuthLoaded(true);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
-  const selectedGroupObj = groups.find(group => group.id === selectedGroup);
+  const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
 
   const enhancedUsers = confirmedUsers.map((user) => ({
     ...user,
     userName: `${user.firstName} ${user.lastName}`,
   }));
 
+  // Modified useEffect to wait for auth state
   useEffect(() => {
-    if (!currentUserId) return;
+    // Don't run if auth isn't loaded yet or user isn't authenticated
+    if (!isAuthLoaded || !currentUserId) {
+      console.log("Waiting for auth:", { isAuthLoaded, currentUserId });
+      return;
+    }
+
+    console.log("Fetching data for user:", currentUserId);
 
     const fetchConfirmedMatches = async () => {
-      const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
-      const snapshot = await getDocs(ref);
+      try {
+        console.log("Fetching confirmed matches...");
+        const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
+        const snapshot = await getDocs(ref);
+        console.log("Confirmed matches snapshot:", snapshot.docs.length);
 
-      const matches = await Promise.all(
-        snapshot.docs.map(async (docSnap) => {
-          const matchId = docSnap.id;
+        const matches = await Promise.all(
+          snapshot.docs.map(async (docSnap) => {
+            const matchId = docSnap.id;
 
-          // Fetch full user profile from 'users' collection
-          const userProfileRef = doc(db, "users", matchId);
-          const userProfileSnap = await getDoc(userProfileRef);
-          const userProfileData = userProfileSnap.exists()
-            ? userProfileSnap.data()
-            : {};
+            // Fetch full user profile from 'users' collection
+            const userProfileRef = doc(db, "users", matchId);
+            const userProfileSnap = await getDoc(userProfileRef);
+            const userProfileData = userProfileSnap.exists()
+              ? userProfileSnap.data()
+              : {};
 
-          // Find chat document with both users in 'members'
-          let chatId = null;
-          const chatsQuery = query(
-            collection(db, "chats"),
-            where("members", "array-contains", currentUserId)
-          );
-          const chatsSnapshot = await getDocs(chatsQuery);
+            // Find chat document with both users in 'members'
+            let chatId = null;
+            const chatsQuery = query(
+              collection(db, "chats"),
+              where("members", "array-contains", currentUserId)
+            );
+            const chatsSnapshot = await getDocs(chatsQuery);
 
-          const existingChat = chatsSnapshot.docs.find((chatDoc) => {
-            const members = chatDoc.data().members || [];
-            return members.includes(matchId);
-          });
+            const existingChat = chatsSnapshot.docs.find((chatDoc) => {
+              const members = chatDoc.data().members || [];
+              return members.includes(matchId);
+            });
 
-          if (existingChat) {
-            chatId = existingChat.id;
-          }
+            if (existingChat) {
+              chatId = existingChat.id;
+            }
 
-          return {
-            id: matchId,
-            ...docSnap.data(),
-            firstName: userProfileData.firstName || "",
-            lastName: userProfileData.lastName || "",
-            avatar: userProfileData.avatar || "/avatars/default.png",
-            userName: `${userProfileData.firstName || ""} ${
-              userProfileData.lastName || ""
-            }`.trim() || "Student",
-            chatId, // Add the found chatId (or null if not found)
-          };
-        })
-      );
+            return {
+              id: matchId,
+              ...docSnap.data(),
+              firstName: userProfileData.firstName || "",
+              lastName: userProfileData.lastName || "",
+              avatar: userProfileData.avatar || "/avatars/default.png",
+              userName:
+                `${userProfileData.firstName || ""} ${
+                  userProfileData.lastName || ""
+                }`.trim() || "Student",
+              chatId,
+            };
+          })
+        );
 
-      setConfirmedUsers(matches);
+        console.log("Processed matches:", matches);
+        setConfirmedUsers(matches);
+      } catch (error) {
+        console.error("Error fetching confirmed matches:", error);
+      }
     };
 
     const fetchGroups = async () => {
-      const ref = collection(db, "groups");
-      const snapshot = await getDocs(ref);
-      const myGroups = snapshot.docs
-        .map((doc) => ({ id: doc.id, ...doc.data() }))
-        .filter((group) => group.members.includes(currentUserId));
-      setGroups(myGroups);
+      try {
+        console.log("Fetching groups...");
+        const ref = collection(db, "groups");
+        const snapshot = await getDocs(ref);
+        console.log("Groups snapshot:", snapshot.docs.length);
+
+        const myGroups = snapshot.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .filter((group) => group.members.includes(currentUserId));
+
+        console.log("My groups:", myGroups);
+
+        const enrichedGroups = await Promise.all(
+          myGroups.map(async (group) => {
+            const messagesRef = collection(db, "groups", group.id, "messages");
+            const latestQuery = query(
+              messagesRef,
+              orderBy("timestamp", "desc"),
+              limit(1)
+            );
+            const latestSnap = await getDocs(latestQuery);
+            const lastMessage = latestSnap.docs[0]?.data();
+
+            return {
+              ...group,
+              lastMessage,
+              unreadCount: 0,
+            };
+          })
+        );
+
+        console.log("Enriched groups:", enrichedGroups);
+        setGroups(enrichedGroups);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+      }
     };
 
     const fetchIndividualChats = async () => {
-      const chatColRef = collection(db, "chats");
-      const chatQuery = query(
-        chatColRef,
-        where("members", "array-contains", currentUserId)
-      );
-      const chatSnap = await getDocs(chatQuery);
+      try {
+        console.log("Fetching individual chats...");
+        const chatQuery = query(
+          collection(db, "chats"),
+          where("members", "array-contains", currentUserId)
+        );
+        const chatSnap = await getDocs(chatQuery);
+        console.log("Individual chats snapshot:", chatSnap.docs.length);
 
-      const chats = await Promise.all(
-        chatSnap.docs.map(async (docSnap) => {
-          const data = docSnap.data();
-          const otherUserId = data.members.find((id) => id !== currentUserId);
+        const chats = chatSnap.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+        }));
 
-          // Get user info
-          const userRef = doc(db, "users", otherUserId);
-          const userSnap = await getDoc(userRef);
-          const user = userSnap.exists() ? userSnap.data() : {};
+        const enrichedChats = await Promise.all(
+          chats.map(async (chat) => {
+            const chatId = chat.id;
 
-          return {
-            chatId: docSnap.id,
-            otherUserId,
-            displayName: `${user.firstName || ""} ${
-              user.lastName || ""
-            }`.trim(),
-            avatar: user.avatar || "/defaultAvatar.png",
-            lastMessage: data.lastMessage || null,
-          };
-        })
-      );
+            const messagesRef = collection(db, "chats", chatId, "messages");
+            const latestQuery = query(
+              messagesRef,
+              orderBy("timestamp", "desc"),
+              limit(1)
+            );
+            const latestSnap = await getDocs(latestQuery);
+            const lastMessageDoc = latestSnap.docs[0];
 
-      setIndividualChats(chats);
+            if (!lastMessageDoc) return null;
+
+            const lastMessage = lastMessageDoc.data();
+
+            const otherUserId = chat.members.find((id) => id !== currentUserId);
+            if (!otherUserId) return null;
+
+            const userDoc = await getDoc(doc(db, "users", otherUserId));
+            const userData = userDoc.exists() ? userDoc.data() : {};
+
+            return {
+              chatId,
+              otherUserId,
+              displayName: `${userData.firstName || "Unknown"} ${
+                userData.lastName || ""
+              }`.trim(),
+              avatar: userData.avatar || "/defaultAvatar.png",
+              lastMessage,
+            };
+          })
+        );
+
+        const validChats = enrichedChats.filter(Boolean);
+        console.log("Individual chats processed:", validChats);
+        setIndividualChats(validChats);
+
+        // Update confirmedUsers with individual chats data
+        setConfirmedUsers(validChats);
+      } catch (error) {
+        console.error("Error fetching individual chats:", error);
+      }
     };
 
-    fetchConfirmedMatches();
-    fetchGroups();
-    fetchIndividualChats();
-  }, [currentUserId]);
+    // Execute all fetch functions
+    Promise.all([
+      fetchConfirmedMatches(),
+      fetchGroups(),
+      fetchIndividualChats(),
+    ])
+      .then(() => {
+        console.log("All data fetched successfully");
+      })
+      .catch((error) => {
+        console.error("Error in data fetching:", error);
+      });
+  }, [currentUserId, isAuthLoaded]); // Added isAuthLoaded dependency
 
   useEffect(() => {
-    if (!selectedChat || !currentUserId || activeTab !== 'private') return;
+    if (!selectedChat || !currentUserId || activeTab !== "private") return;
 
     let unsubscribe;
 
@@ -179,7 +316,6 @@ export default function Chat() {
 
         if (!matchedChatDoc) {
           console.warn("No chat found with selected user.");
-          // Clear messages for this chat if no chat document exists
           setChatMessages((prev) => ({ ...prev, [selectedChat]: [] }));
           return;
         }
@@ -205,20 +341,19 @@ export default function Chat() {
       }
     };
 
-    // Add a small delay to ensure any pending database operations are complete
     const timeoutId = setTimeout(() => {
       fetchAndSubscribe();
     }, 100);
 
-    // Also set up a retry mechanism in case the chat doesn't exist yet
     const retryTimeoutId = setTimeout(() => {
-      // Check if we still don't have messages for this chat
-      if (!chatMessages[selectedChat] || chatMessages[selectedChat].length === 0) {
+      if (
+        !chatMessages[selectedChat] ||
+        chatMessages[selectedChat].length === 0
+      ) {
         fetchAndSubscribe();
       }
     }, 1000);
 
-    // Cleanup function
     return () => {
       clearTimeout(timeoutId);
       clearTimeout(retryTimeoutId);
@@ -229,7 +364,7 @@ export default function Chat() {
   }, [selectedChat, currentUserId, activeTab, forceRefresh]);
 
   useEffect(() => {
-    if (!selectedGroup || !currentUserId || activeTab !== 'group') return;
+    if (!selectedGroup || !currentUserId || activeTab !== "group") return;
 
     const messagesRef = query(
       collection(db, "groups", selectedGroup, "messages")
@@ -251,8 +386,8 @@ export default function Chat() {
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
-    
-    if (activeTab === 'private' && selectedChat) {
+
+    if (activeTab === "private" && selectedChat) {
       const chatPartnerId = selectedChat;
       const messageText = newMessage;
 
@@ -291,11 +426,8 @@ export default function Chat() {
         text: messageText,
         timestamp: serverTimestamp(),
       });
-      
-      // If this was a new chat, we need to trigger a re-fetch of the chat list
-      // to update the chatId in the confirmedUsers
+
       if (isNewChat) {
-        // Force a re-fetch of confirmed users to get the new chatId
         const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
         const snapshot = await getDocs(ref);
 
@@ -303,14 +435,12 @@ export default function Chat() {
           snapshot.docs.map(async (docSnap) => {
             const matchId = docSnap.id;
 
-            // Fetch full user profile from 'users' collection
             const userProfileRef = doc(db, "users", matchId);
             const userProfileSnap = await getDoc(userProfileRef);
             const userProfileData = userProfileSnap.exists()
               ? userProfileSnap.data()
               : {};
 
-            // Find chat document with both users in 'members'
             let chatId = null;
             const chatsQuery = query(
               collection(db, "chats"),
@@ -342,11 +472,8 @@ export default function Chat() {
         );
 
         setConfirmedUsers(matches);
-        
-        // Force the listener to refresh by incrementing the forceRefresh counter
-        setForceRefresh(prev => prev + 1);
-        
-        // Also immediately add the message to the local state to show it right away
+        setForceRefresh((prev) => prev + 1);
+
         const newMessageObj = {
           id: messageRef.id,
           senderId: currentUserId,
@@ -354,13 +481,13 @@ export default function Chat() {
           text: messageText,
           timestamp: new Date(),
         };
-        
+
         setChatMessages((prev) => ({
           ...prev,
-          [chatPartnerId]: [...(prev[chatPartnerId] || []), newMessageObj]
+          [chatPartnerId]: [...(prev[chatPartnerId] || []), newMessageObj],
         }));
       }
-    } else if (activeTab === 'group' && selectedGroup) {
+    } else if (activeTab === "group" && selectedGroup) {
       try {
         const userDocRef = doc(db, "users", currentUserId);
         const userDocSnap = await getDoc(userDocRef);
@@ -400,12 +527,34 @@ export default function Chat() {
     setShowCreateModal(false);
   };
 
+  // Add loading state
+  if (!isAuthLoaded) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!currentUserId) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg">Please log in to access chat</div>
+      </div>
+    );
+  }
+
+  console.log("Rendering with individualChats:", individualChats);
+  console.log("Rendering with groups:", groups);
+
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* User Chat List */}
       <div className="w-1/4 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Chats</h1>
+          <h1 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+            Chats
+          </h1>
 
           {/* Tab Switcher */}
           <div className="flex border-b border-gray-200 dark:border-gray-700">
@@ -444,11 +593,13 @@ export default function Chat() {
               <div
                 key={user.id}
                 onClick={() => {
-                  setSelectedChat(user.id);
+                  setSelectedChat(user.otherUserId);
                   setSelectedGroup(null);
                 }}
                 className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
-                  selectedChat === user.id ? "bg-teal-50 dark:bg-teal-900" : ""
+                  selectedChat === user.otherUserId
+                    ? "bg-teal-50 dark:bg-teal-900"
+                    : ""
                 }`}
               >
                 <img
@@ -458,15 +609,21 @@ export default function Chat() {
                 />
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium text-gray-800 dark:text-white truncate">
-                    {user.userName}
+                    {user.displayName}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                    {chatMessages[user.id]?.[chatMessages[user.id]?.length - 1]?.text || "No messages yet"}
+                    {user?.lastMessage?.text || "No messages yet"}
                   </p>
                 </div>
-                {chatMessages[user.id]?.[chatMessages[user.id]?.length - 1]?.timestamp && (
+                {chatMessages[user.id]?.[chatMessages[user.id]?.length - 1]
+                  ?.timestamp && (
                   <div className="text-xs text-gray-400 dark:text-gray-500 ml-2">
-                    {formatTimestamp(chatMessages[user.id][chatMessages[user.id].length - 1].timestamp).split(" at ")[0]}
+                    {
+                      formatTimestamp(
+                        chatMessages[user.id][chatMessages[user.id].length - 1]
+                          .timestamp
+                      ).split(" at ")[0]
+                    }
                   </div>
                 )}
               </div>
@@ -486,29 +643,46 @@ export default function Chat() {
                     setSelectedGroup(group.id);
                     setSelectedChat(null);
 
-                    const lastSeenRef = doc(db, "groups", group.id, "lastSeen", currentUserId);
+                    const lastSeenRef = doc(
+                      db,
+                      "groups",
+                      group.id,
+                      "lastSeen",
+                      currentUserId
+                    );
                     await setDoc(lastSeenRef, {
                       timestamp: serverTimestamp(),
                     });
                   }}
                   className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
-                    selectedGroup === group.id ? "bg-teal-50 dark:bg-teal-900" : ""
+                    selectedGroup === group.id
+                      ? "bg-teal-50 dark:bg-teal-900"
+                      : ""
                   }`}
                 >
-                  <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                    <span className="text-lg">👥</span>
-                  </div>
+                  <img
+                    className="w-10 h-10 rounded-full object-contain mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center"
+                    src={group.avatar}
+                  />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-gray-800 dark:text-white truncate">
                       {group.name}
                     </h3>
                     <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {groupMessages[group.id]?.[groupMessages[group.id]?.length - 1]?.text || "No messages yet"}
+                      {group?.lastMessage?.text || "No messages yet"}
                     </p>
                   </div>
-                  {groupMessages[group.id]?.[groupMessages[group.id]?.length - 1]?.timestamp && (
+                  {groupMessages[group.id]?.[
+                    groupMessages[group.id]?.length - 1
+                  ]?.timestamp && (
                     <div className="text-xs text-gray-400 dark:text-gray-500 ml-2">
-                      {formatTimestamp(groupMessages[group.id][groupMessages[group.id].length - 1].timestamp).split(" at ")[0]}
+                      {
+                        formatTimestamp(
+                          groupMessages[group.id][
+                            groupMessages[group.id].length - 1
+                          ].timestamp
+                        ).split(" at ")[0]
+                      }
                     </div>
                   )}
                 </div>
@@ -536,7 +710,7 @@ export default function Chat() {
                   </p>
                 </div>
               </div>
-              <button 
+              <button
                 className="text-sm text-teal-500 hover:text-teal-600"
                 onClick={() => setShowCreateModal(true)}
               >
@@ -561,7 +735,9 @@ export default function Chat() {
             </div>
           ) : (
             <div className="text-gray-600 dark:text-gray-300">
-              {activeTab === "group" ? "Select a group chat" : "Select a chat to start messaging"}
+              {activeTab === "group"
+                ? "Select a group chat"
+                : "Select a chat to start messaging"}
             </div>
           )}
         </div>
@@ -572,7 +748,9 @@ export default function Chat() {
               groupMessages[selectedGroup].map((msg) => (
                 <div
                   key={msg.id}
-                  className={`mb-4 ${msg.from === currentUserId ? "text-right" : "text-left"}`}
+                  className={`mb-4 ${
+                    msg.from === currentUserId ? "text-right" : "text-left"
+                  }`}
                 >
                   {msg.from !== currentUserId && (
                     <div className="text-xs text-gray-500 dark:text-gray-300 mb-1">
@@ -602,16 +780,21 @@ export default function Chat() {
             chatMessages[selectedChat].map((msg) => (
               <div
                 key={msg.id}
-                className={`mb-4 ${(msg.from === currentUserId || msg.senderId === currentUserId) ? "text-right" : "text-left"}`}
+                className={`mb-4 ${
+                  msg.from === currentUserId || msg.senderId === currentUserId
+                    ? "text-right"
+                    : "text-left"
+                }`}
               >
-                {(msg.from !== currentUserId && msg.senderId !== currentUserId) && (
-                  <div className="text-xs text-gray-500 dark:text-gray-300 mb-1">
-                    {selectedUser?.userName}
-                  </div>
-                )}
+                {msg.from !== currentUserId &&
+                  msg.senderId !== currentUserId && (
+                    <div className="text-xs text-gray-500 dark:text-gray-300 mb-1">
+                      {selectedUser?.userName}
+                    </div>
+                  )}
                 <div
                   className={`inline-block px-4 py-2 rounded-lg max-w-xs md:max-w-md ${
-                    (msg.from === currentUserId || msg.senderId === currentUserId)
+                    msg.from === currentUserId || msg.senderId === currentUserId
                       ? "bg-teal-500 text-white"
                       : "bg-white dark:bg-gray-600 text-gray-800 dark:text-white"
                   }`}
@@ -625,7 +808,9 @@ export default function Chat() {
             ))
           ) : (
             <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400">
-              {selectedChat || selectedGroup ? "Start a new conversation" : "Select a chat to begin"}
+              {selectedChat || selectedGroup
+                ? "Start a new conversation"
+                : "Select a chat to begin"}
             </div>
           )}
           <div ref={messagesEndRef} />
@@ -640,7 +825,9 @@ export default function Chat() {
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                placeholder={`Type a ${activeTab === 'group' ? 'group' : ''} message...`}
+                placeholder={`Type a ${
+                  activeTab === "group" ? "group" : ""
+                } message...`}
                 className="flex-1 border border-gray-300 dark:border-gray-600 rounded-l-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-gray-700 dark:text-white"
               />
               <button

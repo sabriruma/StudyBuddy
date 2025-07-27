@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home/HomePage";
 import Matching from "./pages/Matching/Matching";
 import { NotFound } from "./pages/NotFound/NotFound";
-import Chat from "./pages/Chat/Chat";
+// import Chat from "./pages/Chat/Chat";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProfilePage from "./pages/ProfileEdit/ProfilePage";
 
@@ -22,7 +22,7 @@ import CreateProfileStep3 from "./pages/ProfileCreation/CreateProfileStep3";
 import StudyBuddyDashboard from "./components/Dashboard";
 import ProfileEditor from "./pages/ProfileEdit/ProfileEditor";
 import "./index.css";
-
+import Chat from "./components/Chat";
 //Different tabs
 function App() {
   return (

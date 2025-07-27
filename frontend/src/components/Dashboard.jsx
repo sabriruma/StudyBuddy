@@ -290,6 +290,7 @@ const StudyBuddyDashboard = () => {
   }, []);
 
   const [combinedGroupsAndChats, setCombinedGroupsAndChats] = useState([]);
+  console.log(combinedGroupsAndChats);
 
   useEffect(() => {
     if (!groupChats && !individualChats) return;
