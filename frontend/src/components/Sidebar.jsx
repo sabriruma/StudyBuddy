@@ -32,8 +32,8 @@ export default function Sidebar() {
         StudyBuddy
       </div>
 
-      <div className="px-3 flex-1 flex flex-col space-y-1 items-start">
-        <div className="space-y-1 w-full">
+      <div className="px-3 flex-1 flex flex-col space-y-1">
+        <div className="space-y-1">
           <NavItem
             to="/dashboard"
             icon={<HomeIcon className="h-5 w-5" />}
