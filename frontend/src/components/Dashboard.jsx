@@ -425,7 +425,7 @@ const StudyBuddyDashboard = () => {
                 {potentialMatches.map((match, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 dark:bg-gray-800 dark:border-gray-900 rounded-lg p-2"
+                    className="flex items-center gap-2 border border-black/20 dark:border-white/20 dark:bg-gray-800 dark:border-gray-900 rounded-lg p-2"
                   >
                     <img
                       src={match.avatar}
