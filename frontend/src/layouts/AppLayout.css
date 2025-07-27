@@ -1,129 +1,148 @@
 :root {
-    --bg-color: #ffffff;
-    --text-color: #1f1f1f;
-    --sidebar-bg: #f4f4f4;
-    --border-color: #cccccc;
-  }
-  
-  [data-theme="dark"] {
-    --bg-color: #1e1e2f;
-    --text-color: #ffffff;
-    --sidebar-bg: #2c2c3f;
-    --border-color: #444;
-  }
-  
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-  }
-  
-  /* Layout */
-  .layout {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Navbar styles */
-  .navbar {
-    background-color: var(--sidebar-bg);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--border-color);
-  }
-  
-  .nav-left {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-  }
-  
-  .logo {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: var(--text-color);
-  }
-  
-  /* Links */
-  .nav-link {
-    color: var(--text-color);
-    text-decoration: none;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Main content */
-  .main-content {
-    padding: 2rem;
-    background-color: var(--bg-color);
-    flex: 1;
-  }
-  
-  /* Toggle button */
-  .theme-toggle {
-    background: none;
-    border: 2px solid var(--border-color);
-    font-size: 0.9rem;
-    cursor: pointer;
-    color: var(--text-color);
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: background-color 0.3s;
-  }
-  
-  .theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+  --bg-color: #ffffff;
+  --calendar-bg-color: #ffffff;
+  --calendar-hover-color: #ebebeb;
+  --text-color: #1f1f1f;
+  --sidebar-bg: #f4f4f4;
+  --border-color: #cccccc;
+  --text-color-muted: #777777;
+}
 
-  .brand-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-  }
-  
-  .logo-img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-  }
-  
-  .brand-name {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--text-color);
-  }
+[data-theme="dark"] {
+  --bg-color: #101828;
+  --calendar-bg-color: #1e2939;
+  --calendar-hover-color: #121416;
+  --text-color: #ffffff;
+  --sidebar-bg: #2c2c3f;
+  --border-color: #444;
+  --text-color-muted: #cccccc;
+}
 
-  .logout-btn {
-    margin-left: 1rem;
-    padding: 6px 14px;
-    border: 2px solid var(--border-color);
-    background: transparent;
-    color: var(--text-color);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .logout-btn:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+}
 
-  .nav-buttons {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+/* Navbar styles */
+.navbar {
+  background-color: var(--sidebar-bg);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+}
 
-  * {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
+.nav-left {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+/* Links */
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Main content */
+.main-content {
+  padding: 2rem;
+  background-color: var(--bg-color);
+  flex: 1;
+}
+
+/* Toggle button */
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--border-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.logout-btn {
+  margin-left: 1rem;
+  padding: 6px 14px;
+  border: 2px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+* {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: var(--calendar-hover-color);
+}
+
+.react-calendar__navigation button:enabled:hover {
+  background-color: var(--calendar-hover-color);
+}
+
+.react-calendar {
+  background-color: var(--calendar-bg-color) !important;
+}
+
+.react-calendar__month-view__weekdays__weekday--weekend {
+  color: var(--text-color);
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  color: var(--text-color);
+}

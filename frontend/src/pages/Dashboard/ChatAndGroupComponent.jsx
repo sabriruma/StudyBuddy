@@ -20,7 +20,7 @@ const ChatAndGroupComponent = ({ item, currentUserId }) => {
   return (
     <div
       onClick={handleOnClick}
-      className="flex rounded-lg w-full p-2 flex-col gap-2 bg-white dark:bg-[#1e1e1e] border border-black/20 dark:border-white/20 cursor-pointer"
+      className="flex rounded-lg w-full p-2 flex-col gap-2 bg-white dark:bg-gray-800 border border-black/20 dark:border-white/20 cursor-pointer"
     >
       <div className="flex items-center gap-2">
         <img src={item.avatar} alt="" className="w-7" />
