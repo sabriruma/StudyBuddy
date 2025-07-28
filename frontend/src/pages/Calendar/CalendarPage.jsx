@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus, X, Calendar, Clock, MapPin, Tag } from 'lucide-react';
 
 const CalendarPage = () => {
@@ -6,7 +6,6 @@ const CalendarPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showEventModal, setShowEventModal] = useState(false);
   const [events, setEvents] = useState({});
-  const [userFirstName, setUserFirstName] = useState('');
   const [newEvent, setNewEvent] = useState({
     title: '',
     time: '',
@@ -15,31 +14,6 @@ const CalendarPage = () => {
     attendees: '',
     category: 'personal',
   });
-
-  // Get user's first name on component mount
-  useEffect(() => {
-    // Try multiple sources for the user's name
-    const getUserName = () => {
-      // Try localStorage first
-      const storedName = localStorage.getItem('userFirstName');
-      if (storedName) return storedName;
-
-      // Try sessionStorage
-      const sessionName = sessionStorage.getItem('userFirstName');
-      if (sessionName) return sessionName;
-
-      // Try to get from a user context or auth system
-      // You can replace this with your actual user authentication system
-      const authUser = window.currentUser || JSON.parse(localStorage.getItem('currentUser') || '{}');
-      if (authUser.firstName) return authUser.firstName;
-      if (authUser.name) return authUser.name.split(' ')[0];
-
-      // Fallback to a default name
-      return 'Your';
-    };
-
-    setUserFirstName(getUserName());
-  }, []);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -150,11 +124,12 @@ const CalendarPage = () => {
       {/* Header */}
       <div className="mb-8 text-left">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-          {userFirstName}'s Calendar
+          Your Calendar
         </h1>
         <p className="text-gray-600 dark:text-gray-300 text-lg">Plan your days, achieve your goals</p>
       </div>
 
+      {/* Rest of your calendar component remains exactly the same */}
       {/* Calendar Header */}
       <div className="text-white bg-teal-600 dark:bg-teal-700 p-6 mb-2 rounded-t-lg">
         <div className="flex items-center justify-between">
