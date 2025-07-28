@@ -27,13 +27,13 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="w-50 bg-gray-100 dark:bg-gray-900 border-r-2 border-gray-300 dark:border-gray-500 py-5 flex flex-col h-screen sticky top-0">
+    <div className="w-50 bg-white dark:bg-gray-900 border-r-2 border-gray-200 dark:border-slate-800 py-5 flex flex-col h-screen sticky top-0">
       <div className="text-2xl font-bold text-primary-400 px-5 pb-5">
         StudyBuddy
       </div>
 
-      <div className="px-3 flex-1 flex flex-col space-y-1">
-        <div className="space-y-1">
+      <div className="px-3 flex-1 flex flex-col space-y-3">
+        <div className="space-py-1">
           <NavItem
             to="/dashboard"
             icon={<HomeIcon className="h-5 w-5" />}
@@ -82,18 +82,17 @@ export default function Sidebar() {
             text="SETTINGS"
           />
         </div>
-        <div className="w-full h-[2px] bg-gray-300 dark:bg-gray-500" />
+        <div className="w-full h-[2px] bg-gray-200 dark:bg-slate-800 my-3" />
 
         <div className="w-full">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-md dark:text-gray-300 hover:bg-primary-300/10 dark:hover:bg-gray-800 hover:text-primary-500 transition-colors"
+            className="w-full flex items-center px-3 py-2.5 text-sm font-bold rounded-md dark:text-gray-300 hover:bg-slate-500/10 dark:hover:bg-gray-800 hover:text-slate-500 transition-colors"
           >
             <ArrowLeftStartOnRectangleIcon className="h-5 w-5 mr-3" />
             LOGOUT
           </button>
         </div>
-        <DarkModeToggle />
       </div>
     </div>
   );
@@ -104,15 +103,15 @@ function NavItem({ to, icon, text }) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors ${
+        `flex items-center px-1 py-3 text-sm rounded-md transition-colors font-bold tracking-wide ${
           isActive
-            ? "bg-primary-300/10 dark:bg-gray-800 text-primary-500 border-l-4 border-primary-500"
+            ? "bg-primary-300/10 dark:bg-gray-800 text-primary-500"
             : "dark:text-gray-300 hover:bg-primary-300/10 dark:hover:bg-gray-800 hover:text-primary-500"
         }`
       }
     >
       <span className="mr-3">{icon}</span>
-      {text}
+      <span className="uppercase">{text}</span>
     </NavLink>
   );
 }
