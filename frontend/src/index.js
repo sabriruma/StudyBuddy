@@ -18,6 +18,8 @@ import ProfileEditor from "./pages/ProfileEdit/ProfileEditor";
 import "./index.css";
 import Chat from "./components/Chat";
 import CalendarPage from "./pages/Calendar/CalendarPage";
+import { Settings } from "lucide-react";
+import SettingsPage from "./pages/Settings/Settings";
 
 
 
@@ -41,6 +43,7 @@ function App() {
           <Route path="/old-dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<ProfileEditor />} />
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
