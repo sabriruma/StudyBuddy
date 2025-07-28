@@ -11,6 +11,7 @@ export default function Sidebar({
   onSelectGroup,
   onCreateGroup,
 }) {
+  console.log("confirmedUsers:", confirmedUsers);
   return (
     <div className="sidebar">
       <h2>Chats</h2>

@@ -101,9 +101,7 @@ export default function Chat() {
 
     return () => unsubscribe();
   }, []);
-  const selectedUser = confirmedUsers.find(
-    (user) => user.otherUserId === selectedChat
-  );
+  const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
 
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
 
@@ -576,13 +574,11 @@ export default function Chat() {
               <div
                 key={user.id}
                 onClick={() => {
-                  setSelectedChat(user.otherUserId);
+                  setSelectedChat(user.id);
                   setSelectedGroup(null);
                 }}
                 className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
-                  selectedChat === user.otherUserId
-                    ? "bg-teal-50 dark:bg-teal-900"
-                    : ""
+                  selectedChat === user.id ? "bg-teal-50 dark:bg-teal-900" : ""
                 }`}
               >
                 <img
@@ -592,7 +588,7 @@ export default function Chat() {
                 />
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium text-gray-800 dark:text-white truncate">
-                    {user.displayName}
+                    {user.userName}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                     {user?.lastMessage?.text || "No messages yet"}
@@ -703,16 +699,17 @@ export default function Chat() {
         ) : (
           selectedChat && (
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+              {console.log("selectedChat:", selectedUser)}
               <div className="flex items-center">
                 <img
                   src={selectedUser?.avatar || "/default-avatar.png"}
-                  alt={selectedUser?.displayName || "User"}
+                  alt={selectedUser?.userName || "User"}
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <span></span>
                 <div>
                   <h2 className="font-bold text-gray-800 dark:text-white">
-                    {selectedUser?.displayName || "Unknown User"}
+                    {selectedUser?.userName || "Unknown User"}
                   </h2>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {chatMessages[selectedChat]?.length ? "Online" : "Offline"}
@@ -770,7 +767,7 @@ export default function Chat() {
                 {msg.from !== currentUserId &&
                   msg.senderId !== currentUserId && (
                     <div className="text-xs text-gray-500 dark:text-gray-300 mb-1">
-                      {selectedUser?.userName}
+                      {selectedUser?.displayName}
                     </div>
                   )}
                 <div

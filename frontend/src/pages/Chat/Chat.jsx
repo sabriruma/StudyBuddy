@@ -210,7 +210,10 @@ export default function Chat() {
     // Also set up a retry mechanism in case the chat doesn't exist yet
     const retryTimeoutId = setTimeout(() => {
       // Check if we still don't have messages for this chat
-      if (!chatMessages[selectedChat] || chatMessages[selectedChat].length === 0) {
+      if (
+        !chatMessages[selectedChat] ||
+        chatMessages[selectedChat].length === 0
+      ) {
         fetchAndSubscribe();
       }
     }, 1000);
@@ -277,7 +280,7 @@ export default function Chat() {
       text: messageText,
       timestamp: serverTimestamp(),
     });
-    
+
     // If this was a new chat, we need to trigger a re-fetch of the chat list
     // to update the chatId in the confirmedUsers
     if (isNewChat) {
@@ -328,10 +331,10 @@ export default function Chat() {
       );
 
       setConfirmedUsers(matches);
-      
+
       // Force the listener to refresh by incrementing the forceRefresh counter
-      setForceRefresh(prev => prev + 1);
-      
+      setForceRefresh((prev) => prev + 1);
+
       // Also immediately add the message to the local state to show it right away
       const newMessage = {
         id: messageRef.id,
@@ -339,10 +342,10 @@ export default function Chat() {
         text: messageText,
         timestamp: new Date(),
       };
-      
+
       setChatMessages((prev) => ({
         ...prev,
-        [chatPartnerId]: [...(prev[chatPartnerId] || []), newMessage]
+        [chatPartnerId]: [...(prev[chatPartnerId] || []), newMessage],
       }));
     }
   };
