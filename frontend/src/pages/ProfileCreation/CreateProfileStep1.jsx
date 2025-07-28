@@ -53,11 +53,13 @@ export default function CreateProfileStep1({handleGoNextStep}) {
   const handleNext = async (e) => {
     e.preventDefault();
 
-    // Add reputationScore to the initial user data
-    const dataToSave = {
-      ...formData,
-      reputationScore: 1000
-    };
+      // Add reputationScore to the initial user data
+  const dataToSave = {
+    ...formData,
+    reputationScore: 1000,
+    XP: 0,
+    Level: 1
+  };
 
     await saveProfilePart(dataToSave);
     handleGoNextStep()
