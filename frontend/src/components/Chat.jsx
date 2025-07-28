@@ -17,7 +17,7 @@ import {
   limit,
 } from "firebase/firestore";
 import CreateGroupModal from "../pages/Chat/CreateGroupModal";
-
+import EditGroupModal from "../pages/Chat/Components/EditGroupModal";
 // Timestamp formatting utility
 const formatTimestamp = (timestamp) => {
   if (!timestamp?.seconds) return "Just now";
@@ -71,6 +71,7 @@ export default function Chat() {
   const [newMessage, setNewMessage] = useState("");
   const [activeTab, setActiveTab] = useState("private");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [individualChats, setIndividualChats] = useState([]);
   const [forceRefresh, setForceRefresh] = useState(0);
   const messagesEndRef = useRef(null);
@@ -84,36 +85,24 @@ export default function Chat() {
       setSelectedChat(urlChatId);
       setSelectedGroup(null);
       setActiveTab("private");
-      console.log("Auto-selecting chat from URL:", urlChatId);
     } else if (urlGroupId) {
       setSelectedGroup(urlGroupId);
       setSelectedChat(null);
       setActiveTab("group");
-      console.log("Auto-selecting group from URL:", urlGroupId);
     }
   }, [params, searchParams]);
 
   // Set up auth state listener
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("Auth state changed:", user?.uid);
       setCurrentUserId(user?.uid || null);
       setIsAuthLoaded(true);
     });
 
     return () => unsubscribe();
   }, []);
-
-  console.log("confirmedUsers full data:", confirmedUsers);
-  console.log("selectedChat full data:", selectedChat);
-  confirmedUsers.forEach((user) => {
-    console.log("User ID:", user.otherUserId || user.id || user.userId);
-  });
-
-  const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
-  console.log(
-    "found user:",
-    confirmedUsers.find((user) => user.otherUserId === selectedChat)
+  const selectedUser = confirmedUsers.find(
+    (user) => user.otherUserId === selectedChat
   );
 
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
@@ -127,18 +116,13 @@ export default function Chat() {
   useEffect(() => {
     // Don't run if auth isn't loaded yet or user isn't authenticated
     if (!isAuthLoaded || !currentUserId) {
-      console.log("Waiting for auth:", { isAuthLoaded, currentUserId });
       return;
     }
 
-    console.log("Fetching data for user:", currentUserId);
-
     const fetchConfirmedMatches = async () => {
       try {
-        console.log("Fetching confirmed matches...");
         const ref = collection(db, `users/${currentUserId}/confirmedMatches`);
         const snapshot = await getDocs(ref);
-        console.log("Confirmed matches snapshot:", snapshot.docs.length);
 
         const matches = await Promise.all(
           snapshot.docs.map(async (docSnap) => {
@@ -183,7 +167,6 @@ export default function Chat() {
           })
         );
 
-        console.log("Processed matches:", matches);
         setConfirmedUsers(matches);
       } catch (error) {
         console.error("Error fetching confirmed matches:", error);
@@ -192,16 +175,12 @@ export default function Chat() {
 
     const fetchGroups = async () => {
       try {
-        console.log("Fetching groups...");
         const ref = collection(db, "groups");
         const snapshot = await getDocs(ref);
-        console.log("Groups snapshot:", snapshot.docs.length);
 
         const myGroups = snapshot.docs
           .map((doc) => ({ id: doc.id, ...doc.data() }))
           .filter((group) => group.members.includes(currentUserId));
-
-        console.log("My groups:", myGroups);
 
         const enrichedGroups = await Promise.all(
           myGroups.map(async (group) => {
@@ -222,7 +201,6 @@ export default function Chat() {
           })
         );
 
-        console.log("Enriched groups:", enrichedGroups);
         setGroups(enrichedGroups);
       } catch (error) {
         console.error("Error fetching groups:", error);
@@ -231,13 +209,11 @@ export default function Chat() {
 
     const fetchIndividualChats = async () => {
       try {
-        console.log("Fetching individual chats...");
         const chatQuery = query(
           collection(db, "chats"),
           where("members", "array-contains", currentUserId)
         );
         const chatSnap = await getDocs(chatQuery);
-        console.log("Individual chats snapshot:", chatSnap.docs.length);
 
         const chats = chatSnap.docs.map((docSnap) => ({
           id: docSnap.id,
@@ -280,7 +256,6 @@ export default function Chat() {
         );
 
         const validChats = enrichedChats.filter(Boolean);
-        console.log("Individual chats processed:", validChats);
         setIndividualChats(validChats);
 
         // Update confirmedUsers with individual chats data
@@ -555,9 +530,6 @@ export default function Chat() {
     );
   }
 
-  console.log("Rendering with individualChats:", individualChats);
-  console.log("Rendering with groups:", groups);
-
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* User Chat List */}
@@ -605,7 +577,6 @@ export default function Chat() {
                 key={user.id}
                 onClick={() => {
                   setSelectedChat(user.otherUserId);
-                  console.log("Clicked user.otherUserId:", user.otherUserId);
                   setSelectedGroup(null);
                 }}
                 className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
@@ -703,52 +674,54 @@ export default function Chat() {
           )}
         </div>
       </div>
-
       {/* Chat Window */}
       <div className="flex-1 flex flex-col">
-        {(selectedGroupObj && activeTab === "group") || selectedUser ? (
+        {selectedGroupObj && activeTab === "group" ? (
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-            {activeTab === "group" && selectedGroupObj ? (
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                    <img src={selectedGroupObj.avatar} className="text-lg" />
-                  </div>
-                  <div>
-                    <h2 className="font-bold text-gray-800 dark:text-white">
-                      {selectedGroupObj.name}
-                    </h2>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {selectedGroupObj.members.length} members
-                    </p>
-                  </div>
-                </div>
-                <button
-                  className="text-sm text-teal-500 hover:text-teal-600"
-                  onClick={() => setShowCreateModal(true)}
-                >
-                  Manage Group
-                </button>
-              </div>
-            ) : selectedUser ? (
+            <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <img
-                  src={selectedUser.avatar || "/default-avatar.png"}
-                  alt={selectedUser.userName || "User"}
-                  className="w-10 h-10 rounded-full mr-3"
-                />
+                <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                  <img src={selectedGroupObj.avatar} className="text-lg" />
+                </div>
                 <div>
                   <h2 className="font-bold text-gray-800 dark:text-white">
-                    {selectedUser.userName || "Unknown User"}
+                    {selectedGroupObj.name}
+                  </h2>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {selectedGroupObj.members.length} members
+                  </p>
+                </div>
+              </div>
+              <button
+                className="text-sm text-teal-500 hover:text-teal-600"
+                onClick={() => setShowEditModal(true)}
+              >
+                Manage Group
+              </button>
+            </div>
+          </div>
+        ) : (
+          selectedChat && (
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+              <div className="flex items-center">
+                <img
+                  src={selectedUser?.avatar || "/default-avatar.png"}
+                  alt={selectedUser?.displayName || "User"}
+                  className="w-10 h-10 rounded-full mr-3"
+                />
+                <span></span>
+                <div>
+                  <h2 className="font-bold text-gray-800 dark:text-white">
+                    {selectedUser?.displayName || "Unknown User"}
                   </h2>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {chatMessages[selectedChat]?.length ? "Online" : "Offline"}
                   </p>
                 </div>
               </div>
-            ) : null}
-          </div>
-        ) : null}
+            </div>
+          )
+        )}
 
         <div className="flex-1 p-4 overflow-y-auto bg-gray-50 dark:bg-gray-700">
           {activeTab === "group" && selectedGroupObj ? (
@@ -850,8 +823,17 @@ export default function Chat() {
         )}
       </div>
 
+      {showEditModal && (
+        <EditGroupModal
+          group={selectedGroupObj}
+          confirmedUsers={confirmedUsers}
+          onClose={() => setShowEditModal(false)}
+          onGroupUpdated={onGroupUpdated}
+        />
+      )}
       {showCreateModal && (
         <CreateGroupModal
+          group={selectedGroupObj}
           confirmedUsers={confirmedUsers}
           onClose={() => setShowCreateModal(false)}
           onGroupCreated={handleGroupCreated}
