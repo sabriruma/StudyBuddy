@@ -104,7 +104,18 @@ export default function Chat() {
     return () => unsubscribe();
   }, []);
 
+  console.log("confirmedUsers full data:", confirmedUsers);
+  console.log("selectedChat full data:", selectedChat);
+  confirmedUsers.forEach((user) => {
+    console.log("User ID:", user.otherUserId || user.id || user.userId);
+  });
+
   const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
+  console.log(
+    "found user:",
+    confirmedUsers.find((user) => user.otherUserId === selectedChat)
+  );
+
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
 
   const enhancedUsers = confirmedUsers.map((user) => ({
@@ -594,6 +605,7 @@ export default function Chat() {
                 key={user.id}
                 onClick={() => {
                   setSelectedChat(user.otherUserId);
+                  console.log("Clicked user.otherUserId:", user.otherUserId);
                   setSelectedGroup(null);
                 }}
                 className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
@@ -694,53 +706,49 @@ export default function Chat() {
 
       {/* Chat Window */}
       <div className="flex-1 flex flex-col">
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-          {activeTab === "group" && selectedGroupObj ? (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                  <span className="text-lg">👥</span>
+        {(selectedGroupObj && activeTab === "group") || selectedUser ? (
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+            {activeTab === "group" && selectedGroupObj ? (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                    <img src={selectedGroupObj.avatar} className="text-lg" />
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-gray-800 dark:text-white">
+                      {selectedGroupObj.name}
+                    </h2>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {selectedGroupObj.members.length} members
+                    </p>
+                  </div>
                 </div>
+                <button
+                  className="text-sm text-teal-500 hover:text-teal-600"
+                  onClick={() => setShowCreateModal(true)}
+                >
+                  Manage Group
+                </button>
+              </div>
+            ) : selectedUser ? (
+              <div className="flex items-center">
+                <img
+                  src={selectedUser.avatar || "/default-avatar.png"}
+                  alt={selectedUser.userName || "User"}
+                  className="w-10 h-10 rounded-full mr-3"
+                />
                 <div>
                   <h2 className="font-bold text-gray-800 dark:text-white">
-                    {selectedGroupObj.name}
+                    {selectedUser.userName || "Unknown User"}
                   </h2>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {selectedGroupObj.members.length} members
+                    {chatMessages[selectedChat]?.length ? "Online" : "Offline"}
                   </p>
                 </div>
               </div>
-              <button
-                className="text-sm text-teal-500 hover:text-teal-600"
-                onClick={() => setShowCreateModal(true)}
-              >
-                Manage Group
-              </button>
-            </div>
-          ) : selectedUser ? (
-            <div className="flex items-center">
-              <img
-                src={selectedUser.avatar}
-                alt={selectedUser.userName}
-                className="w-10 h-10 rounded-full mr-3"
-              />
-              <div>
-                <h2 className="font-bold text-gray-800 dark:text-white">
-                  {selectedUser.userName}
-                </h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {chatMessages[selectedChat]?.length ? "Online" : "Offline"}
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="text-gray-600 dark:text-gray-300">
-              {activeTab === "group"
-                ? "Select a group chat"
-                : "Select a chat to start messaging"}
-            </div>
-          )}
-        </div>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="flex-1 p-4 overflow-y-auto bg-gray-50 dark:bg-gray-700">
           {activeTab === "group" && selectedGroupObj ? (
