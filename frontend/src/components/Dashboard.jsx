@@ -1,5 +1,3 @@
-// not finished
-
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
@@ -28,62 +26,6 @@ import {
 import { FaTrophy } from "react-icons/fa";
 import ChatAndGroupComponent from "../pages/Dashboard/ChatAndGroupComponent";
 
-const widgetData = [
-  {
-    title: "Progress Tracker",
-    icon: <FiTrendingUp className="text-white" size={20} />,
-    content: (
-      <>
-        <p className="mb-4 opacity-90">
-          Start learning concepts with your matches to grow bar!
-        </p>
-        <div className="w-full bg-green-300 bg-opacity-30 rounded-full h-2.5 mb-2">
-          <div
-            className="bg-white h-2.5 rounded-full"
-            style={{ width: "5%" }}
-          ></div>
-        </div>
-        <div className="flex justify-between text-sm items-center">
-          <span className="flex items-center gap-1">
-            <FaTrophy className="text-yellow-500 w-5 h-5" />
-            Your Rank:
-          </span>
-          <span>Weekly Progress</span>
-        </div>
-      </>
-    ),
-    bg: "from-teal-500 to-violet-800",
-  },
-  {
-    title: "AI Tutor Tip",
-    icon: <FiZap className="text-white" size={20} />,
-    content: (
-      <>
-        <p className="opacity-90 mb-2">
-          "Stuck on a problem? Ask your AI Tutor to explain it step-by-step!"
-        </p>
-        <p className="text-sm opacity-80">
-          Tip: Use specific questions like "Why is this formula used here?"
-        </p>
-      </>
-    ),
-    bg: "from-purple-500 to-pink-400",
-  },
-  {
-    title: "Motivational Boost",
-    icon: <FiSmile className="text-white" size={20} />,
-    content: (
-      <>
-        <p className="opacity-90 mb-2">
-          "Success is the sum of small efforts, repeated day in and day out."
-        </p>
-        <p className="text-sm opacity-80">– Robert Collier</p>
-      </>
-    ),
-    bg: "from-amber-500 to-yellow-300",
-  },
-];
-
 const StudyBuddyDashboard = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [groupChats, setGroupChats] = useState([]);
@@ -98,20 +40,21 @@ const StudyBuddyDashboard = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userEvents, setUserEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const navigate = useNavigate();
+  const [xp, setXp] = useState(0);
+  const [level, setLevel] = useState(1);
 
   const handleNextWidget = () => {
-    setCurrentWidgetIndex((prevIndex) =>
-      prevIndex === widgetData.length - 1 ? 0 : prevIndex + 1
-    );
-  };
+  setCurrentWidgetIndex((prevIndex) =>
+    prevIndex === widgetData.length - 1 ? 0 : prevIndex + 1
+  );
+};
 
-  const handlePrevWidget = () => {
-    setCurrentWidgetIndex((prevIndex) =>
-      prevIndex === 0 ? widgetData.length - 1 : prevIndex - 1
-    );
-  };
+const handlePrevWidget = () => {
+  setCurrentWidgetIndex((prevIndex) =>
+    prevIndex === 0 ? widgetData.length - 1 : prevIndex - 1
+  );
+};
+  const navigate = useNavigate();
 
   const searchOptions = [
     { label: "Dashboard", route: "/dashboard" },
@@ -125,13 +68,11 @@ const StudyBuddyDashboard = () => {
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
-
     if (!query) {
       setFilteredSuggestions([]);
       setShowSuggestions(false);
       return;
     }
-
     const matches = searchOptions.filter((option) =>
       option.label.toLowerCase().includes(query)
     );
@@ -145,6 +86,8 @@ const StudyBuddyDashboard = () => {
     setShowSuggestions(false);
   };
 
+  const [combinedGroupsAndChats, setCombinedGroupsAndChats] = useState([]);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) return;
@@ -152,14 +95,14 @@ const StudyBuddyDashboard = () => {
       setCurrentUserId(currentUserId);
 
       try {
-        // === GET USER INFO ===
         const userDocSnap = await getDoc(doc(db, "users", currentUserId));
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
           setCurrentUserFirstName(userData.firstName || "");
+          setXp(userData.XP || 0);
+          setLevel(userData.Level || 1);
         }
 
-        // === GROUP CHATS ===
         const groupQuery = query(
           collection(db, "groups"),
           where("members", "array-contains", currentUserId)
@@ -184,7 +127,6 @@ const StudyBuddyDashboard = () => {
         );
         setGroupChats(enrichedGroups);
 
-        // === INDIVIDUAL CHATS ===
         const chatQuery = query(
           collection(db, "chats"),
           where("members", "array-contains", currentUserId)
@@ -225,7 +167,6 @@ const StudyBuddyDashboard = () => {
         );
         setIndividualChats(enrichedChats.filter(Boolean));
 
-        // === POTENTIAL MATCHES ===
         const [matchesSnap, confirmedSnap] = await Promise.all([
           getDocs(collection(db, "users", currentUserId, "matches")),
           getDocs(collection(db, "users", currentUserId, "confirmedMatches")),
@@ -248,11 +189,9 @@ const StudyBuddyDashboard = () => {
         );
         setPotentialMatches(recommended);
 
-        // === EVENTS ===
         const eventSnap = await getDocs(collection(db, "users", currentUserId, "events"));
         const events = eventSnap.docs.map(doc => doc.data());
         setUserEvents(events);
-
         setLoading(false);
       } catch (error) {
         console.error("Error loading dashboard data:", error);
@@ -263,7 +202,6 @@ const StudyBuddyDashboard = () => {
     return () => unsubscribe();
   }, []);
 
-  const [combinedGroupsAndChats, setCombinedGroupsAndChats] = useState([]);
   useEffect(() => {
     if (!groupChats && !individualChats) return;
     const combined = [...groupChats, ...individualChats];
@@ -281,6 +219,63 @@ const StudyBuddyDashboard = () => {
     setCombinedGroupsAndChats(combined);
   }, [groupChats, individualChats]);
 
+  const xpPercentage = Math.min((xp / 100) * 100, 100);
+
+  const widgetData = [
+    {
+      title: "Progress Tracker",
+      icon: <FiTrendingUp className="text-white" size={20} />,
+      content: (
+        <>
+          <p className="mb-4 opacity-90">
+            Start learning concepts with your matches to grow bar!
+          </p>
+          <div className="w-full bg-white bg-opacity-20 rounded-full h-3 mb-2">
+            <div
+              className="bg-yellow-400 h-3 rounded-full"
+              style={{ width: `${xpPercentage}%` }}
+            ></div>
+          </div>
+          <div className="flex justify-between text-sm items-center">
+            <span className="flex items-center gap-1">
+              <FaTrophy className="text-yellow-500 w-5 h-5" />
+              Level {level}
+            </span>
+            <span>{xp}/100 XP</span>
+          </div>
+        </>
+      ),
+      bg: "from-teal-500 to-violet-800",
+    },
+    {
+      title: "AI Tutor Tip",
+      icon: <FiZap className="text-white" size={20} />,
+      content: (
+        <>
+          <p className="opacity-90 mb-2">
+            "Stuck on a problem? Ask your AI Tutor to explain it step-by-step!"
+          </p>
+          <p className="text-sm opacity-80">
+            Tip: Use specific questions like "Why is this formula used here?"
+          </p>
+        </>
+      ),
+      bg: "from-purple-500 to-pink-400",
+    },
+    {
+      title: "Motivational Boost",
+      icon: <FiSmile className="text-white" size={20} />,
+      content: (
+        <>
+          <p className="opacity-90 mb-2">
+            "Success is the sum of small efforts, repeated day in and day out."
+          </p>
+          <p className="text-sm opacity-80">– Robert Collier</p>
+        </>
+      ),
+      bg: "from-amber-500 to-yellow-300",
+    },
+  ];
   return (
     <div className="flex-1 overflow-y-auto">
       {/* Header */}
