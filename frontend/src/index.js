@@ -18,11 +18,10 @@ import ProfileEditor from "./pages/ProfileEdit/ProfileEditor";
 import "./index.css";
 import Chat from "./components/Chat";
 import CalendarPage from "./pages/Calendar/CalendarPage";
+
 import AITutor from "./pages/AITutor/AITutor";
 import SettingsPage from "./pages/Settings/Settings";
 import QuizGenerator from "./pages/Quiz/QuizGenerator";
-
-
 
 //Different tabs
 function App() {

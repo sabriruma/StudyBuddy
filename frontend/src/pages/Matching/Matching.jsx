@@ -234,10 +234,7 @@ export default function Matching() {
                   <p className="dark:text-white">
                     <strong>Mutual Score:</strong> {match.mutualScore}%
                   </p>
-                  <p className="dark:text-white">
-                    <strong>Reputation Score:</strong>{" "}
-                    {match.reputationScore || 1000}
-                  </p>
+
                   <p className="mt-2 font-semibold">Reasons:</p>
                   <ul className="list-disc list-inside">
                     {match.reasonsAtoB?.map((reason, i) => (

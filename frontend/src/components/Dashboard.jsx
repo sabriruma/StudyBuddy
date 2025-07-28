@@ -25,7 +25,7 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi";
-import { FaTrophy } from 'react-icons/fa';
+import { FaTrophy } from "react-icons/fa";
 import ChatAndGroupComponent from "../pages/Dashboard/ChatAndGroupComponent";
 
 const events = [
@@ -36,24 +36,29 @@ const events = [
 
 const widgetData = [
   {
-    title: 'Progress Tracker',
+    title: "Progress Tracker",
     icon: <FiTrendingUp className="text-white" size={20} />,
     content: (
       <>
-        <p className="mb-4 opacity-90">Start learning concepts with your matches to grow bar!</p>
+        <p className="mb-4 opacity-90">
+          Start learning concepts with your matches to grow bar!
+        </p>
         <div className="w-full bg-green-300 bg-opacity-30 rounded-full h-2.5 mb-2">
-          <div className="bg-white h-2.5 rounded-full" style={{ width: '5%' }}></div>
+          <div
+            className="bg-white h-2.5 rounded-full"
+            style={{ width: "5%" }}
+          ></div>
         </div>
-          <div className="flex justify-between text-sm items-center">
-            <span className="flex items-center gap-1">
-              <FaTrophy className="text-yellow-500 w-5 h-5" />
-              Your Rank:
-            </span>
-            <span>Weekly Progress</span>
-          </div>
+        <div className="flex justify-between text-sm items-center">
+          <span className="flex items-center gap-1">
+            <FaTrophy className="text-yellow-500 w-5 h-5" />
+            Your Rank:
+          </span>
+          <span>Weekly Progress</span>
+        </div>
       </>
     ),
-    bg: 'from-teal-500 to-violet-800',
+    bg: "from-teal-500 to-violet-800",
   },
   {
     title: "AI Tutor Tip",
@@ -449,7 +454,7 @@ const StudyBuddyDashboard = () => {
                 </Link>
               </p>
             )}
-            <CTANavButton text={"Find More Matches"} link={"/matching"} />
+            <CTANavButton text={"Connect to Matches"} link={"/matching"} />
           </InfoBox>
 
           {/* Calendar */}
@@ -546,12 +551,14 @@ const InfoBox = ({ children, className }) => {
 const CTANavButton = ({ text, link }) => {
   return (
     <Link to={link} className="w-full mt-auto">
-      <button className="w-full px-2 py-2 text-lg font-bold rounded-full
+      <button
+        className="w-full px-2 py-2 text-lg font-bold rounded-full
                         border-2 border-gray-200 dark:border-gray-400 
                         bg-transparent 
                         text-gray-900 dark:text-gray-300 
                         hover:bg-gray-500/10 dark:hover:bg-primary-400/10 
-                        transition-colors">
+                        transition-colors"
+      >
         {text}
       </button>
     </Link>
