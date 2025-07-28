@@ -467,7 +467,7 @@ const ProfileEditor = () => {
                               profile.studyEnvironment.slice(1) ||
                               "Not specified"}
                             {profile.importanceStudyEnvironment && (
-                              <span className="ml-2 text-sm text-primary-500">
+                              <span className="ml-2 text-sm text-blue-500">
                                 (Importance:{" "}
                                 {profile.importanceStudyEnvironment}/10)
                               </span>
@@ -518,7 +518,7 @@ const ProfileEditor = () => {
                             {profile.studyMethod.charAt(0).toUpperCase() +
                               profile.studyMethod.slice(1) || "Not specified"}
                             {profile.importanceStudyMethod && (
-                              <span className="ml-2 text-sm text-primary-500">
+                              <span className="ml-2 text-sm text-blue-500">
                                 (Importance: {profile.importanceStudyMethod}/10)
                               </span>
                             )}
@@ -578,7 +578,7 @@ const ProfileEditor = () => {
                             {profile.studyTime.charAt(0).toUpperCase() +
                               profile.studyTime.slice(1) || "Not specified"}
                             {profile.importanceStudyTime && (
-                              <span className="ml-2 text-sm text-primary-500">
+                              <span className="ml-2 text-sm text-blue-500">
                                 (Importance: {profile.importanceStudyTime}/10)
                               </span>
                             )}
@@ -596,7 +596,7 @@ const ProfileEditor = () => {
                       {editMode && (
                         <button
                           onClick={addCourse}
-                          className="flex items-center text-sm bg-primary-500 text-white px-3 py-1 rounded-lg hover:bg-primary-500 transition"
+                          className="flex items-center text-sm bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition"
                         >
                           <FiPlus className="mr-1" />
                           Add Course

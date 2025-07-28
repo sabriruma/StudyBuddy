@@ -28,7 +28,7 @@ export default function Sidebar() {
 
   return (
     <div className="w-50 bg-white dark:bg-gray-900 border-r-2 border-gray-200 dark:border-slate-800 py-5 flex flex-col h-screen sticky top-0">
-      <div className="text-2xl font-bold text-primary-400 px-5 pb-5">
+      <div className="text-2xl font-bold text-primary-500 px-5 pb-5">
         StudyBuddy
       </div>
 
