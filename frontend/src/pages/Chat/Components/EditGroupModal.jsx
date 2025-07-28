@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../../../firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import "../CreateGroupModal.css";
+import "../Styles/CreateGroupModal.css";
 
 export default function EditGroupModal({
   group,
