@@ -28,12 +28,6 @@ import {
 import { FaTrophy } from "react-icons/fa";
 import ChatAndGroupComponent from "../pages/Dashboard/ChatAndGroupComponent";
 
-const events = [
-  { date: new Date(2023, 5, 15), title: "Group Study Session" },
-  { date: new Date(2023, 5, 18), title: "AI Tutor Meeting" },
-  { date: new Date(2023, 5, 22), title: "Project Deadline" },
-];
-
 const widgetData = [
   {
     title: "Progress Tracker",
@@ -97,11 +91,13 @@ const StudyBuddyDashboard = () => {
   const [potentialMatches, setPotentialMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState(null);
-  const [currentWidgetIndex, setCurrentWidgetIndex] = useState(0);
   const [currentUserFirstName, setCurrentUserFirstName] = useState("");
+  const [currentWidgetIndex, setCurrentWidgetIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [userEvents, setUserEvents] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const navigate = useNavigate();
 
@@ -156,10 +152,8 @@ const StudyBuddyDashboard = () => {
       setCurrentUserId(currentUserId);
 
       try {
-        // Get the current user's full document
-        const userDocRef = doc(db, "users", currentUserId);
-        const userDocSnap = await getDoc(userDocRef);
-
+        // === GET USER INFO ===
+        const userDocSnap = await getDoc(doc(db, "users", currentUserId));
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
           setCurrentUserFirstName(userData.firstName || "");
@@ -171,7 +165,6 @@ const StudyBuddyDashboard = () => {
           where("members", "array-contains", currentUserId)
         );
         const groupSnap = await getDocs(groupQuery);
-
         const groups = groupSnap.docs.map((docSnap) => ({
           id: docSnap.id,
           ...docSnap.data(),
@@ -186,15 +179,9 @@ const StudyBuddyDashboard = () => {
             );
             const latestSnap = await getDocs(latestQuery);
             const lastMessage = latestSnap.docs[0]?.data();
-
-            return {
-              ...group,
-              lastMessage,
-              unreadCount: 0,
-            };
+            return { ...group, lastMessage, unreadCount: 0 };
           })
         );
-
         setGroupChats(enrichedGroups);
 
         // === INDIVIDUAL CHATS ===
@@ -203,16 +190,13 @@ const StudyBuddyDashboard = () => {
           where("members", "array-contains", currentUserId)
         );
         const chatSnap = await getDocs(chatQuery);
-
         const chats = chatSnap.docs.map((docSnap) => ({
           id: docSnap.id,
           ...docSnap.data(),
         }));
-
         const enrichedChats = await Promise.all(
           chats.map(async (chat) => {
             const chatId = chat.id;
-
             const messagesRef = collection(db, "chats", chatId, "messages");
             const latestQuery = query(
               messagesRef,
@@ -221,11 +205,9 @@ const StudyBuddyDashboard = () => {
             );
             const latestSnap = await getDocs(latestQuery);
             const lastMessageDoc = latestSnap.docs[0];
-
             if (!lastMessageDoc) return null;
 
             const lastMessage = lastMessageDoc.data();
-
             const otherUserId = chat.members.find((id) => id !== currentUserId);
             if (!otherUserId) return null;
 
@@ -235,9 +217,7 @@ const StudyBuddyDashboard = () => {
             return {
               chatId,
               otherUserId,
-              displayName: `${userData.firstName || "Unknown"} ${
-                userData.lastName || ""
-              }`.trim(),
+              displayName: `${userData.firstName || "Unknown"} ${userData.lastName || ""}`.trim(),
               avatar: userData.avatar || "/defaultAvatar.png",
               lastMessage,
             };
@@ -246,43 +226,33 @@ const StudyBuddyDashboard = () => {
         setIndividualChats(enrichedChats.filter(Boolean));
 
         // === POTENTIAL MATCHES ===
-        const matchesRef = collection(db, "users", currentUserId, "matches");
-        const confirmedRef = collection(
-          db,
-          "users",
-          currentUserId,
-          "confirmedMatches"
-        );
-
         const [matchesSnap, confirmedSnap] = await Promise.all([
-          getDocs(matchesRef),
-          getDocs(confirmedRef),
+          getDocs(collection(db, "users", currentUserId, "matches")),
+          getDocs(collection(db, "users", currentUserId, "confirmedMatches")),
         ]);
-
         const confirmedIds = new Set(confirmedSnap.docs.map((doc) => doc.id));
-
         const recommended = await Promise.all(
           matchesSnap.docs
             .filter((matchDoc) => !confirmedIds.has(matchDoc.id))
             .map(async (matchDoc) => {
               const matchData = matchDoc.data();
-              const profileDoc = await getDoc(
-                doc(db, "users", matchData.userId)
-              );
+              const profileDoc = await getDoc(doc(db, "users", matchData.userId));
               const profile = profileDoc.exists() ? profileDoc.data() : {};
-
               return {
                 userId: matchData.userId,
                 avatar: profile.avatar || "/SBmascot.png",
-                fullName: `${profile.firstName || "Unknown"} ${
-                  profile.lastName || ""
-                }`,
+                fullName: `${profile.firstName || "Unknown"} ${profile.lastName || ""}`,
                 mutualScore: matchData.mutualScore || 0,
               };
             })
         );
-
         setPotentialMatches(recommended);
+
+        // === EVENTS ===
+        const eventSnap = await getDocs(collection(db, "users", currentUserId, "events"));
+        const events = eventSnap.docs.map(doc => doc.data());
+        setUserEvents(events);
+
         setLoading(false);
       } catch (error) {
         console.error("Error loading dashboard data:", error);
@@ -294,26 +264,20 @@ const StudyBuddyDashboard = () => {
   }, []);
 
   const [combinedGroupsAndChats, setCombinedGroupsAndChats] = useState([]);
-  console.log(combinedGroupsAndChats);
-
   useEffect(() => {
     if (!groupChats && !individualChats) return;
-
     const combined = [...groupChats, ...individualChats];
-
     combined.sort((a, b) => {
-      const aTimestamp = a.lastMessage?.timestamp?.seconds ?? 0;
-      const bTimestamp = b.lastMessage?.timestamp?.seconds ?? 0;
-
+      const aTimestamp = a?.lastMessage?.timestamp?.seconds ?? 0;
+      const bTimestamp = b?.lastMessage?.timestamp?.seconds ?? 0;
       if (aTimestamp === bTimestamp) {
-        const aNanos = a.lastMessage?.timestamp?.nanoseconds ?? 0;
-        const bNanos = b.lastMessage?.timestamp?.nanoseconds ?? 0;
-        return aNanos - bNanos;
+        return (
+          (a?.lastMessage?.timestamp?.nanoseconds ?? 0) -
+          (b?.lastMessage?.timestamp?.nanoseconds ?? 0)
+        );
       }
-
       return bTimestamp - aTimestamp;
     });
-
     setCombinedGroupsAndChats(combined);
   }, [groupChats, individualChats]);
 
@@ -354,42 +318,19 @@ const StudyBuddyDashboard = () => {
         </div>
       </div>
 
-      {/* Single Widget with Navigation */}
-      <div
-        className={`bg-gradient-to-r ${widgetData[currentWidgetIndex].bg} rounded-xl p-6 text-white mb-6 relative`}
-      >
+      {/* Widget */}
+      <div className={`bg-gradient-to-r ${widgetData[currentWidgetIndex].bg} rounded-xl p-6 text-white mb-6 relative`}>
         <div className="flex items-center justify-between mb-3">
-          <button
-            onClick={handlePrevWidget}
-            className="p-1 rounded-full hover:bg-white hover:bg-opacity-20 transition"
-          >
-            <FiChevronLeft size={20} />
-          </button>
-          <div className="flex items-center gap-2">
-            {widgetData[currentWidgetIndex].icon}
-            <h3 className="text-lg font-semibold">
-              {widgetData[currentWidgetIndex].title}
-            </h3>
+          <button onClick={handlePrevWidget} className="p-1 rounded-full hover:bg-white hover:bg-opacity-20 transition"><FiChevronLeft size={20} /></button>
+          <div className="flex items-center gap-2">{widgetData[currentWidgetIndex].icon}
+            <h3 className="text-lg font-semibold">{widgetData[currentWidgetIndex].title}</h3>
           </div>
-          <button
-            onClick={handleNextWidget}
-            className="p-1 rounded-full hover:bg-white hover:bg-opacity-20 transition"
-          >
-            <FiChevronRight size={20} />
-          </button>
+          <button onClick={handleNextWidget} className="p-1 rounded-full hover:bg-white hover:bg-opacity-20 transition"><FiChevronRight size={20} /></button>
         </div>
         {widgetData[currentWidgetIndex].content}
         <div className="flex justify-center mt-4 space-x-2">
           {widgetData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentWidgetIndex(index)}
-              className={`w-2 h-2 rounded-full ${
-                currentWidgetIndex === index
-                  ? "bg-white"
-                  : "bg-white bg-opacity-30"
-              }`}
-            />
+            <button key={index} onClick={() => setCurrentWidgetIndex(index)} className={`w-2 h-2 rounded-full ${currentWidgetIndex === index ? "bg-white" : "bg-white bg-opacity-30"}`} />
           ))}
         </div>
       </div>
@@ -400,24 +341,14 @@ const StudyBuddyDashboard = () => {
           {/* Chats */}
           <InfoBox className={"max-h-[520px] h-[520px] flex-1 min-w-[350px]"}>
             <h3 className="text-lg font-semibold mb-2">Chats & Study Groups</h3>
-            {groupChats.length > 0 || individualChats.length > 0 ? (
+            {combinedGroupsAndChats.length > 0 ? (
               <div className="flex flex-col overflow-y-auto gap-3 px-2 flex-1">
-                {combinedGroupsAndChats.map((item) => {
-                  return (
-                    <ChatAndGroupComponent
-                      item={item}
-                      currentUserId={currentUserId}
-                    />
-                  );
-                })}
+                {combinedGroupsAndChats.map((item) => (
+                  <ChatAndGroupComponent key={item.id || item.chatId} item={item} currentUserId={currentUserId} />
+                ))}
               </div>
             ) : (
-              <p>
-                No chats or groups yet.{" "}
-                <Link to="/matching" className="text-primary-500">
-                  Start matching now!
-                </Link>
-              </p>
+              <p>No chats or groups yet. <Link to="/matching" className="text-primary-500">Start matching now!</Link></p>
             )}
             <CTANavButton text={"Go to Chats"} link={"/chat"} />
           </InfoBox>
@@ -428,31 +359,17 @@ const StudyBuddyDashboard = () => {
             {potentialMatches.length > 0 ? (
               <div className="flex flex-col gap-2 overflow-y-auto">
                 {potentialMatches.map((match, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-2 border border-black/20 dark:border-white/20 dark:bg-gray-800 dark:border-gray-900 rounded-lg p-2"
-                  >
-                    <img
-                      src={match.avatar}
-                      className="w-8 h-8 rounded-full"
-                      alt="avatar"
-                    />
+                  <div key={i} className="flex items-center gap-2 border border-black/20 dark:border-white/20 dark:bg-gray-800 dark:border-gray-900 rounded-lg p-2">
+                    <img src={match.avatar} className="w-8 h-8 rounded-full" alt="avatar" />
                     <div>
                       <p className="font-medium text-sm">{match.fullName}</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Mutual Score: {match.mutualScore}%
-                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Mutual Score: {match.mutualScore}%</p>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                No matches yet.{" "}
-                <Link to="/matching" className="text-primary-500">
-                  Run the algorithm
-                </Link>
-              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">No matches yet. <Link to="/matching" className="text-primary-500">Run the algorithm</Link></p>
             )}
             <CTANavButton text={"Connect to Matches"} link={"/matching"} />
           </InfoBox>
@@ -463,22 +380,11 @@ const StudyBuddyDashboard = () => {
             <div className="overflow-y-auto">
               <Calendar
                 className={"bg-gray-800"}
-                onChange={() => {}}
-                value={new Date()}
+                onChange={setSelectedDate}
+                value={selectedDate}
                 tileClassName={({ date }) => {
-                  try {
-                    const dateStr = date?.toISOString?.().split("T")[0];
-                    const highlightDates = [
-                      "2025-06-01",
-                      "2025-06-04",
-                      "2025-06-10",
-                    ];
-                    return highlightDates.includes(dateStr)
-                      ? "highlight"
-                      : null;
-                  } catch {
-                    return null;
-                  }
+                  const dateStr = date.toISOString().split("T")[0];
+                  return userEvents.some(ev => ev.date === dateStr) ? "highlight" : null;
                 }}
               />
               <div className="mt-4">
@@ -486,51 +392,28 @@ const StudyBuddyDashboard = () => {
                   Upcoming Events
                 </h4>
                 <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                  {events.map((event, index) => (
-                    <li key={index}>
-                      <span className="font-medium">
-                        {event.date.toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </span>
-                      : {event.title}
-                    </li>
-                  ))}
+                  {userEvents
+                    .filter(ev => ev.date === selectedDate.toISOString().split("T")[0])
+                    .map((event, index) => (
+                      <li key={index}>
+                        <span className="font-medium">
+                          {selectedDate.toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </span>
+                        : {event.title} at {event.time}
+                      </li>
+                    ))}
+                  {userEvents.filter(ev => ev.date === selectedDate.toISOString().split("T")[0]).length === 0 && (
+                    <li>No events for this day.</li>
+                  )}
                 </ul>
               </div>
             </div>
             <CTANavButton text={"View Calendar"} link={"/calendar"} />
           </InfoBox>
         </div>
-        {/* Notification Bar */}
-        <InfoBox className="col-span-1 md:col-span-2 lg:col-span-3">
-          <h3 className="text-lg font-semibold mb-2">Notifications</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            No new notifications
-          </p>
-        </InfoBox>
-        {/* Call-to-Action Buttons */}
-        <InfoBox className="col-span-1 md:col-span-2 lg:col-span-3">
-          <h3 className="text-lg font-semibold mb-2">Start Study Session</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            No new notifications
-          </p>
-        </InfoBox>
-
-        <InfoBox className="col-span-1 md:col-span-2 lg:col-span-3">
-          <h3 className="text-lg font-semibold mb-2">Ask AI Tutor</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            No new notifications
-          </p>
-        </InfoBox>
-
-        <InfoBox className="col-span-1 md:col-span-2 lg:col-span-3">
-          <h3 className="text-lg font-semibold mb-2">Upload Resource</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            No new notifications
-          </p>
-        </InfoBox>
       </div>
     </div>
   );
@@ -538,29 +421,16 @@ const StudyBuddyDashboard = () => {
 
 export default StudyBuddyDashboard;
 
-const InfoBox = ({ children, className }) => {
-  return (
-    <div
-      className={`p-6 rounded-xl shadow-md border-2 border-gray-300 dark:border-gray-500 flex flex-col gap-4 overflow-y-auto ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
+const InfoBox = ({ children, className }) => (
+  <div className={`p-6 rounded-xl shadow-md border-2 border-gray-300 dark:border-gray-500 flex flex-col gap-4 overflow-y-auto ${className}`}>
+    {children}
+  </div>
+);
 
-const CTANavButton = ({ text, link }) => {
-  return (
-    <Link to={link} className="w-full mt-auto">
-      <button
-        className="w-full px-2 py-2 text-lg font-bold rounded-full
-                        border-2 border-gray-200 dark:border-gray-400 
-                        bg-transparent 
-                        text-gray-900 dark:text-gray-300 
-                        hover:bg-gray-500/10 dark:hover:bg-primary-400/10 
-                        transition-colors"
-      >
-        {text}
-      </button>
-    </Link>
-  );
-};
+const CTANavButton = ({ text, link }) => (
+  <Link to={link} className="w-full mt-auto">
+    <button className="w-full px-2 py-2 text-lg font-bold rounded-full border-2 border-gray-200 dark:border-gray-400 bg-transparent text-gray-900 dark:text-gray-300 hover:bg-gray-500/10 dark:hover:bg-primary-400/10 transition-colors">
+      {text}
+    </button>
+  </Link>
+);
