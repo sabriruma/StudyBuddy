@@ -1,68 +1,68 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProfileLayout from './ProfileLayout';
-import { saveProfilePart } from '../../firebase/saveProfilePart';
-import floridaCities from '../../data/cities.json';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import ProfileLayout from "./ProfileLayout";
+import { saveProfilePart } from "../../firebase/saveProfilePart";
+import floridaCities from "../../data/cities.json";
 
 const avatars = [
-  '/SBmascot.png',
-  '/SBmascotG.png',
-  '/SBmascotR.png',
-  '/sb_boba.png',
-  '/sb_fishing.png',
-  '/sb_gamer.png',
-  '/studybuddy-mad-gamer.png',
-  '/sb-study.png',
-  '/SBMascotTeach.png',
+  "/SBmascot.png",
+  "/SBmascotG.png",
+  "/SBmascotR.png",
+  "/sb_boba.png",
+  "/sb_fishing.png",
+  "/sb_gamer.png",
+  "/studybuddy-mad-gamer.png",
+  "/sb-study.png",
+  "/SBMascotTeach.png",
 ];
 
 const styles = {
   avatarImg: {
-    width: '80px',
-    height: '80px',
-    borderRadius: '50%',
-    margin: '0.5rem',
-    transition: 'all 0.2s ease',
-    cursor: 'pointer',
-    border: '2px solid transparent',
+    width: "80px",
+    height: "80px",
+    borderRadius: "50%",
+    margin: "0.5rem",
+    transition: "all 0.2s ease",
+    cursor: "pointer",
+    border: "2px solid transparent",
   },
   selected: {
-    border: '3px solid #00a78f',
-    transform: 'scale(1.05)',
-    boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)',
+    border: "3px solid #00a78f",
+    transform: "scale(1.05)",
+    boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)",
   },
 };
 
-export default function CreateProfileStep1({handleGoNextStep}) {
+export default function CreateProfileStep1({ handleGoNextStep }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    avatar: '',
-    location: '',
+    firstName: "",
+    lastName: "",
+    avatar: "",
+    location: "",
   });
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const selectAvatar = (avatar) => {
-    setFormData(prev => ({ ...prev, avatar }));
+    setFormData((prev) => ({ ...prev, avatar }));
   };
 
   const handleNext = async (e) => {
     e.preventDefault();
 
-      // Add reputationScore to the initial user data
-  const dataToSave = {
-    ...formData,
-    reputationScore: 1000,
-    XP: 0,
-    Level: 1
-  };
+    // Add reputationScore to the initial user data
+    const dataToSave = {
+      ...formData,
+      reputationScore: 1000,
+      XP: 0,
+      Level: 1,
+    };
 
     await saveProfilePart(dataToSave);
-    handleGoNextStep()
+    handleGoNextStep();
   };
 
   const handleCityChange = (e) => {
@@ -71,21 +71,21 @@ export default function CreateProfileStep1({handleGoNextStep}) {
     setShowDropdown(value.trim().length > 0);
   };
 
-  const [citySearch, setCitySearch] = useState('');
+  const [citySearch, setCitySearch] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
 
-const filteredCities = floridaCities.filter(city =>
+  const filteredCities = floridaCities.filter((city) =>
     city.toLowerCase().includes(citySearch.toLowerCase())
   );
 
   const handleCitySelect = (city) => {
     setCitySearch(city);
     setShowDropdown(false);
-setFormData(prev => ({ ...prev, location: city }));
+    setFormData((prev) => ({ ...prev, location: city }));
   };
 
   return (
-    <div className='profile-card'>
+    <div className="profile-card dark:bg-gray-800">
       <h2>Step 1: Your Info</h2>
       <form onSubmit={handleNext}>
         <label>First Name</label>
@@ -94,57 +94,52 @@ setFormData(prev => ({ ...prev, location: city }));
           name="firstName"
           value={formData.firstName}
           onChange={handleChange}
+          placeholder="Enter first name..."
           required
         />
-
         <label>Last Name</label>
         <input
           type="text"
           name="lastName"
           value={formData.lastName}
           onChange={handleChange}
+          placeholder="Enter last name..."
           required
         />
-
-<label>City</label>
-<div className="city-dropdown" style={{ position: 'relative' }}>
-<input
-  type="text"
-  value={citySearch}
-  onChange={handleCityChange}  // <-- Now defined
-  placeholder="Search for your city..."
-  autoComplete="off"
-/>
-  {showDropdown && filteredCities.length > 0 && (
-    <ul>
-  {filteredCities.map((city, index) => (
-    <li
-      key={index}
-      onClick={() => handleCitySelect(city)}
-    >
-      {city}
-    </li>
-  ))}
-</ul>
-  )}
-  </div>
-
+        <label>City</label>
+        <div className="city-dropdown" style={{ position: "relative" }}>
+          <input
+            type="text"
+            value={citySearch}
+            onChange={handleCityChange} // <-- Now defined
+            placeholder="Search for your city..."
+            autoComplete="off"
+          />
+          {showDropdown && filteredCities.length > 0 && (
+            <ul>
+              {filteredCities.map((city, index) => (
+                <li key={index} onClick={() => handleCitySelect(city)}>
+                  {city}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
         <label>Select an Avatar</label>
         <div className="avatar-selection">
           {avatars.map((avatar, index) => (
             <img
-  key={index}
-  src={avatar}
-  alt={`Avatar ${index + 1}`}
-  style={{
-    ...styles.avatarImg,
-    ...(formData.avatar === avatar ? styles.selected : {}),
-  }}
-  onClick={() => selectAvatar(avatar)}
-/>
+              key={index}
+              src={avatar}
+              alt={`Avatar ${index + 1}`}
+              style={{
+                ...styles.avatarImg,
+                ...(formData.avatar === avatar ? styles.selected : {}),
+              }}
+              onClick={() => selectAvatar(avatar)}
+            />
           ))}
         </div>
-
         <style>{`
   .city-dropdown ul {
     position: absolute;
@@ -170,8 +165,9 @@ setFormData(prev => ({ ...prev, location: city }));
     background-color: var(--sidebar-bg);
   }
 `}</style>
-
-        <button type="submit" style={{ marginTop: '1rem' }}>Next</button>
+        <button type="submit" style={{ marginTop: "1rem" }}>
+          Next
+        </button>
       </form>
     </div>
   );

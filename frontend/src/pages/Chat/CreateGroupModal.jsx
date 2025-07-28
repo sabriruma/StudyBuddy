@@ -4,7 +4,11 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const avatarOptions = ["/group1.png", "/group2.png", "/group3.png"];
 
-export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreated }) {
+export default function CreateGroupModal({
+  confirmedUsers,
+  onClose,
+  onGroupCreated,
+}) {
   const [groupName, setGroupName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedAvatar, setSelectedAvatar] = useState(avatarOptions[0]);
@@ -15,13 +19,15 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
   // Clean and deduplicate confirmedUsers
   const cleanedConfirmedUsers = confirmedUsers.filter(
     (u, index, self) =>
-      u && u.id && u.userName &&
-      index === self.findIndex(other => other.id === u.id)
+      u &&
+      u.id &&
+      u.userName &&
+      index === self.findIndex((other) => other.id === u.id)
   );
 
   const addUser = (userId) => {
     if (userId && !selectedUsers.includes(userId)) {
-      setSelectedUsers(prev => [...prev, userId]);
+      setSelectedUsers((prev) => [...prev, userId]);
       setDropdownValue(""); // Reset dropdown
     }
   };
@@ -36,7 +42,7 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
       avatar: selectedAvatar,
       members: [...selectedUsers, currentUserId],
       createdBy: currentUserId,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     });
 
     onGroupCreated();
@@ -49,7 +55,7 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
           Create Group
         </h2>
-        
+
         <input
           type="text"
           placeholder="Enter group name"
@@ -88,13 +94,22 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
             onChange={(e) => addUser(e.target.value)}
             className="w-full p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="" disabled hidden className="text-gray-500 dark:text-gray-400">
+            <option
+              value=""
+              disabled
+              hidden
+              className="text-gray-500 dark:text-gray-400"
+            >
               -- Select user to add --
             </option>
             {cleanedConfirmedUsers
-              .filter(user => !selectedUsers.includes(user.id))
-              .map(user => (
-                <option key={user.id} value={user.id} className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+              .filter((user) => !selectedUsers.includes(user.id))
+              .map((user) => (
+                <option
+                  key={user.id}
+                  value={user.id}
+                  className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                >
                   {user.userName}
                 </option>
               ))}
@@ -103,25 +118,27 @@ export default function CreateGroupModal({ confirmedUsers, onClose, onGroupCreat
 
         {selectedUsers.length > 0 && (
           <ul className="list-none p-3 mb-5 max-h-36 overflow-y-auto bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
-            {selectedUsers.map(userId => {
-              const user = cleanedConfirmedUsers.find(u => u.id === userId);
+            {selectedUsers.map((userId) => {
+              const user = cleanedConfirmedUsers.find((u) => u.id === userId);
               return (
-                <li key={userId} className="mb-2 text-gray-700 dark:text-gray-300 py-1">
+                <li
+                  key={userId}
+                  className="mb-2 text-gray-700 dark:text-gray-300 py-1"
+                >
                   {user?.userName}
                 </li>
               );
             })}
           </ul>
         )}
-
         <div className="flex justify-between gap-3">
-          <button 
+          <button
             onClick={handleCreateGroup}
             className="px-4 py-2.5 text-sm font-medium rounded-lg border-none cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white transition-colors duration-200 flex-1"
           >
             Create Group
           </button>
-          <button 
+          <button
             onClick={onClose}
             className="px-4 py-2.5 text-sm font-medium rounded-lg border-none cursor-pointer bg-gray-400 hover:bg-gray-500 dark:bg-gray-600 dark:hover:bg-gray-700 text-white transition-colors duration-200 flex-1"
           >

@@ -1,17 +1,21 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { saveProfilePart } from '../../firebase/saveProfilePart';
-import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
-import './CreateProfileStep3.css';
-import backgroundImage from '../../ComponentsMain/SBBG.png';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { saveProfilePart } from "../../firebase/saveProfilePart";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import "./CreateProfileStep3.css";
+import backgroundImage from "../../ComponentsMain/SBBG.png";
 
-export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, handleResetSteps}) {
+export default function CreateProfileStep3({
+  handleGoNextStep,
+  handleGoBackStep,
+  handleResetSteps,
+}) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    studyEnvironment: '',
-    studyTime: '',
-    studyMethod: '',
+    studyEnvironment: "",
+    studyTime: "",
+    studyMethod: "",
     importanceStudyEnvironment: 5,
     importanceStudyTime: 5,
     importanceStudyMethod: 5,
@@ -19,7 +23,7 @@ export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleNext = async (e) => {
@@ -28,19 +32,19 @@ export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, 
 
     const user = getAuth().currentUser;
     if (user) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 
   const handleBack = () => {
-    handleGoBackStep()
+    handleGoBackStep();
   };
 
   return (
-<div className='profile-card'>
-  <div className="step3-card">
+    <div className="profile-card dark:bg-gray-800">
+      <div className="step3-card">
         <h2>Step 3: Study Style Info</h2>
         <form onSubmit={handleNext}>
           {/* Question 1 */}
@@ -55,35 +59,42 @@ export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, 
               <option value="">-- Select One --</option>
               <option value="quiet">Quiet (Library or Silent Room)</option>
               <option value="moderate">Moderate Noise (Coffee Shop)</option>
-              <option value="collaborative">Collaborative (Group Study Spaces)</option>
+              <option value="collaborative">
+                Collaborative (Group Study Spaces)
+              </option>
             </select>
 
-            <label className="slider-label">How important is this to you?</label>
+            <label className="slider-label">
+              How important is this to you?
+            </label>
             <div className="slider-container">
-  <div className="slider-labels">
-    {Array.from({ length: 10 }, (_, i) => (
-      <span key={i}>{i + 1}</span>
-    ))}
-  </div>
-  <div className="slider-wrapper">
-    <input
-      type="range"
-      name="importanceStudyEnvironment"
-      min="1"
-      max="10"
-      value={formData.importanceStudyEnvironment}
-      onChange={handleChange}
-    />
-    <div
-      className="slider-value"
-      style={{
-        left: `${(formData.importanceStudyEnvironment - 1) * 11.11}%`,
-      }}
-    >
-      {formData.importanceStudyEnvironment}
-    </div>
-  </div>
-</div>
+              <div className="slider-labels dark:text-white">
+                {Array.from({ length: 10 }, (_, i) => (
+                  <span key={i}>{i + 1}</span>
+                ))}
+              </div>
+              <div className="slider-wrapper">
+                <input
+                  type="range"
+                  name="importanceStudyEnvironment"
+                  min="1"
+                  max="10"
+                  value={formData.importanceStudyEnvironment}
+                  onChange={handleChange}
+                  className="!bg-[#101828]"
+                />
+                <div
+                  className="slider-value"
+                  style={{
+                    left: `${
+                      (formData.importanceStudyEnvironment - 1) * 11.11
+                    }%`,
+                  }}
+                >
+                  {formData.importanceStudyEnvironment}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Question 2 */}
@@ -101,32 +112,35 @@ export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, 
               <option value="night">Night</option>
             </select>
 
-            <label className="slider-label">How important is this to you?</label>
+            <label className="slider-label">
+              How important is this to you?
+            </label>
             <div className="slider-container">
-  <div className="slider-labels">
-    {Array.from({ length: 10 }, (_, i) => (
-      <span key={i}>{i + 1}</span>
-    ))}
-  </div>
-  <div className="slider-wrapper">
-    <input
-      type="range"
-      name="importanceStudyTime"
-      min="1"
-      max="10"
-      value={formData.importanceStudyTime}
-      onChange={handleChange}
-    />
-    <div
-      className="slider-value"
-      style={{
-        left: `${(formData.importanceStudyTime - 1) * 11.11}%`,
-      }}
-    >
-      {formData.importanceStudyTime}
-    </div>
-  </div>
-</div>
+              <div className="slider-labels dark:text-white">
+                {Array.from({ length: 10 }, (_, i) => (
+                  <span key={i}>{i + 1}</span>
+                ))}
+              </div>
+              <div className="slider-wrapper">
+                <input
+                  type="range"
+                  name="importanceStudyTime"
+                  min="1"
+                  max="10"
+                  value={formData.importanceStudyTime}
+                  onChange={handleChange}
+                  className="!bg-[#101828]"
+                />
+                <div
+                  className="slider-value"
+                  style={{
+                    left: `${(formData.importanceStudyTime - 1) * 11.11}%`,
+                  }}
+                >
+                  {formData.importanceStudyTime}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Question 3 */}
@@ -144,41 +158,45 @@ export default function CreateProfileStep3({handleGoNextStep, handleGoBackStep, 
               <option value="group">Small Group</option>
             </select>
 
-            <label className="slider-label">How important is this to you?</label>
+            <label className="slider-label">
+              How important is this to you?
+            </label>
             <div className="slider-container">
-  <div className="slider-labels">
-    {Array.from({ length: 10 }, (_, i) => (
-      <span key={i}>{i + 1}</span>
-    ))}
-  </div>
-  <div className="slider-wrapper">
-    <input
-      type="range"
-      name="importanceStudyMethod"
-      min="1"
-      max="10"
-      value={formData.importanceStudyMethod}
-      onChange={handleChange}
-    />
-    <div
-      className="slider-value"
-      style={{
-        left: `${(formData.importanceStudyMethod - 1) * 11.11}%`,
-      }}
-    >
-      {formData.importanceStudyMethod}
-    </div>
-  </div>
-</div>
+              <div className="slider-labels dark:text-white">
+                {Array.from({ length: 10 }, (_, i) => (
+                  <span key={i}>{i + 1}</span>
+                ))}
+              </div>
+              <div className="slider-wrapper">
+                <input
+                  type="range"
+                  name="importanceStudyMethod"
+                  min="1"
+                  max="10"
+                  value={formData.importanceStudyMethod}
+                  onChange={handleChange}
+                  className="!bg-[#101828]"
+                />
+                <div
+                  className="slider-value"
+                  style={{
+                    left: `${(formData.importanceStudyMethod - 1) * 11.11}%`,
+                  }}
+                >
+                  {formData.importanceStudyMethod}
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="step3-buttons gap-10">
-            <button type="button" onClick={handleBack}>Back</button>
+            <button type="button" onClick={handleBack}>
+              Back
+            </button>
             <button type="submit">Done</button>
           </div>
         </form>
       </div>
     </div>
-
   );
 }
