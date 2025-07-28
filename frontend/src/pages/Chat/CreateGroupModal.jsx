@@ -20,9 +20,9 @@ export default function CreateGroupModal({
   const cleanedConfirmedUsers = confirmedUsers.filter(
     (u, index, self) =>
       u &&
-      u.id &&
-      u.userName &&
-      index === self.findIndex((other) => other.id === u.id)
+      u.otherUserId &&
+      u.displayName &&
+      index === self.findIndex((other) => other.otherUserId === u.otherUserId)
   );
 
   const addUser = (userId) => {
@@ -62,7 +62,7 @@ export default function CreateGroupModal({
           value={groupName}
           onChange={(e) => setGroupName(e.target.value)}
           maxLength={25}
-          className="w-full p-3 mb-5 rounded-lg border border-gray-300 dark:border-gray-600 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full p-3 mb-5 rounded-lg !border !border-gray-300 dark:!border-gray-600 text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
 
         <h4 className="text-lg font-medium mb-3 text-gray-900 dark:text-gray-100">
@@ -103,14 +103,14 @@ export default function CreateGroupModal({
               -- Select user to add --
             </option>
             {cleanedConfirmedUsers
-              .filter((user) => !selectedUsers.includes(user.id))
+              .filter((user) => !selectedUsers.includes(user.otherUserId))
               .map((user) => (
                 <option
-                  key={user.id}
-                  value={user.id}
+                  key={user.otherUserId}
+                  value={user.otherUserId}
                   className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 >
-                  {user.userName}
+                  {user.displayName}
                 </option>
               ))}
           </select>
@@ -119,13 +119,16 @@ export default function CreateGroupModal({
         {selectedUsers.length > 0 && (
           <ul className="list-none p-3 mb-5 max-h-36 overflow-y-auto bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
             {selectedUsers.map((userId) => {
-              const user = cleanedConfirmedUsers.find((u) => u.id === userId);
+              const user = cleanedConfirmedUsers.find(
+                (u) => u.otherUserId === userId
+              );
               return (
                 <li
                   key={userId}
-                  className="mb-2 text-gray-700 dark:text-gray-300 py-1"
+                  className="text-gray-700 dark:text-gray-300 py-1 flex flex-1 items-center"
                 >
-                  {user?.userName}
+                  <img src={user.avatar} className="w-8 h-8" />
+                  {user?.displayName}
                 </li>
               );
             })}

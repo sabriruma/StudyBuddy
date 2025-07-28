@@ -451,7 +451,7 @@ const ProfileEditor = () => {
                                   formData.importanceStudyEnvironment || "5"
                                 }
                                 onChange={handleChange}
-                                className="px-3 py-1 rounded-lg border border-primary-200 dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                className="px-6 py-1 rounded-lg border border-primary-200 dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                               >
                                 {importanceOptions.map((opt) => (
                                   <option key={opt} value={opt}>
@@ -503,7 +503,7 @@ const ProfileEditor = () => {
                                 name="importanceStudyMethod"
                                 value={formData.importanceStudyMethod || "5"}
                                 onChange={handleChange}
-                                className="px-3 py-1 rounded-lg border border-primary-200 dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                className="px-6 py-1 rounded-lg border border-primary-200 dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                               >
                                 {importanceOptions.map((opt) => (
                                   <option key={opt} value={opt}>
@@ -563,7 +563,7 @@ const ProfileEditor = () => {
                                 name="importanceStudyTime"
                                 value={formData.importanceStudyTime || "5"}
                                 onChange={handleChange}
-                                className="px-3 py-1 rounded-lg border border-primary-200 focus:ring-2 dark:bg-gray-700 focus:ring-primary-500 focus:border-primary-500"
+                                className="px-6 py-1 rounded-lg border border-primary-200 focus:ring-2 dark:bg-gray-700 focus:ring-primary-500 focus:border-primary-500"
                               >
                                 {importanceOptions.map((opt) => (
                                   <option key={opt} value={opt}>

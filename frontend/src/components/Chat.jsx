@@ -18,7 +18,6 @@ import {
 } from "firebase/firestore";
 import CreateGroupModal from "../pages/Chat/CreateGroupModal";
 import EditGroupModal from "../pages/Chat/Components/EditGroupModal";
-
 // Timestamp formatting utility
 const formatTimestamp = (timestamp) => {
   if (!timestamp?.seconds) return "Just now";
@@ -72,6 +71,7 @@ export default function Chat() {
   const [newMessage, setNewMessage] = useState("");
   const [activeTab, setActiveTab] = useState("private");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [individualChats, setIndividualChats] = useState([]);
   const [forceRefresh, setForceRefresh] = useState(0);
   const messagesEndRef = useRef(null);
@@ -694,7 +694,7 @@ export default function Chat() {
               </div>
               <button
                 className="text-sm text-teal-500 hover:text-teal-600"
-                onClick={() => setShowCreateModal(true)}
+                onClick={() => setShowEditModal(true)}
               >
                 Manage Group
               </button>
@@ -823,12 +823,20 @@ export default function Chat() {
         )}
       </div>
 
-      {showCreateModal && (
+      {showEditModal && (
         <EditGroupModal
           group={selectedGroupObj}
           confirmedUsers={confirmedUsers}
-          onClose={() => setShowCreateModal(false)}
+          onClose={() => setShowEditModal(false)}
           onGroupUpdated={onGroupUpdated}
+        />
+      )}
+      {showCreateModal && (
+        <CreateGroupModal
+          group={selectedGroupObj}
+          confirmedUsers={confirmedUsers}
+          onClose={() => setShowCreateModal(false)}
+          onGroupCreated={handleGroupCreated}
         />
       )}
     </div>
