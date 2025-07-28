@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Plus, X, Calendar } from "lucide-react";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase";
 import { addXpToUser } from "../../utils/xpManager";
 
