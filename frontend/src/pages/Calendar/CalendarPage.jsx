@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Plus, X, Calendar } from 'lucide-react';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../firebase/firebase';
+import { addXpToUser } from '../../utils/xpManager';
 
 const CalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -95,6 +96,10 @@ const CalendarPage = () => {
 
     try {
       await addDoc(collection(db, "users", user.uid, "events"), eventData);
+
+      // ✅ Give XP after successful event creation
+    await addXpToUser(user.uid, 10); // adds 10 XP per event
+    
       const dateKey = formatDateKey(selectedDate);
       setEvents(prev => ({
         ...prev,
