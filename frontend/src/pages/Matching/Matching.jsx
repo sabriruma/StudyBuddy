@@ -180,7 +180,7 @@ export default function Matching() {
             onClick={runMatching}
             disabled={loading}
           >
-            {loading ? "Refreshing..." : "Run Matching Again"}
+            {loading ? "Refreshing..." : "Refresh Matches"}
           </button>
         </div>
 
@@ -200,7 +200,7 @@ export default function Matching() {
             return (
               <div
                 key={match.id}
-                className="dark:bg-[#1e293b] border border-primary-500 p-5 rounded-xl shadow-md flex flex-col"
+                className="dark:bg-[#1e293b] border border-slate-200 p-5 rounded-xl shadow-md flex flex-col"
               >
                 <div className="flex items-center space-x-4 mb-3">
                   {match.avatar ? (
@@ -251,7 +251,7 @@ export default function Matching() {
                   disabled={isConnected || isPending}
                   className={`w-full mt-2 px-4 py-2 rounded-md text-sm font-medium transition-colors mt-auto ${
                     isConnected
-                      ? "bg-green-500 text-white cursor-not-allowed"
+                      ? "bg-gray-500 text-white cursor-not-allowed"
                       : isPending
                       ? "bg-yellow-500 text-white cursor-not-allowed"
                       : "bg-primary-600 hover:bg-primary-700 text-white"
