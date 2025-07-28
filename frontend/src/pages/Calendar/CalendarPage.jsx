@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Plus, X, Calendar, Clock, MapPin, Tag } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Plus, X, Calendar } from 'lucide-react';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { auth, db } from '../../firebase/firebase';
 
 const CalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -33,6 +35,34 @@ const CalendarPage = () => {
   const getFirstDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   const formatDateKey = (date) => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 
+  useEffect(() => {
+    const fetchUserEvents = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        const querySnapshot = await getDocs(collection(db, 'users', user.uid, 'events'));
+        const eventsData = {};
+
+        querySnapshot.forEach(doc => {
+          const event = doc.data();
+          if (event.date) {
+            const date = new Date(event.date + "T00:00:00");
+            const dateKey = formatDateKey(date);
+            if (!eventsData[dateKey]) eventsData[dateKey] = [];
+            eventsData[dateKey].push(event);
+          }
+        });
+
+        setEvents(eventsData);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
+
+    fetchUserEvents();
+  }, []);
+
   const navigateMonth = (direction) => {
     const newDate = new Date(currentDate);
     newDate.setMonth(currentDate.getMonth() + direction);
@@ -45,20 +75,36 @@ const CalendarPage = () => {
     setShowEventModal(true);
   };
 
-  const handleEventSubmit = (e) => {
+  const handleEventSubmit = async (e) => {
     e.preventDefault();
-    if (!newEvent.title.trim()) return;
+    if (!newEvent.title.trim() || !selectedDate) return;
 
-    const dateKey = formatDateKey(selectedDate);
-    const eventWithId = { ...newEvent, id: Date.now(), date: selectedDate };
+    const user = auth.currentUser;
+    if (!user) {
+      console.log("No user authenticated.");
+      return;
+    }
 
-    setEvents(prev => ({
-      ...prev,
-      [dateKey]: [...(prev[dateKey] || []), eventWithId]
-    }));
+    const formattedDate = selectedDate.toISOString().split("T")[0];
 
-    setNewEvent({ title: '', time: '', description: '', location: '', attendees: '', category: 'personal' });
-    setShowEventModal(false);
+    const eventData = {
+      ...newEvent,
+      date: formattedDate,
+      createdAt: new Date(),
+    };
+
+    try {
+      await addDoc(collection(db, "users", user.uid, "events"), eventData);
+      const dateKey = formatDateKey(selectedDate);
+      setEvents(prev => ({
+        ...prev,
+        [dateKey]: [...(prev[dateKey] || []), eventData]
+      }));
+      setNewEvent({ title: '', time: '', description: '', location: '', attendees: '', category: 'personal' });
+      setShowEventModal(false);
+    } catch (error) {
+      console.error("Error saving event to Firebase:", error);
+    }
   };
 
   const getEventsForDate = (day) => {
@@ -95,13 +141,14 @@ const CalendarPage = () => {
           <div className={`text-sm font-semibold mb-1 ${isToday ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}>{day}</div>
           <div className="space-y-1">
             {dayEvents.slice(0, 2).map((event, idx) => (
-              <div
-                key={idx}
-                className={`text-xs px-2 py-1 rounded-full text-white truncate ${categoryColors[event.category]} shadow-sm`}
-              >
-                {event.title}
-              </div>
-            ))}
+             <div
+               key={idx}
+               className={`text-xs px-2 py-1 rounded-full text-white truncate ${categoryColors[event.category]} shadow-sm`}
+            >
+               {event.time ? `${event.time} – ${event.title}` : event.title}
+           </div>
+          ))}
+
             {dayEvents.length > 2 && (
               <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                 +{dayEvents.length - 2} more
@@ -121,16 +168,12 @@ const CalendarPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-gray-900 p-4 md:p-8">
-      {/* Header */}
       <div className="mb-8 text-left">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
           Your Calendar
         </h1>
         <p className="text-gray-600 dark:text-gray-300 text-lg">Plan your days, achieve your goals</p>
       </div>
-
-      {/* Rest of your calendar component remains exactly the same */}
-      {/* Calendar Header */}
       <div className="text-white bg-teal-600 dark:bg-teal-700 p-6 mb-2 rounded-t-lg">
         <div className="flex items-center justify-between">
           <button onClick={() => navigateMonth(-1)} className="p-3 rounded-full hover:bg-white/20 dark:hover:bg-white/10 group transition-colors">
@@ -147,8 +190,6 @@ const CalendarPage = () => {
           </button>
         </div>
       </div>
-
-      {/* Days of Week */}
       <div className="grid grid-cols-7 bg-gray-100 dark:bg-gray-800 border-b dark:border-gray-700">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
           <div key={day} className="p-4 text-center font-semibold text-gray-600 dark:text-gray-300 border-r border-gray-200 dark:border-gray-700 last:border-r-0">
@@ -156,36 +197,31 @@ const CalendarPage = () => {
           </div>
         ))}
       </div>
-
-      {/* Calendar Grid */}
       <div className="grid grid-cols-7 bg-white dark:bg-gray-800 rounded-b-lg overflow-hidden">
         {renderCalendarDays()}
       </div>
-
-      {/* Modal */}
       {showEventModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <form onSubmit={handleEventSubmit} className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
             <div className="bg-gradient-to-r from-teal-600 to-cyan-600 dark:from-teal-700 dark:to-cyan-700 text-white p-6 rounded-t-3xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <Calendar className="w-6 h-6" />
                   <h3 className="text-xl font-bold">Add New Event</h3>
                 </div>
-                <button onClick={() => setShowEventModal(false)} className="p-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-colors">
+                <button type="button" onClick={() => setShowEventModal(false)} className="p-2 rounded-full hover:bg-white/20 dark:hover:bg-white/10 transition-colors">
                   <X className="w-5 h-5" />
                 </button>
               </div>
               <p className="text-teal-100 dark:text-teal-200 mt-2">
                 {selectedDate?.toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
+                  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
                 })}
               </p>
             </div>
 
+            {/* Modal Body */}
             <div className="p-6 space-y-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Event Title</label>
@@ -193,32 +229,26 @@ const CalendarPage = () => {
                   type="text"
                   value={newEvent.title}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-                  placeholder="Enter event title..."
                   required
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  placeholder="Enter event title..."
                 />
               </div>
-
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
-                  <Clock className="w-4 h-4 mr-2" /> Time
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Time</label>
                 <input
                   type="time"
                   value={newEvent.time}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, time: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
               </div>
-
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
-                  <Tag className="w-4 h-4 mr-2" /> Category
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Category</label>
                 <select
                   value={newEvent.category}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, category: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 >
                   <option value="personal">Personal</option>
                   <option value="meeting">Meeting</option>
@@ -228,52 +258,48 @@ const CalendarPage = () => {
                   <option value="work">Work</option>
                 </select>
               </div>
-
               <div>
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" /> Location
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Location</label>
                 <input
                   type="text"
                   value={newEvent.location}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, location: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl outline-none focus:ring-2 focus:ring-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   placeholder="Where is this event?"
                 />
               </div>
-
               <div>
                 <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Description</label>
                 <textarea
                   value={newEvent.description}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, description: e.target.value }))}
-                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl resize-none outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                   rows="3"
+                  className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl resize-none outline-none focus:ring-2 focus:ring-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   placeholder="Add some details about your event..."
                 />
               </div>
-
               <div className="flex space-x-3 pt-4">
                 <button
                   type="button"
                   onClick={() => setShowEventModal(false)}
-                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 font-medium transition-colors duration-300"
+                  className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 font-medium"
                 >
                   Cancel
                 </button>
                 <button
-                  onClick={handleEventSubmit}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 dark:from-teal-700 dark:to-cyan-700 text-white rounded-xl hover:from-teal-700 hover:to-cyan-700 dark:hover:from-teal-800 dark:hover:to-cyan-800 font-medium shadow-lg transform hover:scale-105 transition-all duration-300"
+                  type="submit"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 dark:from-teal-700 dark:to-cyan-700 text-white rounded-xl hover:from-teal-700 hover:to-cyan-700 dark:hover:from-teal-800 dark:hover:to-cyan-800 font-medium shadow-lg transform hover:scale-105"
                 >
                   Create Event
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       )}
     </div>
   );
 };
 
 export default CalendarPage;
+
