@@ -20,6 +20,7 @@ import Chat from "./components/Chat";
 import CalendarPage from "./pages/Calendar/CalendarPage";
 import AITutor from "./pages/AITutor/AITutor";
 import SettingsPage from "./pages/Settings/Settings";
+import QuizGenerator from "./pages/Quiz/QuizGenerator";
 
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/dashboard" element={<StudyBuddyDashboard />} />
           <Route path="/old-dashboard" element={<Dashboard />} />
           <Route path="/ai" element={<AITutor />} />
+          <Route path="/quiz" element={<QuizGenerator />} />
           <Route path="/profile" element={<ProfileEditor />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/settings" element={<SettingsPage />} />

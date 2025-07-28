@@ -258,10 +258,10 @@ export default function Matching() {
                   }`}
                 >
                   {isConnected
-                    ? "Connected!"
+                    ? "Matched"
                     : isPending
                     ? "Request Sent"
-                    : "Connect"}
+                    : "Match"}
                 </button>
               </div>
             );
