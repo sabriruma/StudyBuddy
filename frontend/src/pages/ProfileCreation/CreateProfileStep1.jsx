@@ -58,7 +58,7 @@ export default function CreateProfileStep1({ handleGoNextStep }) {
       ...formData,
       reputationScore: 1000,
       XP: 0,
-      Level: 1,
+      Level: 1
     };
 
     await saveProfilePart(dataToSave);

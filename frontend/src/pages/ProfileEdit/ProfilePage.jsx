@@ -28,8 +28,10 @@ const ProfilePage = () => {
         const docRef = doc(db, 'users', user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setProfile(docSnap.data());
-          setFormData(docSnap.data());
+          const userData = docSnap.data();
+          console.log('Loaded user data:', userData); // Debug log
+          setProfile(userData);
+          setFormData(userData);
         }
       }
     });
@@ -68,10 +70,14 @@ const ProfilePage = () => {
   const handleSave = async () => {
     const user = auth.currentUser;
     if (user) {
-      const docRef = doc(db, 'users', user.uid);
-      await setDoc(docRef, formData, { merge: true });
-      setProfile(formData);
-      setEditMode(false);
+      try {
+        const docRef = doc(db, 'users', user.uid);
+        await setDoc(docRef, formData, { merge: true });
+        setProfile(formData);
+        setEditMode(false);
+      } catch (error) {
+        console.error('Error saving profile:', error);
+      }
     }
   };
 
@@ -86,43 +92,50 @@ const ProfilePage = () => {
         <div className="profile-info">
           {editMode ? (
             <>
-              <p><span>First Name:</span> <input name="firstName" value={formData.firstName} onChange={handleChange} /></p>
-              <p><span>Last Name:</span> <input name="lastName" value={formData.lastName} onChange={handleChange} /></p>
-              <p><span>City:</span> <input name="location" value={formData.location} onChange={handleChange} /></p>
-              <p><span>School:</span> <input name="school" value={formData.school} onChange={handleChange} /></p>
-              <p><span>Major:</span> <input name="major" value={formData.major} onChange={handleChange} /></p>
+              <p><span>First Name:</span> <input name="firstName" value={formData.firstName || ''} onChange={handleChange} /></p>
+              <p><span>Last Name:</span> <input name="lastName" value={formData.lastName || ''} onChange={handleChange} /></p>
+              <p><span>City:</span> <input name="location" value={formData.location || ''} onChange={handleChange} /></p>
+              <p><span>School:</span> <input name="school" value={formData.school || ''} onChange={handleChange} /></p>
+              <p><span>Major:</span> <input name="major" value={formData.major || ''} onChange={handleChange} /></p>
               <p><span>Academic Level:</span>
-                <select name="academicLevel" value={formData.academicLevel} onChange={handleChange}>
+                <select name="academicLevel" value={formData.academicLevel || ''} onChange={handleChange}>
+                  <option value="">Select level</option>
                   {academicLevelOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
               <p><span>Study Environment:</span>
-                <select name="studyEnvironment" value={formData.studyEnvironment} onChange={handleChange}>
+                <select name="studyEnvironment" value={formData.studyEnvironment || ''} onChange={handleChange}>
+                  <option value="">Select environment</option>
                   {studyEnvironmentOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
               <p><span>Importance of Environment:</span>
-                <select name="importanceStudyEnvironment" value={formData.importanceStudyEnvironment} onChange={handleChange}>
+                <select name="importanceStudyEnvironment" value={formData.importanceStudyEnvironment || ''} onChange={handleChange}>
+                  <option value="">Select importance</option>
                   {importanceOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
               <p><span>Study Method:</span>
-                <select name="studyMethod" value={formData.studyMethod} onChange={handleChange}>
+                <select name="studyMethod" value={formData.studyMethod || ''} onChange={handleChange}>
+                  <option value="">Select method</option>
                   {studyMethodOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
               <p><span>Importance of Method:</span>
-                <select name="importanceStudyMethod" value={formData.importanceStudyMethod} onChange={handleChange}>
+                <select name="importanceStudyMethod" value={formData.importanceStudyMethod || ''} onChange={handleChange}>
+                  <option value="">Select importance</option>
                   {importanceOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
               <p><span>Study Time:</span>
-                <select name="studyTime" value={formData.studyTime} onChange={handleChange}>
+                <select name="studyTime" value={formData.studyTime || ''} onChange={handleChange}>
+                  <option value="">Select time</option>
                   {studyTimeOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
               <p><span>Importance of Time:</span>
-                <select name="importanceStudyTime" value={formData.importanceStudyTime} onChange={handleChange}>
+                <select name="importanceStudyTime" value={formData.importanceStudyTime || ''} onChange={handleChange}>
+                  <option value="">Select importance</option>
                   {importanceOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </p>
@@ -197,7 +210,7 @@ const ProfilePage = () => {
                           cursor: 'pointer',
                           borderBottom: '1px solid var(--border-color)'
                         }}
-                        onClick={() => toggleCourse(course.code)}
+                        onClick={() => toggleCourse(course.code || course)}
                       >
                         {course.code}
                       </div>
