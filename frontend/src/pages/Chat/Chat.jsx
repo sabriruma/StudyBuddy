@@ -78,7 +78,7 @@ export default function Chat() {
           if (existingChat) {
             chatId = existingChat.id;
           }
-
+          console.log("userProfileData:", userProfileData);
           return {
             id: matchId,
             ...docSnap.data(),

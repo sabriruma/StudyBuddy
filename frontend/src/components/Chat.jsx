@@ -101,11 +101,16 @@ export default function Chat() {
 
     return () => unsubscribe();
   }, []);
-  const selectedUser = confirmedUsers.find((user) => user.id === selectedChat);
+  const selectedUser = confirmedUsers.find(
+    (user) => user.otherUserId === selectedChat
+  );
 
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
 
-  // Removed unused enhancedUsers variable
+  const enhancedUsers = confirmedUsers.map((user) => ({
+    ...user,
+    userName: `${user.firstName} ${user.lastName}`,
+  }));
 
   // Modified useEffect to wait for auth state
   useEffect(() => {
@@ -363,7 +368,7 @@ export default function Chat() {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatMessages, groupMessages, selectedChat, selectedGroup]);
+  }, [chatMessages, groupMessages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -525,9 +530,6 @@ export default function Chat() {
     );
   }
 
-  console.log("REACTENV API KEY:", process.env.REACT_APP_OPENROUTER_KEY);
-  console.log("VITEENV API KEY:", process.env.REACT_APP_OPENROUTER_KEY);
-
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* User Chat List */}
@@ -574,21 +576,23 @@ export default function Chat() {
               <div
                 key={user.id}
                 onClick={() => {
-                  setSelectedChat(user.id);
+                  setSelectedChat(user.otherUserId);
                   setSelectedGroup(null);
                 }}
                 className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
-                  selectedChat === user.id ? "bg-teal-50 dark:bg-teal-900" : ""
+                  selectedChat === user.otherUserId
+                    ? "bg-teal-50 dark:bg-teal-900"
+                    : ""
                 }`}
               >
                 <img
                   src={user.avatar}
-                  alt={user.userName}
+                  alt={user.displayName}
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium text-gray-800 dark:text-white truncate">
-                    {user.userName}
+                    {user.displayName}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                     {user?.lastMessage?.text || "No messages yet"}
@@ -642,7 +646,6 @@ export default function Chat() {
                   <img
                     className="w-10 h-10 rounded-full object-contain mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center"
                     src={group.avatar}
-                    alt={`${group.name} avatar`}
                   />
                   <div className="flex-1 min-w-0">
                     <h3 className="font-medium text-gray-800 dark:text-white truncate">
@@ -673,49 +676,53 @@ export default function Chat() {
       </div>
       {/* Chat Window */}
       <div className="flex-1 flex flex-col">
-        {(selectedGroupObj && activeTab === "group") || selectedUser ? (
+        {selectedGroupObj && activeTab === "group" ? (
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-            {activeTab === "group" && selectedGroupObj ? (
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
-                    <img src={selectedGroupObj.avatar} className="text-lg" alt={`${selectedGroupObj.name} avatar`} />
-                  </div>
-                  <div>
-                    <h2 className="font-bold text-gray-800 dark:text-white">
-                      {selectedGroupObj.name}
-                    </h2>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {selectedGroupObj.members.length} members
-                    </p>
-                  </div>
-                </div>
-                <button
-                  className="text-sm text-teal-500 hover:text-teal-600"
-                  onClick={() => setShowCreateModal(true)}
-                >
-                  Manage Group
-                </button>
-              </div>
-            ) : selectedUser ? (
+            <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <img
-                  src={selectedUser.avatar || "/default-avatar.png"}
-                  alt={selectedUser.userName || "User"}
-                  className="w-10 h-10 rounded-full mr-3"
-                />
+                <div className="w-10 h-10 rounded-full mr-3 bg-gray-300 dark:bg-gray-600 flex items-center justify-center">
+                  <img src={selectedGroupObj.avatar} className="text-lg" />
+                </div>
                 <div>
                   <h2 className="font-bold text-gray-800 dark:text-white">
-                    {selectedUser.userName || "Unknown User"}
+                    {selectedGroupObj.name}
+                  </h2>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {selectedGroupObj.members.length} members
+                  </p>
+                </div>
+              </div>
+              <button
+                className="text-sm text-teal-500 hover:text-teal-600"
+                onClick={() => setShowEditModal(true)}
+              >
+                Manage Group
+              </button>
+            </div>
+          </div>
+        ) : (
+          selectedChat && (
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+              {console.log("selectedChat:", selectedUser)}
+              <div className="flex items-center">
+                <img
+                  src={selectedUser?.avatar || "/default-avatar.png"}
+                  alt={selectedUser?.displayName || "User"}
+                  className="w-10 h-10 rounded-full mr-3"
+                />
+                <span></span>
+                <div>
+                  <h2 className="font-bold text-gray-800 dark:text-white">
+                    {selectedUser?.displayName || "Unknown User"}
                   </h2>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {chatMessages[selectedChat]?.length ? "Online" : "Offline"}
                   </p>
                 </div>
               </div>
-            ) : null}
-          </div>
-        ) : null}
+            </div>
+          )
+        )}
 
         <div className="flex-1 p-4 overflow-y-auto bg-gray-50 dark:bg-gray-700">
           {activeTab === "group" && selectedGroupObj ? (
