@@ -81,7 +81,7 @@ export default function CreateProfileStep3({
                   max="10"
                   value={formData.importanceStudyEnvironment}
                   onChange={handleChange}
-                  className="!bg-[#101828]"
+                  className="dark:!bg-[#101828]"
                 />
                 <div
                   className="slider-value"
@@ -129,7 +129,7 @@ export default function CreateProfileStep3({
                   max="10"
                   value={formData.importanceStudyTime}
                   onChange={handleChange}
-                  className="!bg-[#101828]"
+                  className="dark:!bg-[#101828]"
                 />
                 <div
                   className="slider-value"
@@ -175,7 +175,7 @@ export default function CreateProfileStep3({
                   max="10"
                   value={formData.importanceStudyMethod}
                   onChange={handleChange}
-                  className="!bg-[#101828]"
+                  className="dark:!bg-[#101828]"
                 />
                 <div
                   className="slider-value"
