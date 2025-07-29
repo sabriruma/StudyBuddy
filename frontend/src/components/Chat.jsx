@@ -111,7 +111,7 @@ export default function Chat() {
     ...user,
     userName: `${user.firstName} ${user.lastName}`,
   }));
-
+  console.log("confirmedUsers:", confirmedUsers);
   // Modified useEffect to wait for auth state
   useEffect(() => {
     // Don't run if auth isn't loaded yet or user isn't authenticated
