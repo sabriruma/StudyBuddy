@@ -20,9 +20,13 @@ export default function CreateGroupModal({
   const cleanedConfirmedUsers = confirmedUsers.filter(
     (u, index, self) =>
       u &&
-      u.userId &&
-      u.userName &&
-      index === self.findIndex((other) => other.userId === u.userId)
+      (u?.userId || u?.otherUserId) &&
+      (u?.userName || u?.displayName) &&
+      index ===
+        self.findIndex(
+          (other) =>
+            other?.userId === u?.userId || other?.otherUserId === u?.otherUserId
+        )
   );
 
   const addUser = (userId) => {
@@ -107,11 +111,11 @@ export default function CreateGroupModal({
               .filter((user) => !selectedUsers.includes(user.otherUserId))
               .map((user) => (
                 <option
-                  key={user.userId}
-                  value={user.userId}
+                  key={user?.userId || user?.otherUserId}
+                  value={user?.userId || user?.otherUserId}
                   className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 >
-                  {user.userName}
+                  {user?.userName || user?.displayName}
                 </option>
               ))}
           </select>
@@ -121,7 +125,7 @@ export default function CreateGroupModal({
           <ul className="list-none p-3 mb-5 max-h-36 overflow-y-auto bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-800">
             {selectedUsers.map((userId) => {
               const user = cleanedConfirmedUsers.find(
-                (u) => u.userId === userId
+                (u) => u?.userId === userId || u?.otherUserId === userId
               );
               return (
                 <li
@@ -129,7 +133,7 @@ export default function CreateGroupModal({
                   className="text-gray-700 dark:text-gray-300 py-1 flex flex-1 items-center"
                 >
                   <img src={user.avatar} className="w-8 h-8" />
-                  {user?.userName}
+                  {user?.userName || user?.displayName}
                 </li>
               );
             })}

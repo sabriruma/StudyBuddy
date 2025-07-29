@@ -102,7 +102,7 @@ export default function Chat() {
     return () => unsubscribe();
   }, []);
   const selectedUser = confirmedUsers.find(
-    (user) => user.userId === selectedChat
+    (user) => user?.userId || user?.otherUserId === selectedChat
   );
 
   const selectedGroupObj = groups.find((group) => group.id === selectedGroup);
@@ -576,23 +576,23 @@ export default function Chat() {
               <div
                 key={user.id}
                 onClick={() => {
-                  setSelectedChat(user.userId);
+                  setSelectedChat(user?.userId || user?.otherUserId);
                   setSelectedGroup(null);
                 }}
                 className={`flex items-center p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${
-                  selectedChat === user.userId
+                  selectedChat === (user?.userId || user?.otherUserId)
                     ? "bg-teal-50 dark:bg-teal-900"
                     : ""
                 }`}
               >
                 <img
                   src={user.avatar}
-                  alt={user.userName}
+                  alt={user?.userName || user?.displayName}
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium text-gray-800 dark:text-white truncate">
-                    {user.userName}
+                    {user?.userName || user?.displayName}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                     {user?.lastMessage?.text || "No messages yet"}
@@ -707,13 +707,19 @@ export default function Chat() {
               <div className="flex items-center">
                 <img
                   src={selectedUser?.avatar || "/default-avatar.png"}
-                  alt={selectedUser?.userName || "User"}
+                  alt={
+                    selectedUser?.userName ||
+                    selectedUser?.displayName ||
+                    "User"
+                  }
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <span></span>
                 <div>
                   <h2 className="font-bold text-gray-800 dark:text-white">
-                    {selectedUser?.userName || "Unknown User"}
+                    {selectedUser?.userName ||
+                      selectedUser?.displayName ||
+                      "Unknown User"}
                   </h2>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     {chatMessages[selectedChat]?.length ? "Online" : "Offline"}
