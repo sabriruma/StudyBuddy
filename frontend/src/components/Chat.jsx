@@ -528,6 +528,9 @@ export default function Chat() {
     );
   }
 
+  console.log("REACTENV API KEY:", process.env.REACT_APP_OPENROUTER_KEY);
+  console.log("VITEENV API KEY:", process.env.REACT_APP_OPENROUTER_KEY);
+
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* User Chat List */}

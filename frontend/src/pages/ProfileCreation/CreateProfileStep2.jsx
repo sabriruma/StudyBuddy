@@ -266,7 +266,7 @@ export default function CreateProfileStep2({
           <button type="button" onClick={handleGoBackStep}>
             Back
           </button>
-          <button type="submit" onClick={handleGoNextStep}>
+          <button type="submit" onClick={handleNext}>
             Next
           </button>
         </div>
