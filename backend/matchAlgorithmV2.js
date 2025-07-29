@@ -129,7 +129,8 @@ function matchUsersV2(currentUser, allUsers, excludeUserIds = []) {
 
     const mutualScore = (matchAtoB.score + matchBtoA.score) / 2;
     // Normalize the score to be out of 100 based on the user's actual maximum possible score
-    const normalizedScore = Math.round((mutualScore / maxPossibleScore) * 100);
+    // Cap the normalized score at 100% to prevent scores over 100%
+    const normalizedScore = Math.min(100, Math.round((mutualScore / maxPossibleScore) * 100));
 
     if (normalizedScore >= Math.round((15 / maxPossibleScore) * 100)) {
       // back to original threshold of 15
